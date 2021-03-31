@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helper.h" />
+    <ClInclude Include="sort\quick-sort.h" />
     <ClInclude Include="sort\bubble-sort.h" />
     <ClInclude Include="sort\insertion-sort.h" />
     <ClInclude Include="sort\selection-sort.h" />

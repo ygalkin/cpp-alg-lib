@@ -1,5 +1,6 @@
 #pragma once
 
+#include "quick-sort.h"
 #include "selection-sort.h"
 #include "insertion-sort.h"
 #include "bubble-sort.h"
@@ -22,6 +23,7 @@ namespace sort {
             test_bubble_sort();
             test_selection_sort();
             test_insertion_sort();
+            test_quick_sort();
         }
 
     private:
@@ -58,6 +60,15 @@ namespace sort {
 
             helper::out_each(std::cout, arr) << std::endl;
             insertion_sort().sort(begin(arr), end(arr));
+            helper::out_each(std::cout, arr) << std::endl;
+        }
+
+        static void test_quick_sort() {
+            std::cout << "-- Quick Sort ---" << std::endl;
+            std::list<int> arr{ 10, 4, 0, -1,  std::numeric_limits<int>::min(), -2, 33, std::numeric_limits<int>::max(), 11 };
+
+            helper::out_each(std::cout, arr) << std::endl;
+            quick_sort().sort(begin(arr), end(arr));
             helper::out_each(std::cout, arr) << std::endl;
         }
     };
