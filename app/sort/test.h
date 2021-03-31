@@ -7,6 +7,7 @@
 
 #include<iostream>
 #include<list>
+#include<array>
 
 namespace sort {
     class test {
@@ -35,11 +36,20 @@ namespace sort {
 
         static void test_selection_sort() {
             std::cout << "-- Selection Sort ---" << std::endl;
-            std::list<int> arr{ 10, 4, 0, -1,  std::numeric_limits<int>::min(), -2, 33, std::numeric_limits<int>::max(), 11 };
+            std::array<int, 9> arr{ {10, 4, 0, -1,  std::numeric_limits<int>::min(), -2, 33, std::numeric_limits<int>::max(), 11 } };
+            helper::out_each(std::cout, arr) << std::endl;
 
-            helper::out_each(std::cout, arr) << std::endl;
-            selection_sort().sort(begin(arr), end(arr));
-            helper::out_each(std::cout, arr) << std::endl;
+            {
+                std::list<int> arr1(begin(arr), end(arr));
+                selection_sort().sort(begin(arr1), end(arr1));
+                helper::out_each(std::cout, arr1) << std::endl;
+            }
+
+            {
+                std::list<int> arr2(begin(arr), end(arr));
+                selection_sort().sort(begin(arr2), end(arr2));
+                helper::out_each(std::cout, arr2) << std::endl;
+            }
         }
 
         static void test_insertion_sort() {

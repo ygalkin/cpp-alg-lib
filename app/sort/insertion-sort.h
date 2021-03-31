@@ -19,6 +19,7 @@ namespace sort {
 
         template <typename IterT>
         void sort(IterT first, IterT last) {
+            // for [first + 1, last)
             for (IterT iter = std::next(first); iter != last; ++iter) {
                 auto iter_curr = iter;
                 auto iter_prev = std::prev(iter);

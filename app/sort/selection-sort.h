@@ -20,33 +20,30 @@ namespace sort {
 
         template< class IterT >
         void sort(IterT first, IterT last) {
+            // for [first, last-1)
             for (IterT iter = first; iter != std::prev(last); ++iter) {
+                // find min element [iter + 1, last)
                 IterT iter_min = std::min_element(std::next(iter), last);
                 if (*iter_min < *iter) 
                     std::iter_swap(iter, iter_min);
             }
         }
+
+        // The same as sort() but std::min_element replaced by self-implemented find min element loop
+        template< class IterT >
+        void sort2(IterT first, IterT last) {
+            // for [first, last-1)
+            for (IterT iter_a = first; iter_a != last - 1; ++iter_a) {
+                IterT iter_min = iter_a;
+                // find min element [iter_a + 1, last)
+                for (IterT iter_b = iter_a + 1; iter_b != last; ++iter_b) {
+                    if (*iter_b < *iter_min) {
+                        iter_min = iter_b;
+                    }
+                }
+
+                std::iter_swap(iter_a, iter_min);
+            }
+        }
     };
 }
-
-//    vector<int> sortArray(vector<int>& nums) {
-//        for (auto iter = begin(nums); iter != end(nums); ++iter) {
-//            iter_swap(iter, min_element(iter, end(nums)));
-//        }
-//        return nums;
-//    }
-
-//template< class T >
-//void sort(T first, T last) {
-//    for (T iter_a = first; iter_a != last - 1; ++iter_a) {
-//        T min = iter_a;
-//
-//        for (T iter_b = iter_a + 1; iter_b != last; ++iter_b) {
-//            if (*iter_b < *min) {
-//                min = iter_b;
-//            }
-//        }
-//
-//        std::iter_swap(iter_a, min);
-//    }
-//}

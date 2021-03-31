@@ -19,10 +19,12 @@ namespace sort {
 
         template< class IterT >
         void sort(IterT first, IterT last) {
+            // for [last, first)
             for (IterT iter_a = last; iter_a != first; --iter_a) {
                 auto is_swapped{ false };
-
+                // for [first, iter_a - 1)
                 for (IterT iter_b = first; iter_b != std::prev(iter_a); ++iter_b) {
+                    // if *iter_b > *(iter_b + 1)
                     if (*iter_b > *std::next(iter_b)) {
                         std::iter_swap(iter_b, std::next(iter_b));
                         is_swapped = true;
