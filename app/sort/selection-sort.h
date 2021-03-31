@@ -33,10 +33,10 @@ namespace sort {
         template< class IterT >
         void sort2(IterT first, IterT last) {
             // for [first, last-1)
-            for (IterT iter_a = first; iter_a != last - 1; ++iter_a) {
+            for (IterT iter_a = first; iter_a != std::prev(last); ++iter_a) {
                 IterT iter_min = iter_a;
                 // find min element [iter_a + 1, last)
-                for (IterT iter_b = iter_a + 1; iter_b != last; ++iter_b) {
+                for (IterT iter_b = std::next(iter_a); iter_b != last; ++iter_b) {
                     if (*iter_b < *iter_min) {
                         iter_min = iter_b;
                     }

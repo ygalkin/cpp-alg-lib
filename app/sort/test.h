@@ -47,7 +47,7 @@ namespace sort {
 
             {
                 std::list<int> arr2(begin(arr), end(arr));
-                selection_sort().sort(begin(arr2), end(arr2));
+                selection_sort().sort2(begin(arr2), end(arr2));
                 helper::out_each(std::cout, arr2) << std::endl;
             }
         }
