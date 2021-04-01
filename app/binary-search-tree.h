@@ -1,7 +1,6 @@
 #pragma once
 
 #include <functional>
-#include <iostream>
 
 enum class order_type { pre_order, in_order, sort_order=in_order, post_order };
 
@@ -25,13 +24,20 @@ protected:
 private:
     tree_node<KeyT>* _root = nullptr;
 
-    tree_node<KeyT>* _find_node(tree_node<KeyT>* parent, const KeyT& key) const {
-        auto child = (key < parent->_key) ? parent->_left : parent->_right;
-        if (child == nullptr) {
-            return parent;
+    void _insert(tree_node<KeyT>** parent, const KeyT& key) {
+        if (*parent == nullptr) {
+            *parent = new tree_node<KeyT>(key);
+            return;
         }
 
-        return _find_node(child, key);
+        _insert((key < (*parent)->_key) ? &(*parent)->_left : &(*parent)->_right, key);
+    }
+
+    tree_node<KeyT>* _find(tree_node<KeyT>* parent, const KeyT& key) const {
+        if (parent == nullptr || parent->_key == key) {
+            return parent; // nullptr or parent
+        }
+        return _find(key < parent->_key ? parent->_left : parent->_right, key);
     }
 
     template <order_type Order>
@@ -87,18 +93,11 @@ public:
     }
 
     void insert(const KeyT& key) {
-        if (_root == nullptr) {
-            _root = new tree_node<KeyT>(key);
-            return;
-        }
-
-        auto node = _find_node(_root, key);
-        auto child = (key < node->_key) ? &node->_left : &node->_right;
-        *child = new tree_node<KeyT>(key);
+        _insert(&_root, key);
     }
 
     bool find(const KeyT& key) const {
-        return (_find_node(_root, key) != nullptr);
+        return (_find(_root, key) != nullptr);
     }
 
     bool empty() const {

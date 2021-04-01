@@ -15,7 +15,7 @@ namespace sort {
         ~tree_sort() = default;
 
         template< class IterT >
-        void unbalanced_tree_sort(IterT first, IterT last) {
+        void unbalanced_bst_sort(IterT first, IterT last) {
             binary_search_tree<IterT::value_type> bst;
 
             // for [first, last)
@@ -26,7 +26,7 @@ namespace sort {
             assert(bst.is_bst(std::numeric_limits<IterT::value_type>::min(), std::numeric_limits<IterT::value_type>::max()));
 
             auto iter = first;
-            bst.for_each<order_type::sort_order>([&iter](auto key) { *iter = key; ++iter; });
+            bst.for_each<order_type::sort_order>([&iter](const auto &key) { *iter = key; ++iter; });
             assert(iter == last);
             bst.clear();
         }

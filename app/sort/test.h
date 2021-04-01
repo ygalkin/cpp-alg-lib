@@ -80,7 +80,7 @@ namespace sort {
             std::list<int> arr(begin(_array_to_sort), end(_array_to_sort));
 
             helper::out_each(std::cout, arr) << std::endl;
-            tree_sort().unbalanced_tree_sort(begin(arr), end(arr));
+            tree_sort().unbalanced_bst_sort(begin(arr), end(arr));
             helper::out_each(std::cout, arr) << std::endl;
         }
     };
