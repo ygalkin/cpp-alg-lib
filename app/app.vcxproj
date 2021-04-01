@@ -144,12 +144,14 @@
     <ClCompile Include="app.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="binary-search-tree.h" />
     <ClInclude Include="helper.h" />
     <ClInclude Include="sort\quick-sort.h" />
     <ClInclude Include="sort\bubble-sort.h" />
     <ClInclude Include="sort\insertion-sort.h" />
     <ClInclude Include="sort\selection-sort.h" />
     <ClInclude Include="sort\test.h" />
+    <ClInclude Include="sort\tree-sort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
