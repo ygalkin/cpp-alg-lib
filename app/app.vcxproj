@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="container\binary-search-tree.h" />
+    <ClInclude Include="container\single-linked-list.h" />
     <ClInclude Include="container\test.h" />
     <ClInclude Include="helper.h" />
     <ClInclude Include="sort\quick-sort.h" />

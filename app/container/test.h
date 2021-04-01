@@ -2,14 +2,14 @@
 
 #pragma once
 
-#include "../helper.h"
+#include "single-linked-list.h"
 #include "binary-search-tree.h"
+#include "../helper.h"
 
 #include<iostream>
 #include<list>
 #include<array>
-
-#include <limits.h>
+#include <limits>
 #include <cassert>
 
 namespace container {
@@ -23,6 +23,7 @@ namespace container {
 
         static void run() {
             test_binary_search_tree();
+            test_single_linked_list();
         }
 
     private:
@@ -46,6 +47,22 @@ namespace container {
             assert(!bst.empty());
             bst.clear();
             assert(bst.empty());
+        }
+
+        static void test_single_linked_list() {
+            std::cout << "-- Single Linked List ---" << std::endl;
+
+            container::single_linked_list<std::string> sll;
+            sll.push_back("str001");
+            sll.push_front("str002");
+            sll.insert_before(0, "str003");
+            auto i = sll.at(0);
+            std::cout << i;
+            i = sll.at(1);
+            std::cout << i;
+            i = sll.at(2);
+            std::cout << i;
+            sll.erase(2);
         }
     };
 
