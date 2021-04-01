@@ -63,6 +63,8 @@ namespace container {
             i = sll.at(2);
             std::cout << i;
             sll.erase(2);
+            sll.clear();
+            assert(sll.empty());
         }
     };
 

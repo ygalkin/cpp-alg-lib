@@ -14,7 +14,7 @@ namespace container {
             tree_node() = delete;
             tree_node(KeyT key) : _left(nullptr), _right(nullptr), _key(key) {};
             tree_node(const tree_node& other) = delete;
-            tree_node(tree_node&& other) = default;
+            tree_node(tree_node&& other) = delete;
             tree_node& operator = (const tree_node& other) = delete;
             ~tree_node() = default;
 

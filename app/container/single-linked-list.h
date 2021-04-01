@@ -11,7 +11,7 @@ namespace container {
             list_node() = delete;
             list_node(const KeyT& val) : _val(val), _next(nullptr) {};
             list_node(const list_node& other) = delete;
-            list_node(list_node&& other) = default;
+            list_node(list_node&& other) = delete;
             list_node& operator = (const list_node& other) = delete;
             ~list_node() = default;
 
@@ -45,7 +45,9 @@ namespace container {
         single_linked_list& operator = (const single_linked_list& other) = delete;
         ~single_linked_list() { clear(); }
 
-        // Get the value of the index-th node in the linked list. If the index is invalid, return -1.
+        // Get the value of the index-th node in the linked list. 
+        // If the index is invalid, std::out_of_range exception is generated.
+        // O(n)
         KeyT at(size_t index) {
             auto node = _get_node(index);
             if (node == nullptr) {
@@ -57,6 +59,7 @@ namespace container {
 
         // Add a node of value val before the first element of the linked list. 
         // After the insertion, the new node will be the first node of the linked list.
+        // O(1)
         void push_front(const KeyT& val) {
             auto new_node = new list_node(val);
 
@@ -65,6 +68,7 @@ namespace container {
         }
 
         // Append a node of value val to the last element of the linked list.
+        // O(n)
         void push_back(const KeyT& val) {
             if (_head == nullptr) {
                 push_front(val);
@@ -82,7 +86,8 @@ namespace container {
         // Add a node of value val before the index-th node in the linked list. 
         // If index equals to the length of linked list, the node will be appended to the end of linked list. 
         // If index is greater than the length, the node will not be inserted.
-        void insert_before(int index, const KeyT& val) {
+        // O(n)
+        void insert_before(size_t index, const KeyT& val) {
             if (index == 0) {
                 push_front(val);
                 return;
@@ -100,6 +105,7 @@ namespace container {
         }
 
         // Delete the index-th node in the linked list, if the index is valid.
+        // O(n)
         void erase(size_t index) {
             auto curr = _get_node(index);
             if (curr == nullptr) {
@@ -120,11 +126,26 @@ namespace container {
             delete curr;
         }
 
+        // O(n)
         void clear() {
-            //todo
+            auto current = _head;
+            list_node* tmp = nullptr;
+
+            while (current != nullptr) {
+                tmp = current;
+                current = current->_next;
+                delete tmp;
+            }
+            _head = nullptr;
         }
 
-        // bool empty
+        // O(1)
+        bool empty() const {
+            return _head == nullptr;
+        }
+
+        // insert_after
+        // for_each
     };
 
 }
