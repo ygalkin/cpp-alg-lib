@@ -4,26 +4,27 @@
 
 namespace container {
 
-    template< class KeyT >
+    template< class ValT >
     class single_linked_list {
     protected:
+        template< class NodeValT >
         struct list_node {
             list_node() = delete;
-            list_node(const KeyT& val) : _val(val), _next(nullptr) {};
+            list_node(const NodeValT& val) : _val(val), _next(nullptr) {};
             list_node(const list_node& other) = delete;
             list_node(list_node&& other) = delete;
             list_node& operator = (const list_node& other) = delete;
             ~list_node() = default;
 
-            list_node* _next = nullptr;
-            KeyT _val;
+            list_node<NodeValT>* _next = nullptr;
+            NodeValT _val;
         };
 
     private:
-        list_node* _head = nullptr;
+        list_node<ValT>* _head = nullptr;
 
-        list_node* _get_node(size_t index) {
-            list_node* current = _head;
+        list_node<ValT>* _get_node(size_t index) {
+            list_node<ValT>* current = _head;
             auto i{ 0 };
 
             while (current != nullptr && i != index) {
@@ -48,7 +49,7 @@ namespace container {
         // Get the value of the index-th node in the linked list. 
         // If the index is invalid, std::out_of_range exception is generated.
         // O(n)
-        KeyT at(size_t index) {
+        ValT at(size_t index) {
             auto node = _get_node(index);
             if (node == nullptr) {
                 throw new std::out_of_range("Index is out of range: " + index);
@@ -60,8 +61,8 @@ namespace container {
         // Add a node of value val before the first element of the linked list. 
         // After the insertion, the new node will be the first node of the linked list.
         // O(1)
-        void push_front(const KeyT& val) {
-            auto new_node = new list_node(val);
+        void push_front(const ValT& val) {
+            auto new_node = new list_node<ValT>(val);
 
             new_node->_next = _head;
             _head = new_node;
@@ -69,7 +70,7 @@ namespace container {
 
         // Append a node of value val to the last element of the linked list.
         // O(n)
-        void push_back(const KeyT& val) {
+        void push_back(const ValT& val) {
             if (_head == nullptr) {
                 push_front(val);
                 return;
@@ -80,14 +81,14 @@ namespace container {
                 current = current->_next;
             }
 
-            current->_next = new list_node(val);
+            current->_next = new list_node<ValT>(val);
         }
 
         // Add a node of value val before the index-th node in the linked list. 
         // If index equals to the length of linked list, the node will be appended to the end of linked list. 
         // If index is greater than the length, the node will not be inserted.
         // O(n)
-        void insert_before(size_t index, const KeyT& val) {
+        void insert_before(size_t index, const ValT& val) {
             if (index == 0) {
                 push_front(val);
                 return;
@@ -98,7 +99,7 @@ namespace container {
                 return;
             }
 
-            auto new_node = new list_node(val);
+            auto new_node = new list_node<ValT>(val);
 
             new_node->_next = prev->_next;
             prev->_next = new_node;
@@ -129,7 +130,7 @@ namespace container {
         // O(n)
         void clear() {
             auto current = _head;
-            list_node* tmp = nullptr;
+            list_node<ValT>* tmp = nullptr;
 
             while (current != nullptr) {
                 tmp = current;
