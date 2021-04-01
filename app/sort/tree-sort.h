@@ -26,7 +26,7 @@ namespace sort {
             assert(bst.is_bst(std::numeric_limits<IterT::value_type>::min(), std::numeric_limits<IterT::value_type>::max()));
 
             auto iter = first;
-            bst.for_each<order_type::sort_order>([&iter](const auto &key) { *iter = key; ++iter; });
+            bst.for_each<order_type::sort_order>([&iter](const auto &key) { *iter++ = key; });
             assert(iter == last);
             bst.clear();
         }
