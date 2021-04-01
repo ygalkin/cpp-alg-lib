@@ -1,8 +1,7 @@
 #pragma once
 
-#include "../binary-search-tree.h"
+#include "../container/binary-search-tree.h"
 
-#include <limits.h>
 #include <cassert>
 
 namespace sort {
@@ -16,17 +15,15 @@ namespace sort {
 
         template< class IterT >
         void unbalanced_bst_sort(IterT first, IterT last) {
-            binary_search_tree<IterT::value_type> bst;
+            container::binary_search_tree<IterT::value_type> bst;
 
             // for [first, last)
             for (auto iter = first; iter != last; ++iter) {
                 bst.insert(*iter);
             }
 
-            assert(bst.is_bst(std::numeric_limits<IterT::value_type>::min(), std::numeric_limits<IterT::value_type>::max()));
-
             auto iter = first;
-            bst.for_each<order_type::sort_order>([&iter](const auto &key) { *iter++ = key; });
+            bst.for_each<container::order_type::sort_order>([&iter](const auto &key) { *iter++ = key; });
             assert(iter == last);
             bst.clear();
         }
