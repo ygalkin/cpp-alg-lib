@@ -29,7 +29,7 @@ namespace sort {
         }
 
     private:
-        static constexpr std::array<int, 10> _array_to_sort{ {10, 4, 0, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
+        static constexpr std::array<int, 11> _array_to_sort{ {10, 4, 0, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
 
         static void test_bubble_sort() {
             std::cout << "-- Bubble Sort ---" << std::endl;

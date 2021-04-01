@@ -18,12 +18,12 @@ namespace sort {
         void unbalanced_tree_sort(IterT first, IterT last) {
             binary_search_tree<IterT::value_type> bst;
 
+            // for [first, last)
             for (auto iter = first; iter != last; ++iter) {
                 bst.insert(*iter);
             }
 
-            //bool b = bst.is_bst(std::numeric_limits<IterT::value_type>::min(), std::numeric_limits<IterT::value_type>::max());
-            //std::cout << b << std::endl;
+            assert(bst.is_bst(std::numeric_limits<IterT::value_type>::min(), std::numeric_limits<IterT::value_type>::max()));
 
             auto iter = first;
             bst.for_each<order_type::sort_order>([&iter](auto key) { *iter = key; ++iter; });
