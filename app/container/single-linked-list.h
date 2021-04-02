@@ -22,6 +22,7 @@ namespace container {
 
     private:
         list_node<ValT>* _head = nullptr;
+        // TODO: _tail
 
         list_node<ValT>* _get_node(size_t index) {
             list_node<ValT>* current = _head;
@@ -50,7 +51,7 @@ namespace container {
         // If the index is invalid, std::out_of_range exception is generated.
         // O(n)
         ValT at(size_t index) {
-            auto node = _get_node(index);
+            const auto node = _get_node(index);
             if (node == nullptr) {
                 throw new std::out_of_range("Index is out of range: " + index);
             }
@@ -58,17 +59,17 @@ namespace container {
             return node->_val;
         }
 
-        // Add a node of value val before the first element of the linked list. 
+        // Add a node before the first element of the linked list. 
         // After the insertion, the new node will be the first node of the linked list.
         // O(1)
         void push_front(const ValT& val) {
-            auto new_node = new list_node<ValT>(val);
+            const auto new_node = new list_node<ValT>(val);
 
             new_node->_next = _head;
             _head = new_node;
         }
 
-        // Append a node of value val to the last element of the linked list.
+        // Append a node to the last element of the linked list.
         // O(n)
         void push_back(const ValT& val) {
             if (_head == nullptr) {
@@ -84,7 +85,7 @@ namespace container {
             current->_next = new list_node<ValT>(val);
         }
 
-        // Add a node of value val before the index-th node in the linked list. 
+        // Add a node before the index-th node in the linked list. 
         // If index equals to the length of linked list, the node will be appended to the end of linked list. 
         // If index is greater than the length, the node will not be inserted.
         // O(n)
@@ -94,12 +95,12 @@ namespace container {
                 return;
             }
 
-            auto prev = _get_node(index - 1); // find previous
+            const auto prev = _get_node(index - 1); // find previous
             if (prev == nullptr) {
                 return;
             }
 
-            auto new_node = new list_node<ValT>(val);
+            const auto new_node = new list_node<ValT>(val);
 
             new_node->_next = prev->_next;
             prev->_next = new_node;
@@ -108,7 +109,7 @@ namespace container {
         // Delete the index-th node in the linked list, if the index is valid.
         // O(n)
         void erase(size_t index) {
-            auto curr = _get_node(index);
+            const auto curr = _get_node(index);
             if (curr == nullptr) {
                 return;
             }
@@ -118,7 +119,7 @@ namespace container {
                 return;
             }
 
-            auto prev = _get_node(index - 1); // find previous
+            const auto prev = _get_node(index - 1); // find previous
             if (prev == nullptr) {
                 return;
             }
@@ -143,6 +144,28 @@ namespace container {
         // O(1)
         bool empty() const {
             return _head == nullptr;
+        }
+
+        // Self diagnostic function
+        // O(n)
+        bool has_cycle() const {
+            if (_head == nullptr) {
+                return false;
+            }
+
+            list_node<ValT>* slow = _head;
+            list_node<ValT>* fast = _head;
+
+            while (fast != nullptr && fast->_next != nullptr) {
+                slow = slow->_next;
+                fast = fast->_next->_next;
+
+                if (fast == slow) {
+                    return true;
+                }
+            }
+
+            return false; // if fast == nullptr we have reached end of the list       
         }
 
         // insert_after

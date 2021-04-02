@@ -4,12 +4,12 @@
 
 namespace sort {
 
-// Selection Sort
-// Time complexity: Worst n^2,  Average n^2, Best n^2
-// Space complexity: 1
-// Method: Selection
-// Stable: No
-// Class: Comparison sort
+    // Selection Sort
+    // Time complexity: Worst n^2,  Average n^2, Best n^2
+    // Space complexity: 1
+    // Method: Selection
+    // Stable: No
+    // Class: Comparison sort
     class selection_sort {
     public:
         selection_sort() = default;
@@ -23,15 +23,22 @@ namespace sort {
             // for [first, last-1)
             for (IterT iter = first; iter != std::prev(last); ++iter) {
                 // find min element [iter + 1, last)
-                IterT iter_min = std::min_element(std::next(iter), last);
-                if (*iter_min < *iter) 
+                const IterT iter_min = std::min_element(std::next(iter), last);
+                if (*iter_min < *iter)
                     std::iter_swap(iter, iter_min);
+            }
+        }
+
+        template< class IterT >
+        void sort2(IterT first, IterT last) {
+            for (auto iter = first; iter != last; ++iter) {
+                std::iter_swap(iter, std::min_element(iter, last));
             }
         }
 
         // The same as sort() but std::min_element replaced by self-implemented find min element loop
         template< class IterT >
-        void sort2(IterT first, IterT last) {
+        void sort3(IterT first, IterT last) {
             // for [first, last-1)
             for (IterT iter_a = first; iter_a != std::prev(last); ++iter_a) {
                 IterT iter_min = iter_a;

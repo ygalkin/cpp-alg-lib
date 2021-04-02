@@ -3,12 +3,12 @@
 #include<iterator>
 
 namespace sort {
-// Bubble Sort
-// Time complexity : Worst n^2, Average n^2, Best n
-// Space complexity : 1
-// Method : Exchanging
-// Stable : Yes
-// Class : Comparison sort
+    // Bubble Sort
+    // Time complexity : Worst n^2, Average n^2, Best n
+    // Space complexity : 1
+    // Method : Exchanging
+    // Stable : Yes
+    // Class : Comparison sort
     class bubble_sort {
     public:
         bubble_sort() = default;

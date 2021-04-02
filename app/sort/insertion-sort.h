@@ -3,12 +3,12 @@
 #include<iterator>
 
 namespace sort {
-// Insertion Sort
-// Time complexity: Worst  n^2, Average n^2, Best n
-// Space complexity : 1
-// Method : Insertion
-// Stable : Yes
-// Class : Comparison sort
+    // Insertion Sort
+    // Time complexity: Worst  n^2, Average n^2, Best n
+    // Space complexity : 1
+    // Method : Insertion
+    // Stable : Yes
+    // Class : Comparison sort
     class insertion_sort {
     public:
         insertion_sort() = default;

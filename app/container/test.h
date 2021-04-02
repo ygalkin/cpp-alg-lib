@@ -9,8 +9,8 @@
 #include<iostream>
 #include<list>
 #include<array>
-#include <limits>
-#include <cassert>
+#include<limits>
+#include<cassert>
 
 namespace container {
     class test {
@@ -27,13 +27,13 @@ namespace container {
         }
 
     private:
-        static constexpr std::array<int, 11> _array{ {10, 4, 0, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
+        static constexpr std::array<int, 11> _test_array{ {10, 4, 0, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
 
         static void test_binary_search_tree() {
             std::cout << "-- BST ---" << std::endl;
             binary_search_tree<int> bst;
 
-            for (auto item : _array) {
+            for (auto item : _test_array) {
                 bst.insert(item);
             }
 
@@ -56,6 +56,7 @@ namespace container {
             sll.push_back("str001");
             sll.push_front("str002");
             sll.insert_before(0, "str003");
+            assert(!sll.has_cycle());
             auto i = sll.at(0);
             std::cout << i;
             i = sll.at(1);

@@ -23,7 +23,7 @@ namespace sort {
             }
 
             auto iter = first;
-            bst.for_each<container::order_type::sort_order>([&iter](const auto &key) { *iter++ = key; });
+            bst.for_each<container::order_type::sort_order>([&iter](const auto& key) { *iter++ = key; });
             assert(iter == last);
             bst.clear();
         }
