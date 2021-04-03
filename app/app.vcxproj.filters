@@ -45,6 +45,9 @@
     <ClInclude Include="container\single-linked-list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="sort\merge-sort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp">

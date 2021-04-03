@@ -1,5 +1,6 @@
 #pragma once
 
+#include "merge-sort.h"
 #include "tree-sort.h"
 #include "quick-sort.h"
 #include "selection-sort.h"
@@ -19,7 +20,7 @@ namespace sort {
         using SORT_TYPE = int;
         using SORT_CONTAINER = std::vector<SORT_TYPE>;
 
-        std::array<SORT_TYPE, 2000> _unsorted_test_array{0};
+        std::array<SORT_TYPE, 2000> _unsorted_test_array{ 0 };
         std::vector<SORT_TYPE> _sorted_test_array;
 
     public:
@@ -36,6 +37,7 @@ namespace sort {
             test_insertion_sort();
             test_quick_sort();
             test_tree_sort();
+            merge_tree_sort();
         }
 
     private:
@@ -49,7 +51,7 @@ namespace sort {
             for (auto i = 0; i < _unsorted_test_array.size(); ++i) {
                 _unsorted_test_array[i] = dist(rng);
             }
-            
+
             // unsorted_test_array -> sorted_test_array 
             _sorted_test_array.assign(begin(_unsorted_test_array), end(_unsorted_test_array));
             std::sort(begin(_sorted_test_array), end(_sorted_test_array));
@@ -65,7 +67,7 @@ namespace sort {
 
                 std::cout << "Elements number: " << test_array.size() << std::endl;
                 std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl; 
+                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
             }
         }
 
@@ -126,6 +128,16 @@ namespace sort {
                 std::cout << "Invocation time (ms): " << t << std::endl;
                 std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
             }
+
+            {
+                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
+
+                auto t = helper::benchmark_call_ms([&test_array]() { quick_sort().sort2(begin(test_array), end(test_array)); });
+
+                std::cout << "Elements number: " << test_array.size() << std::endl;
+                std::cout << "Invocation time (ms): " << t << std::endl;
+                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
+            }
         }
 
         void test_tree_sort() const {
@@ -134,6 +146,19 @@ namespace sort {
                 SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
 
                 auto t = helper::benchmark_call_ms([&test_array]() { tree_sort().unbalanced_bst_sort(begin(test_array), end(test_array)); });
+
+                std::cout << "Elements number: " << test_array.size() << std::endl;
+                std::cout << "Invocation time (ms): " << t << std::endl;
+                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
+            }
+        }
+
+        void merge_tree_sort() const {
+            std::cout << "=== Merge Sort ===" << std::endl;
+            {
+                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
+
+                auto t = helper::benchmark_call_ms([&test_array]() { merge_sort().sort(begin(test_array), end(test_array)); });
 
                 std::cout << "Elements number: " << test_array.size() << std::endl;
                 std::cout << "Invocation time (ms): " << t << std::endl;
