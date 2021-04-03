@@ -18,7 +18,7 @@ namespace sort {
         ~bubble_sort() = default;
 
         template< class IterT >
-        void sort(IterT first, IterT last) {
+        inline void sort(IterT first, IterT last) {
             // for [last, first)
             for (IterT iter_a = last; iter_a != first; --iter_a) {
                 auto is_swapped{ false };

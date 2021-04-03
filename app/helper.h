@@ -7,9 +7,13 @@
 namespace helper {
     template <typename T>
     std::ostream& out_each(std::ostream& os, const T& t) {
-        os << "{";
-        std::for_each(begin(t), end(t), [](auto i) { std::cout << i << " "; });
-        os << "}";
+        os << "["; std::for_each(begin(t), end(t), [](const auto& i) { std::cout << i << " "; }); os << "]";
+        return os;
+    }
+
+    template <typename T>
+    std::ostream& out_each(std::ostream& os, T first, T last) {
+        os << "["; std::for_each(first, last, [](const auto& i) { std::cout << i << " "; }); os << "]";
         return os;
     }
 

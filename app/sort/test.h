@@ -8,7 +8,7 @@
 #include "../helper.h"
 
 #include<iostream>
-#include<list>
+//#include<list>
 #include<array>
 #include<random>
 #include<vector>
@@ -30,17 +30,7 @@ namespace sort {
         ~test() = default;
 
         void run() {
-            _sorted_test_array.clear();
-
-            std::random_device dev;
-            std::mt19937 rng(dev());
-            std::uniform_int_distribution<SORT_TYPE> dist(std::numeric_limits<SORT_TYPE>::min(), std::numeric_limits<SORT_TYPE>::max());
-            for (auto i = 0; i < _unsorted_test_array.size(); ++i) {
-                _unsorted_test_array[i] = dist(rng);
-            }
-            _sorted_test_array.assign(begin(_unsorted_test_array), end(_unsorted_test_array));
-            std::sort(begin(_sorted_test_array), end(_sorted_test_array));
-
+            initialize();
             test_bubble_sort();
             test_selection_sort();
             test_insertion_sort();
@@ -49,8 +39,24 @@ namespace sort {
         }
 
     private:
+        void initialize() {
+            _sorted_test_array.clear();
 
-        void test_bubble_sort() {
+            // Fill unsorted_test_array with random data
+            std::random_device dev;
+            std::mt19937 rng(dev());
+            std::uniform_int_distribution<SORT_TYPE> dist(std::numeric_limits<SORT_TYPE>::min(), std::numeric_limits<SORT_TYPE>::max());
+            for (auto i = 0; i < _unsorted_test_array.size(); ++i) {
+                _unsorted_test_array[i] = dist(rng);
+            }
+            
+            // unsorted_test_array -> sorted_test_array 
+            _sorted_test_array.assign(begin(_unsorted_test_array), end(_unsorted_test_array));
+            std::sort(begin(_sorted_test_array), end(_sorted_test_array));
+            //std::sort(rbegin(_unsorted_test_array), rend(_unsorted_test_array));
+        }
+
+        void test_bubble_sort() const {
             std::cout << "=== Bubble Sort ===" << std::endl;
             {
                 SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
@@ -63,7 +69,7 @@ namespace sort {
             }
         }
 
-        void test_selection_sort() {
+        void test_selection_sort() const {
             std::cout << "=== Selection Sort ===" << std::endl;
             {
                 SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
@@ -96,7 +102,7 @@ namespace sort {
             }
         }
 
-        void test_insertion_sort() {
+        void test_insertion_sort() const {
             std::cout << "=== Insertion Sort ===" << std::endl;
             {
                 SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
@@ -109,7 +115,7 @@ namespace sort {
             }
         }
 
-        void test_quick_sort() {
+        void test_quick_sort() const {
             std::cout << "=== Quick Sort ===" << std::endl;
             {
                 SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
@@ -122,7 +128,7 @@ namespace sort {
             }
         }
 
-        void test_tree_sort() {
+        void test_tree_sort() const {
             std::cout << "=== Tree Sort ===" << std::endl;
             {
                 SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
