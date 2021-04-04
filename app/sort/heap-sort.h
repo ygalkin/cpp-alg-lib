@@ -13,6 +13,8 @@ namespace sort {
 
         template< class IterT >
         void sort(IterT first, IterT last) {
+            std::make_heap(first, last);
+            std::sort_heap(first, last);
         }
     };
 }

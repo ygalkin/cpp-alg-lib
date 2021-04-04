@@ -3,6 +3,7 @@
 #include "../container/binary-search-tree.h"
 
 #include <cassert>
+#include <set>
 
 namespace sort {
     class tree_sort {
@@ -26,6 +27,23 @@ namespace sort {
             bst.for_each<container::order_type::sort_order>([&iter](const auto& key) { *iter++ = key; });
             assert(iter == last);
             bst.clear();
+        }
+
+        template< class IterT >
+        void multiset_sort(IterT first, IterT last) {
+            // multiset implemenation is red-black (balanced) binary search tree
+            std::multiset<IterT::value_type> multi_set;
+
+            // for [first, last)
+            for (auto iter = first; iter != last; ++iter) {
+                multi_set.insert(*iter);
+            }
+
+            auto i = first;
+            for (auto iter = std::begin(multi_set); iter != std::end(multi_set); ++iter) {
+                *i++ = *iter;
+            }
+            assert(i == last);
         }
     };
 }
