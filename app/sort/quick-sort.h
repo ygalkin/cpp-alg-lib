@@ -18,14 +18,7 @@ namespace sort {
 
             // Partitioning
             const auto pivot = *(last - 1); // pivot element is a last element
-            auto bound = first;
-            // for [first, last)
-            for (auto iter = first; iter != last; ++iter) {
-                if (*iter < pivot) {
-                    std::iter_swap(bound, iter);
-                    ++bound;
-                }
-            }
+            auto bound = std::partition(first, last, [&pivot](const auto& i) { return i < pivot; });
             std::iter_swap(bound, last - 1);
 
             sort(first, bound);
@@ -39,11 +32,19 @@ namespace sort {
 
             // Partitioning
             const auto pivot = *(last - 1); // pivot element is a last element
-            auto bound = std::partition(first, last, [&pivot](const auto& i) { return i < pivot; });
+            auto bound = first;
+            // for [first, last)
+            for (auto iter = first; iter != last; ++iter) {
+                if (*iter < pivot) {
+                    std::iter_swap(bound, iter);
+                    ++bound;
+                }
+            }
             std::iter_swap(bound, last - 1);
 
             sort2(first, bound);
             sort2(bound + 1, last);
         }
+
     };
 }

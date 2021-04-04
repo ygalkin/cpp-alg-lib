@@ -20,19 +20,19 @@ namespace sort {
 
         template< class IterT >
         void sort(IterT first, IterT last) {
+            for (auto iter = first; iter != last; ++iter) {
+                std::iter_swap(iter, std::min_element(iter, last));
+            }
+        }
+
+        template< class IterT >
+        void sort2(IterT first, IterT last) {
             // for [first, last-1)
             for (IterT iter = first; iter != std::prev(last); ++iter) {
                 // find min element [iter + 1, last)
                 const IterT iter_min = std::min_element(std::next(iter), last);
                 if (*iter_min < *iter)
                     std::iter_swap(iter, iter_min);
-            }
-        }
-
-        template< class IterT >
-        void sort2(IterT first, IterT last) {
-            for (auto iter = first; iter != last; ++iter) {
-                std::iter_swap(iter, std::min_element(iter, last));
             }
         }
 

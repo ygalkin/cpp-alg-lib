@@ -15,13 +15,13 @@
 namespace container {
     class test {
     public:
-        test() = delete;
+        test() = default;
         test(const test& other) = delete;
         test(test&& other) = default;
         test& operator = (const test& other) = delete;
-        ~test() = delete;
+        ~test() = default;
 
-        static void run() {
+        void run() {
             test_binary_search_tree();
             test_single_linked_list();
         }
@@ -29,7 +29,7 @@ namespace container {
     private:
         static constexpr std::array<int, 11> _test_array{ {10, 4, 0, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
 
-        static void test_binary_search_tree() {
+        void test_binary_search_tree() {
             std::cout << "-- BST ---" << std::endl;
             binary_search_tree<int> bst;
 
@@ -49,7 +49,7 @@ namespace container {
             assert(bst.empty());
         }
 
-        static void test_single_linked_list() {
+        void test_single_linked_list() {
             std::cout << "-- Single Linked List ---" << std::endl;
 
             container::single_linked_list<std::string> sll;
