@@ -30,7 +30,7 @@ namespace sort {
             if (first == last)
                 return;
 
-            // Partitioning
+            // Partitioning. Lomuto’s partition scheme
             const auto pivot = *(last - 1); // pivot element is a last element
             auto bound = first;
             // for [first, last)

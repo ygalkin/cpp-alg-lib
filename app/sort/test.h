@@ -1,5 +1,6 @@
 #pragma once
 
+#include "heap-sort.h"
 #include "merge-sort.h"
 #include "tree-sort.h"
 #include "quick-sort.h"
@@ -37,7 +38,8 @@ namespace sort {
             test_insertion_sort();
             test_quick_sort();
             test_tree_sort();
-            merge_tree_sort();
+            test_merge_sort();
+            test_heap_sort();
         }
 
     private:
@@ -153,12 +155,25 @@ namespace sort {
             }
         }
 
-        void merge_tree_sort() const {
+        void test_merge_sort() const {
             std::cout << "=== Merge Sort ===" << std::endl;
             {
                 SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
 
                 auto t = helper::benchmark_call_ms([&test_array]() { merge_sort().sort(begin(test_array), end(test_array)); });
+
+                std::cout << "Elements number: " << test_array.size() << std::endl;
+                std::cout << "Invocation time (ms): " << t << std::endl;
+                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
+            }
+        }
+
+        void test_heap_sort() const {
+            std::cout << "=== Heap Sort ===" << std::endl;
+            {
+                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
+
+                auto t = helper::benchmark_call_ms([&test_array]() { heap_sort().sort(begin(test_array), end(test_array)); });
 
                 std::cout << "Elements number: " << test_array.size() << std::endl;
                 std::cout << "Invocation time (ms): " << t << std::endl;
