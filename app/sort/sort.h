@@ -39,25 +39,6 @@ namespace sort {
         }
     }
 
-    //void sort(std::vector<int>& arr) {
-    //    const auto size{ arr.size() };
-
-    //    for (size_t i = 0; i < size - 1; ++i) {
-    //        auto is_swapped{ false };
-
-    //        for (size_t j = 0; j < size - 1 - i; ++j) {
-    //            if (arr[j] > arr[j + 1]) {
-    //                std::swap(arr[j], arr[j + 1]);
-    //                is_swapped = true;
-    //            }
-    //        }
-
-    //        if (!is_swapped) {
-    //            break;
-    //        }
-    //    }
-    //}
-
     // Selection Sort
     // Time complexity: Worst n^2,  Average n^2, Best n^2
     // Space complexity: 1
@@ -135,7 +116,8 @@ namespace sort {
         quick_sort(bound2, last);
     }
 
-    // DO NOT USE THIS FUNCTION. Slow implemenation. It's used for benchmark only.
+    // DO NOT USE THIS FUNCTION. Slow implemenation. std::partition works much faster than self-implemented partitioning algorithm. 
+    // It's used for benchmark only.
     template< class IterT >
     inline void quick_sort_2(IterT first, IterT last) {
         if (first == last)
@@ -161,28 +143,30 @@ namespace sort {
     }
 
     // ! Stack overflow on a SORTED large array ~ 4000 elements. Replaced by Hoare partition scheme
-    // DO NOT USE THIS FUNCTION. Can cause stack overflow. It's used for benchmark only.
+    // DO NOT USE THIS FUNCTION. Can cause stack overflow. You can use it as Lomuto’s partition scheme reference code. 
+    // It's used for benchmark only.
     template< class IterT >
-    void quick_sort_3(IterT first, IterT last) {
+    inline void quick_sort_3(IterT first, IterT last) {
         if (first == last)
             return;
-    
+
         // Partitioning. Lomuto’s partition scheme
         const auto pivot = (last - 1); // pivot element is a last element
         auto bound = std::partition(first, last, [&pivot](const auto& i) { return i < *pivot; });
         std::iter_swap(bound, pivot);
-    
+
         quick_sort_3(first, bound);
         quick_sort_3(bound + 1, last);
     }
 
     // ! Stack overflow on a SORTED large array ~ 4000 elements. Replaced by Hoare partition scheme
-    // DO NOT USE THIS FUNCTION. Slow implemenation and can cause stack overflow. It's used for benchmark only.
+    // DO NOT USE THIS FUNCTION. Slow implemenation and can cause stack overflow. You can use it as Lomuto’s partition scheme reference code.  
+    // It's used for benchmark only.
     template< class IterT >
-    void quick_sort_4(IterT first, IterT last) {
+    inline void quick_sort_4(IterT first, IterT last) {
         if (first == last)
             return;
-    
+
         // Partitioning. Lomuto’s partition scheme
         const auto pivot = (last - 1); // pivot element is a last element
         auto bound = first;
@@ -194,7 +178,7 @@ namespace sort {
             }
         }
         std::iter_swap(bound, pivot);
-    
+
         quick_sort_4(first, bound);
         quick_sort_4(bound + 1, last);
     }
