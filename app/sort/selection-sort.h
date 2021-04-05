@@ -36,7 +36,7 @@ namespace sort {
             }
         }
 
-        // The same as sort() but std::min_element replaced by self-implemented find min element loop
+        // The same as sort2() but std::min_element replaced by self-implemented find min element loop
         template< class IterT >
         void sort3(IterT first, IterT last) {
             // for [first, last-1)

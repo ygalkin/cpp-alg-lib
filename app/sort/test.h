@@ -21,7 +21,7 @@ namespace sort {
         using SORT_TYPE = int;
         using SORT_CONTAINER = std::vector<SORT_TYPE>;
 
-        std::array<SORT_TYPE, 2001> _unsorted_test_array{ 0 };
+        std::array<SORT_TYPE, 4001> _unsorted_test_array{ 0 };
         std::vector<SORT_TYPE> _sorted_test_array;
 
     public:

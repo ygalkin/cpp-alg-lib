@@ -18,6 +18,10 @@ namespace sort {
         void unbalanced_bst_sort(IterT first, IterT last) {
             container::binary_search_tree<IterT::value_type> bst;
 
+            // We need this pivot element to improve perfomance of sorted/reverse sorted array
+            const auto pivot = (first + (std::distance(first, last) / 2));
+            std::iter_swap(first, pivot);
+
             // for [first, last)
             for (auto iter = first; iter != last; ++iter) {
                 bst.insert(*iter);
