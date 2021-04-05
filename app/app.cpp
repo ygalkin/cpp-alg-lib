@@ -2,6 +2,6 @@
 #include "container/test.h"
 
 int main() {
-    sort::test().run();
+    test().run();
     container::test().run();
 }

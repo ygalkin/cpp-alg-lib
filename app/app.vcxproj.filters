@@ -21,21 +21,6 @@
     <ClInclude Include="sort\test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sort\selection-sort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sort\bubble-sort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sort\insertion-sort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sort\quick-sort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sort\tree-sort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="container\binary-search-tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,10 +30,7 @@
     <ClInclude Include="container\single-linked-list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sort\merge-sort.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sort\heap-sort.h">
+    <ClInclude Include="sort\sort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
