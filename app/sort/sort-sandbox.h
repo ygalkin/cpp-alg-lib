@@ -11,15 +11,10 @@ namespace sort {
 
             // for [first + 1, last)
             for (IterT iter = std::next(first); iter != last; ++iter) {
-                auto iter_curr = iter;
-                auto iter_prev = std::prev(iter);
-                while (*iter_prev > *iter_curr) {
+                for (auto iter_curr = iter, iter_prev = std::prev(iter); *iter_prev > *iter_curr; --iter_prev, --iter_curr) {
                     std::iter_swap(iter_prev, iter_curr);
-                    if (iter_prev == first) {
+                    if (iter_prev == first) 
                         break;
-                    }
-                    --iter_prev;
-                    --iter_curr;
                 }
             }
         }

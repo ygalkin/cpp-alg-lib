@@ -147,15 +147,15 @@ namespace sort {
             return;
 
         // multiset implemenation is red-black (balanced) binary search tree
-        std::multiset<IterT::value_type> multi_set;
+        std::multiset<IterT::value_type> balanced_bst;
 
         // for [first, last)
         for (auto iter = first; iter != last; ++iter) {
-            multi_set.insert(*iter);
+            balanced_bst.insert(*iter);
         }
 
         auto i = first;
-        for (auto iter = std::begin(multi_set); iter != std::end(multi_set); *i++ = *iter++);
+        for (auto iter = std::begin(balanced_bst); iter != std::end(balanced_bst); *i++ = *iter++);
         assert(i == last);
     }
 }
