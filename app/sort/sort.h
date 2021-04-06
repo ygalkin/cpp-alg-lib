@@ -57,7 +57,7 @@ namespace sort {
     template <typename IterT>
     inline void insertion_sort(IterT first, IterT last) {
         // for [first + 1, last)
-        for (IterT iter = std::next(first); iter != last; ++iter) {
+        for (auto iter = std::next(first); iter != last; ++iter) {
             auto val = std::move(*iter);
             auto iter_curr = iter;
             for (auto iter_prev = std::prev(iter); *iter_prev > val; --iter_prev) {
@@ -68,7 +68,7 @@ namespace sort {
                 }                
             }
 
-            if (*iter_curr != val)
+            //if (*iter_curr != val)
                 *iter_curr = std::move(val);
         }
     }
