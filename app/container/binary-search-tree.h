@@ -24,7 +24,7 @@ namespace container {
         };
 
     private:
-        tree_node<KeyT>* _root = nullptr;
+        tree_node<KeyT>* _root{ nullptr };
 
         void _insert(tree_node<KeyT>** parent, const KeyT& key) {
             if (*parent == nullptr) {
@@ -79,10 +79,10 @@ namespace container {
 
     public:
         binary_search_tree() = default;
-        binary_search_tree(const binary_search_tree& other) = delete;
-        binary_search_tree(binary_search_tree&& other) = delete;
-        binary_search_tree& operator = (const binary_search_tree& other) = delete;
-        ~binary_search_tree() { clear(); }
+        binary_search_tree(const binary_search_tree& other) = default;
+        binary_search_tree(binary_search_tree&& other) = default;
+        binary_search_tree& operator = (const binary_search_tree& other) = default;
+        virtual ~binary_search_tree() { clear(); }
 
         template <order_type Order>
         void for_each(std::function<void(const KeyT&)> f) const {
