@@ -52,7 +52,7 @@ private:
         // unsorted_test_array -> sorted_test_array 
         _sorted_test_array.assign(begin(_unsorted_test_array), end(_unsorted_test_array));
         std::sort(begin(_sorted_test_array), end(_sorted_test_array));
-        std::sort(begin(_unsorted_test_array), end(_unsorted_test_array));
+        //std::sort(begin(_unsorted_test_array), end(_unsorted_test_array));
     }
 
     void test_bubble_sort() const {

@@ -3,8 +3,12 @@
 namespace sort {
     namespace sandbox {
 
+        // DO NOT USE THIS FUNCTION. Slow implemenation. It's used for benchmark only.
         template <typename IterT>
         inline void insertion_sort_2(IterT first, IterT last) {
+            if (first == last)
+                return;
+
             // for [first + 1, last)
             for (IterT iter = std::next(first); iter != last; ++iter) {
                 auto iter_curr = iter;
@@ -22,6 +26,9 @@ namespace sort {
 
         template< class IterT >
         inline void selection_sort_2(IterT first, IterT last) {
+            if (first == last)
+                return;
+
             // for [first, last-1)
             for (IterT iter = first; iter != std::prev(last); ++iter) {
                 // find min element [iter + 1, last)
@@ -35,6 +42,9 @@ namespace sort {
         // DO NOT USE THIS FUNCTION. Slow implemenation. It's used for benchmark only.
         template< class IterT >
         inline void selection_sort_3(IterT first, IterT last) {
+            if (first == last)
+                return;
+
             // for [first, last-1)
             for (IterT iter_a = first; iter_a != std::prev(last); ++iter_a) {
                 IterT iter_min = iter_a;

@@ -56,6 +56,9 @@ namespace sort {
     // Stable : Yes
     template <typename IterT>
     inline void insertion_sort(IterT first, IterT last) {
+        if (first == last)
+            return;
+
         // for [first + 1, last)
         for (auto iter = std::next(first); iter != last; ++iter) {
             auto val = std::move(*iter);
@@ -93,8 +96,11 @@ namespace sort {
 
     template< class IterT >
     inline void merge_sort(IterT first, IterT last) {
+        if (first == last) // empty sequence to sort
+            return;
+
         // if (first == last - 1)
-        if (first == std::prev(last))
+        if (first == std::prev(last)) // just one element in a sequence
             return;
 
         auto middle = std::next(first, (std::distance(first, last) / 2));
@@ -115,6 +121,9 @@ namespace sort {
 
     template< class IterT >
     inline void unbalanced_tree_sort(IterT first, IterT last) {
+        if (first == last)
+            return;
+
         container::binary_search_tree<IterT::value_type> bst;
 
         // We need this pivot element to improve perfomance of sorted/reverse sorted array
@@ -134,6 +143,9 @@ namespace sort {
 
     template< class IterT >
     inline void balanced_tree_sort(IterT first, IterT last) {
+        if (first == last)
+            return;
+
         // multiset implemenation is red-black (balanced) binary search tree
         std::multiset<IterT::value_type> multi_set;
 
