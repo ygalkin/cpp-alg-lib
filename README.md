@@ -1,5 +1,6 @@
 # red-platypus
-Sorting Algorithms using C++ Iterators
+
+## Sorting Algorithms using C++ Iterators
 
 bubble sort
 
@@ -17,7 +18,7 @@ unbalanced tree sort
 
 balanced tree sort
 
-Containers
+## Containers
 
 binary search tree
 
