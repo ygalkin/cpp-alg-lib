@@ -1,6 +1,6 @@
-# red-platypus
+# red-platypus C++ 11 library
 
-## Sorting Algorithms using C++ Iterators
+## Sorting Algorithms using iterators
 
 bubble sort
 

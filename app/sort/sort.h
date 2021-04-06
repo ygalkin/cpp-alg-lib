@@ -3,7 +3,6 @@
 #include "../container/binary-search-tree.h"
 
 #include <algorithm>
-#include <iterator>
 #include <cassert>
 #include <set>
 
@@ -24,10 +23,10 @@ namespace sort {
     template< class IterT >
     inline void bubble_sort(IterT first, IterT last) {
         // for [last, first)
-        for (IterT iter_a = last; iter_a != first; --iter_a) {
+        for (auto iter_a = last; iter_a != first; --iter_a) {
             auto is_swapped{ false };
             // for [first, iter_a - 1)
-            for (IterT iter_b = first; iter_b != std::prev(iter_a); ++iter_b) {
+            for (auto iter_b = first; iter_b != std::prev(iter_a); ++iter_b) {
                 // if *iter_b > *(iter_b + 1)
                 if (*iter_b > *std::next(iter_b)) {
                     std::iter_swap(iter_b, std::next(iter_b));
@@ -35,7 +34,8 @@ namespace sort {
                 }
             }
 
-            if (!is_swapped) { break; }
+            if (!is_swapped)
+                break;
         }
     }
 
@@ -45,8 +45,16 @@ namespace sort {
     // Stable: No
     template< class IterT >
     inline void selection_sort(IterT first, IterT last) {
-        for (auto iter = first; iter != last; ++iter) {
-            std::iter_swap(iter, std::min_element(iter, last));
+        if (first == last)
+            return;
+
+        // for [first, last-1)
+        const auto prev = std::prev(last);
+        for (auto iter = first; iter != prev; ++iter) {
+            // find min element [iter + 1, last)
+            const auto iter_min = std::min_element(std::next(iter), last);
+            if (*iter_min < *iter)
+                std::iter_swap(iter, iter_min);
         }
     }
 
@@ -61,18 +69,17 @@ namespace sort {
 
         // for [first + 1, last)
         for (auto iter = std::next(first); iter != last; ++iter) {
-            auto val = std::move(*iter);
-            auto iter_curr = iter;
+            auto val{ std::move(*iter) };
+            auto iter_curr{ iter };
             for (auto iter_prev = std::prev(iter); *iter_prev > val; --iter_prev) {
                 *iter_curr = std::move(*iter_prev);
                 iter_curr = iter_prev;
-                if (iter_prev == first) {
+                if (iter_prev == first)
                     break;
-                }                
             }
 
             //if (*iter_curr != val)
-                *iter_curr = std::move(val);
+            *iter_curr = std::move(val);
         }
     }
 
@@ -106,6 +113,8 @@ namespace sort {
         auto middle = std::next(first, (std::distance(first, last) / 2));
         merge_sort(first, middle);
         merge_sort(middle, last);
+        // merges two consecutive sorted ranges [first, middle) and [middle, last) into one sorted range [first, last).
+        // this function attempts to allocate a temporary buffer. If the allocation fails, the less efficient algorithm is chosen.
         std::inplace_merge(first, middle, last);
     }
 
@@ -113,6 +122,9 @@ namespace sort {
 
     template< class IterT >
     inline void heap_sort(IterT first, IterT last) {
+        if (first == last)
+            return;
+
         std::make_heap(first, last);
         std::sort_heap(first, last);
     }
@@ -131,11 +143,10 @@ namespace sort {
         std::iter_swap(first, pivot);
 
         // for [first, last)
-        for (auto iter = first; iter != last; ++iter) {
+        for (auto iter = first; iter != last; ++iter)
             bst.insert(*iter);
-        }
 
-        auto iter = first;
+        auto iter{ first };
         bst.for_each<container::order_type::sort_order>([&iter](const auto& key) { *iter++ = key; });
         assert(iter == last);
         bst.clear();
@@ -150,12 +161,13 @@ namespace sort {
         std::multiset<IterT::value_type> balanced_bst;
 
         // for [first, last)
-        for (auto iter = first; iter != last; ++iter) {
+        for (auto iter = first; iter != last; ++iter)
             balanced_bst.insert(*iter);
-        }
 
-        auto i = first;
-        for (auto iter = std::begin(balanced_bst); iter != std::end(balanced_bst); *i++ = *iter++);
+        auto i{ first };
+        for (const auto& key : balanced_bst)
+            *i++ = key;
+
         assert(i == last);
     }
 }

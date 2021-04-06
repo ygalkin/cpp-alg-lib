@@ -3,6 +3,12 @@
 namespace sort {
     namespace sandbox {
 
+        template< class IterT >
+        inline void selection_sort_2(IterT first, IterT last) {
+            for (auto iter = first; iter != last; ++iter)
+                std::iter_swap(iter, std::min_element(iter, last));
+        }
+
         // DO NOT USE THIS FUNCTION. Slow implemenation. It's used for benchmark only.
         template <typename IterT>
         inline void insertion_sort_2(IterT first, IterT last) {
@@ -10,26 +16,12 @@ namespace sort {
                 return;
 
             // for [first + 1, last)
-            for (IterT iter = std::next(first); iter != last; ++iter) {
+            for (auto iter = std::next(first); iter != last; ++iter) {
                 for (auto iter_curr = iter, iter_prev = std::prev(iter); *iter_prev > *iter_curr; --iter_prev, --iter_curr) {
                     std::iter_swap(iter_prev, iter_curr);
-                    if (iter_prev == first) 
+                    if (iter_prev == first)
                         break;
                 }
-            }
-        }
-
-        template< class IterT >
-        inline void selection_sort_2(IterT first, IterT last) {
-            if (first == last)
-                return;
-
-            // for [first, last-1)
-            for (IterT iter = first; iter != std::prev(last); ++iter) {
-                // find min element [iter + 1, last)
-                const IterT iter_min = std::min_element(std::next(iter), last);
-                if (*iter_min < *iter)
-                    std::iter_swap(iter, iter_min);
             }
         }
 
@@ -41,7 +33,8 @@ namespace sort {
                 return;
 
             // for [first, last-1)
-            for (IterT iter_a = first; iter_a != std::prev(last); ++iter_a) {
+            const auto prev = std::prev(last);
+            for (IterT iter_a = first; iter_a != prev; ++iter_a) {
                 IterT iter_min = iter_a;
                 // find min element [iter_a + 1, last)
                 for (IterT iter_b = std::next(iter_a); iter_b != last; ++iter_b) {
