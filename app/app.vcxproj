@@ -148,6 +148,7 @@
     <ClInclude Include="container\single-linked-list.h" />
     <ClInclude Include="container\test.h" />
     <ClInclude Include="helper.h" />
+    <ClInclude Include="sort\sort-sandbox.h" />
     <ClInclude Include="sort\sort.h" />
     <ClInclude Include="sort\test.h" />
   </ItemGroup>

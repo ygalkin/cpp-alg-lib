@@ -1,10 +1,11 @@
 #pragma once
 
 #include "sort.h"
+#include "sort-sandbox.h"
 #include "../helper.h"
 
 #include <iostream>
-//#include <list>
+#include <list>
 #include <array>
 #include <random>
 #include <vector>
@@ -26,13 +27,13 @@ public:
 
     void run() {
         initialize();
-        test_bubble_sort();
         test_selection_sort();
         test_insertion_sort();
         test_quick_sort();
         test_tree_sort();
         test_merge_sort();
         test_heap_sort();
+        test_bubble_sort();
     }
 
 private:
@@ -82,7 +83,7 @@ private:
         {
             SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
 
-            auto t = helper::benchmark_call_ms([&test_array]() { sort::selection_sort_2(begin(test_array), end(test_array)); });
+            auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::selection_sort_2(begin(test_array), end(test_array)); });
 
             std::cout << "Elements number: " << test_array.size() << std::endl;
             std::cout << "Invocation time (ms): " << t << std::endl;
@@ -92,7 +93,7 @@ private:
         {
             SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
 
-            auto t = helper::benchmark_call_ms([&test_array]() { sort::selection_sort_3(begin(test_array), end(test_array)); });
+            auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::selection_sort_3(begin(test_array), end(test_array)); });
 
             std::cout << "Elements number: " << test_array.size() << std::endl;
             std::cout << "Invocation time (ms): " << t << std::endl;
@@ -106,6 +107,19 @@ private:
             SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
 
             auto t = helper::benchmark_call_ms([&test_array]() { sort::insertion_sort(begin(test_array), end(test_array)); });
+
+            std::cout << "Elements number: " << test_array.size() << std::endl;
+            std::cout << "Invocation time (ms): " << t << std::endl;
+            std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
+
+            //helper::out_each(std::cout, _unsorted_test_array) << std::endl;
+            //helper::out_each(std::cout, test_array) << std::endl;
+        }
+
+        {
+            SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
+
+            auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::insertion_sort_2(begin(test_array), end(test_array)); });
 
             std::cout << "Elements number: " << test_array.size() << std::endl;
             std::cout << "Invocation time (ms): " << t << std::endl;
