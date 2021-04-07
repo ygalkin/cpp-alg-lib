@@ -28,13 +28,15 @@ namespace sort {
             return;
 
         // for [last, first)
-        for (auto iter_a = last; iter_a != first; --iter_a) {
+        for (auto i = last; i != first; --i) {
             auto is_swapped{ false };
-            // for [first, iter_a - 1)
-            for (auto iter_b = first; iter_b != std::prev(iter_a); ++iter_b) {
-                // if *iter_b > *(iter_b + 1)
-                if (*iter_b > *std::next(iter_b)) {
-                    std::iter_swap(iter_b, std::next(iter_b));
+            // for [first, i - 1)
+            const auto prev_i = std::prev(i);
+            for (auto j = first; j != prev_i; ++j) {
+                // if *j > *(j + 1)
+                const auto next_j = std::next(j);
+                if (*j > *next_j) {
+                    std::iter_swap(j, next_j);
                     is_swapped = true;
                 }
             }
@@ -44,7 +46,7 @@ namespace sort {
         }
     }
 
-    // Odd Even sort (Brick sort). It's extension of Bubble sort.
+    // Odd Even sort (Brick sort). It's a variation of Bubble sort.
 
     template< class IterT >
     inline void odd_even_sort(IterT first, IterT last) {
@@ -52,72 +54,59 @@ namespace sort {
             return;
 
         auto is_sorted{ false };
-        const auto prev_last{ std::prev(last) };
+        const auto begin{ std::next(first) };
+        const auto end{ std::prev(last) };
 
         while (!is_sorted) {
 
             is_sorted = true;
 
             // for [first + 1, last - 1)
-            for (auto iter = std::next(first); iter < prev_last; iter = std::next(iter, 2)) {
-                const auto next_iter{ std::next(iter) };
-                if (*iter > *next_iter) {
-                    std::iter_swap(iter, next_iter);
+            for (auto i = begin; i < end; i = std::next(i, 2)) {
+                const auto next_i{ std::next(i) };
+                if (*i > *next_i) {
+                    std::iter_swap(i, next_i);
                     is_sorted = false;
                 }
             }
 
             // for [first, last - 1)
-            for (auto iter = first; iter < prev_last; iter = std::next(iter, 2)) {
-                const auto next_iter{ std::next(iter) };
-                if (*iter > *next_iter) {
-                    std::iter_swap(iter, next_iter);
+            for (auto i = first; i < end; i = std::next(i, 2)) {
+                const auto next_i{ std::next(i) };
+                if (*i > *next_i) {
+                    std::iter_swap(i, next_i);
                     is_sorted = false;
                 }
             }
         }
     }
 
-    // Cocktail shaker sort. It's extension of Bubble sort.
+    // Cocktail shaker sort. Bidirectional Bubble sort. It's an extension of Bubble sort.
 
     template< class IterT >
     inline void cocktail_shaker_sort(IterT first, IterT last) {
         if (first == last)
             return;
 
-        auto is_swapped{ false };
-        auto prev_last{ std::prev(last) };
-        auto next_first{ first };
-
-        do {
-            // forward pass
+        auto is_swapped{ true };
+        for (auto begin{ first }, end{ std::prev(last) }; is_swapped; ++begin, --end) {
             is_swapped = false;
-
-            // for [first, last - 1)
-            for (auto iter = next_first; iter != prev_last; ++iter) {
-                const auto next_iter{ std::next(iter) };
-                if (*iter > *next_iter) {
-                    std::iter_swap(iter, next_iter);
+            // one loop for forward and reverse pass
+            for (auto i = begin, j = end; i != end; ++i, --j) {
+                // forward pass
+                const auto next_i{ std::next(i) };
+                if (*i > *next_i) {
+                    std::iter_swap(i, next_i);
+                    is_swapped = true;
+                }
+                // reverse pass
+                const auto prev_j{ std::prev(j) };
+                if (*j < *prev_j) {
+                    std::iter_swap(prev_j, j);
                     is_swapped = true;
                 }
             }
-
-            if (!is_swapped)
-                break;
-            --prev_last;
-
-            // reverse pass
-
-            // for [last - 1, first)
-            for (auto iter = prev_last; iter != next_first; --iter) {
-                const auto prev_iter{ std::prev(iter) };
-                if (*iter < *prev_iter) {
-                    std::iter_swap(iter, prev_iter);
-                    is_swapped = true;
-                }
-            }
-            ++next_first;
-        } while (is_swapped);
+        }
     }
 
     // Selection Sort
@@ -130,12 +119,12 @@ namespace sort {
             return;
 
         // for [first, last-1)
-        const auto prev_last = std::prev(last);
-        for (auto iter = first; iter != prev_last; ++iter) {
-            // find min element [iter + 1, last)
-            const auto iter_min = std::min_element(std::next(iter), last);
-            if (*iter_min < *iter)
-                std::iter_swap(iter, iter_min);
+        const auto end = std::prev(last);
+        for (auto i = first; i != end; ++i) {
+            // find min element [i + 1, last)
+            const auto min = std::min_element(std::next(i), last);
+            if (*min < *i)
+                std::iter_swap(i, min);
         }
     }
 
@@ -149,18 +138,18 @@ namespace sort {
             return;
 
         // for [first + 1, last)
-        for (auto iter = std::next(first); iter != last; ++iter) {
-            auto val{ std::move(*iter) };
-            auto iter_curr{ iter };
-            for (auto iter_prev = std::prev(iter); *iter_prev > val; --iter_prev) {
-                *iter_curr = std::move(*iter_prev);
-                iter_curr = iter_prev;
-                if (iter_prev == first)
+        for (auto i = std::next(first); i != last; ++i) {
+            auto val{ std::move(*i) };
+            auto i_this{ i };
+            for (auto prev_i = std::prev(i); *prev_i > val; --prev_i) {
+                *i_this = std::move(*prev_i);
+                i_this = prev_i;
+                if (prev_i == first)
                     break;
             }
 
-            //if (*iter_curr != val)
-            *iter_curr = std::move(val);
+            //if (*i_this != val)
+            *i_this = std::move(val);
         }
     }
 
@@ -224,12 +213,12 @@ namespace sort {
         std::iter_swap(first, pivot);
 
         // for [first, last)
-        for (auto iter = first; iter != last; ++iter)
-            bst.insert(*iter);
+        for (auto i = first; i != last; ++i)
+            bst.insert(*i);
 
-        auto iter{ first };
-        bst.for_each<container::order_type::sort_order>([&iter](const auto& key) { *iter++ = key; });
-        assert(iter == last);
+        auto j{ first };
+        bst.for_each<container::order_type::sort_order>([&j](const auto& key) { *j++ = key; });
+        assert(j == last);
         bst.clear();
     }
 
@@ -242,14 +231,14 @@ namespace sort {
         std::multiset<IterT::value_type> balanced_bst;
 
         // for [first, last)
-        for (auto iter = first; iter != last; ++iter)
-            balanced_bst.insert(*iter);
+        for (auto i = first; i != last; ++i)
+            balanced_bst.insert(*i);
 
-        auto i{ first };
+        auto j{ first };
         for (const auto& key : balanced_bst)
-            *i++ = key;
+            *j++ = key;
 
-        assert(i == last);
+        assert(j == last);
     }
 }
 

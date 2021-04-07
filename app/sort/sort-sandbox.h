@@ -3,51 +3,88 @@
 namespace sort {
     namespace sandbox {
 
+        // DO NOT USE THIS FUNCTION. It's used for benchmark only.
+        // It use two loops (forward and reverse) instead of one loop. Works little bit slower than cocktail_shaker_sort.
         template< class IterT >
-        inline void selection_sort_2(IterT first, IterT last) {
-            for (auto iter = first; iter != last; ++iter)
-                std::iter_swap(iter, std::min_element(iter, last));
+        inline void cocktail_shaker_sort_2(IterT first, IterT last) {
+            if (first == last)
+                return;
+
+            auto is_swapped{ true };
+            for (auto begin{ first }, end{ std::prev(last) }; is_swapped; ++begin, --end) {
+                // forward pass
+                is_swapped = false;
+                // for [first, last - 1)
+                for (auto i = begin; i != end; ++i) {
+                    const auto next_i{ std::next(i) };
+                    if (*i > *next_i) {
+                        std::iter_swap(i, next_i);
+                        is_swapped = true;
+                    }
+                }
+
+                if (!is_swapped)
+                    break;
+
+                // reverse pass
+                is_swapped = false;
+                // for [last - 1, first)
+                for (auto j = end; j != begin; --j) {
+                    const auto prev_j{ std::prev(j) };
+                    if (*j < *prev_j) {
+                        std::iter_swap(prev_j, j);
+                        is_swapped = true;
+                    }
+                }
+            }
         }
 
-        // The same as selection_sort2() but std::min_element replaced by self-implemented find min element loop
-        // DO NOT USE THIS FUNCTION. Slow implemenation. It's used for benchmark only.
+        template< class IterT >
+        inline void selection_sort_2(IterT first, IterT last) {
+            for (auto i = first; i != last; ++i)
+                std::iter_swap(i, std::min_element(i, last));
+        }
+
+        // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
+        // The same as selection_sort2() but self-implemented find min element loop is used instead of std::min_element
         template< class IterT >
         inline void selection_sort_3(IterT first, IterT last) {
             if (first == last)
                 return;
 
             // for [first, last-1)
-            const auto prev_last = std::prev(last);
-            for (IterT iter_a = first; iter_a != prev_last; ++iter_a) {
-                IterT iter_min = iter_a;
-                // find min element [iter_a + 1, last)
-                for (IterT iter_b = std::next(iter_a); iter_b != last; ++iter_b) {
-                    if (*iter_b < *iter_min)
-                        iter_min = iter_b;
+            const auto end = std::prev(last);
+            for (IterT i = first; i != end; ++i) {
+                IterT min = i;
+                // find min element [i + 1, last)
+                for (IterT j = std::next(i); j != last; ++j) {
+                    if (*j < *min)
+                        min = j;
                 }
 
-                std::iter_swap(iter_a, iter_min);
+                std::iter_swap(i, min);
             }
         }
 
-        // DO NOT USE THIS FUNCTION. Slow implemenation. It's used for benchmark only.
+        // DO NOT USE THIS FUNCTION. It's used for benchmark only.
+        // It swaps elements using std::iter_swap instead of moving them using std::move. It works very slow.
         template <typename IterT>
         inline void insertion_sort_2(IterT first, IterT last) {
             if (first == last)
                 return;
 
             // for [first + 1, last)
-            for (auto iter = std::next(first); iter != last; ++iter) {
-                for (auto iter_curr = iter, iter_prev = std::prev(iter); *iter_prev > *iter_curr; --iter_prev, --iter_curr) {
-                    std::iter_swap(iter_prev, iter_curr);
-                    if (iter_prev == first)
+            for (auto i = std::next(first); i != last; ++i) {
+                for (auto j = i, prev_j = std::prev(i); *prev_j > *j; --prev_j, --j) {
+                    std::iter_swap(prev_j, j);
+                    if (prev_j == first)
                         break;
                 }
             }
         }
 
-        // DO NOT USE THIS FUNCTION. Slow implemenation. std::partition works much faster than self-implemented partitioning algorithm. 
-        // It's used for benchmark only.
+        // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
+        // It use self-implemented partitioning algorithm instead of std::partition that works mush faster.
         template< class IterT >
         inline void quick_sort_2(IterT first, IterT last) {
             if (first == last)
@@ -56,25 +93,15 @@ namespace sort {
             const auto pivot = *(first + (std::distance(first, last) / 2));
 
             // Partitioning. Hoare partition scheme
-            auto left = first;
-            auto right = std::prev(last);
-            while (left < right) {
-                while (*left < pivot) left++;
-                while (*right > pivot) right--;
-                if (left < right) {
-                    std::iter_swap(left, right);
-                    left++;
-                    right--;
-                }
-            }
+            // TODO:
 
-            quick_sort_2(first, left);
-            quick_sort_2(right, last);
+            //quick_sort_2(first, left);
+            //quick_sort_2(right, last);
         }
 
+        // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
         // ! Stack overflow on a SORTED large array ~ 4000 elements. Replaced by Hoare partition scheme
-        // DO NOT USE THIS FUNCTION. Can cause stack overflow. You can use it as Lomuto’s partition scheme reference code. 
-        // It's used for benchmark only.
+        // You can use it as Lomuto’s partition scheme reference code. 
         template< class IterT >
         inline void quick_sort_3(IterT first, IterT last) {
             if (first == last)
@@ -89,9 +116,9 @@ namespace sort {
             quick_sort_3(std::next(bound), last);
         }
 
+        // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
         // ! Stack overflow on a SORTED large array ~ 4000 elements. Replaced by Hoare partition scheme
-        // DO NOT USE THIS FUNCTION. Slow implemenation and can cause stack overflow. You can use it as Lomuto’s partition scheme reference code.  
-        // It's used for benchmark only.
+        // You can use it as Lomuto’s partition scheme reference code.  
         template< class IterT >
         inline void quick_sort_4(IterT first, IterT last) {
             if (first == last)
@@ -101,9 +128,9 @@ namespace sort {
             const auto pivot = std::prev(last); // pivot element is a last element
             auto bound = first;
             // for [first, last)
-            for (auto iter = first; iter != last; ++iter) {
-                if (*iter < *pivot) {
-                    std::iter_swap(bound, iter);
+            for (auto i = first; i != last; ++i) {
+                if (*i < *pivot) {
+                    std::iter_swap(bound, i);
                     ++bound;
                 }
             }

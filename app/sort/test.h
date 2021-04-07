@@ -119,6 +119,17 @@ private:
             std::cout << "Invocation time (ms): " << t << std::endl;
             std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
         }
+
+        {
+            SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
+
+            auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::cocktail_shaker_sort_2(begin(test_array), end(test_array)); });
+
+            std::cout << "Elements number: " << test_array.size() << std::endl;
+            std::cout << "Invocation time (ms): " << t << std::endl;
+            std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
+        }
+
     }
 
     void test_selection_sort() const {

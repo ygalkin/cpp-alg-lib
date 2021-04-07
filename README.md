@@ -6,7 +6,7 @@ bubble sort
 
 odd even sort (brick sort)
 
-cocktail shaker sort
+cocktail shaker sort (bidirectional Bubble sort)
 
 selection sort
 
