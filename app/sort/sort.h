@@ -8,6 +8,7 @@
 
 // bubble_sort
 // odd_even_sort
+// cocktail_shaker_sort
 // selection_sort
 // insertion_sort
 // quick_sort
@@ -43,18 +44,18 @@ namespace sort {
         }
     }
 
-    // Odd Even sort (Brick sort).
+    // Odd Even sort (Brick sort). It's extension of Bubble sort.
 
     template< class IterT >
     inline void odd_even_sort(IterT first, IterT last) {
         if (first == last)
             return;
 
-        bool is_sorted{ false };
+        auto is_sorted{ false };
         const auto prev_last{ std::prev(last) };
 
         while (!is_sorted) {
-            
+
             is_sorted = true;
 
             // for [first + 1, last - 1)
@@ -75,6 +76,48 @@ namespace sort {
                 }
             }
         }
+    }
+
+    // Cocktail shaker sort. It's extension of Bubble sort.
+
+    template< class IterT >
+    inline void cocktail_shaker_sort(IterT first, IterT last) {
+        if (first == last)
+            return;
+
+        auto is_swapped{ false };
+        auto prev_last{ std::prev(last) };
+        auto next_first{ first };
+
+        do {
+            // forward pass
+            is_swapped = false;
+
+            // for [first, last - 1)
+            for (auto iter = next_first; iter != prev_last; ++iter) {
+                const auto next_iter{ std::next(iter) };
+                if (*iter > *next_iter) {
+                    std::iter_swap(iter, next_iter);
+                    is_swapped = true;
+                }
+            }
+
+            if (!is_swapped)
+                break;
+            --prev_last;
+
+            // reverse pass
+
+            // for [last - 1, first)
+            for (auto iter = prev_last; iter != next_first; --iter) {
+                const auto prev_iter{ std::prev(iter) };
+                if (*iter < *prev_iter) {
+                    std::iter_swap(iter, prev_iter);
+                    is_swapped = true;
+                }
+            }
+            ++next_first;
+        } while (is_swapped);
     }
 
     // Selection Sort

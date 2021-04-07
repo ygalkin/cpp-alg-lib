@@ -6,6 +6,8 @@ bubble sort
 
 odd even sort (brick sort)
 
+cocktail shaker sort
+
 selection sort
 
 insertion sort
