@@ -4,6 +4,8 @@
 
 bubble sort
 
+odd even sort (brick sort)
+
 selection sort
 
 insertion sort

@@ -7,6 +7,7 @@
 #include <set>
 
 // bubble_sort
+// odd_even_sort
 // selection_sort
 // insertion_sort
 // quick_sort
@@ -22,6 +23,9 @@ namespace sort {
     // Stable : Yes
     template< class IterT >
     inline void bubble_sort(IterT first, IterT last) {
+        if (first == last)
+            return;
+
         // for [last, first)
         for (auto iter_a = last; iter_a != first; --iter_a) {
             auto is_swapped{ false };
@@ -39,6 +43,40 @@ namespace sort {
         }
     }
 
+    // Odd Even sort (Brick sort).
+
+    template< class IterT >
+    inline void odd_even_sort(IterT first, IterT last) {
+        if (first == last)
+            return;
+
+        bool is_sorted{ false };
+        const auto prev_last{ std::prev(last) };
+
+        while (!is_sorted) {
+            
+            is_sorted = true;
+
+            // for [first + 1, last - 1)
+            for (auto iter = std::next(first); iter < prev_last; iter = std::next(iter, 2)) {
+                const auto next_iter{ std::next(iter) };
+                if (*iter > *next_iter) {
+                    std::iter_swap(iter, next_iter);
+                    is_sorted = false;
+                }
+            }
+
+            // for [first, last - 1)
+            for (auto iter = first; iter < prev_last; iter = std::next(iter, 2)) {
+                const auto next_iter{ std::next(iter) };
+                if (*iter > *next_iter) {
+                    std::iter_swap(iter, next_iter);
+                    is_sorted = false;
+                }
+            }
+        }
+    }
+
     // Selection Sort
     // Time complexity: Worst n^2,  Average n^2, Best n^2
     // Space complexity: 1
@@ -49,8 +87,8 @@ namespace sort {
             return;
 
         // for [first, last-1)
-        const auto prev = std::prev(last);
-        for (auto iter = first; iter != prev; ++iter) {
+        const auto prev_last = std::prev(last);
+        for (auto iter = first; iter != prev_last; ++iter) {
             // find min element [iter + 1, last)
             const auto iter_min = std::min_element(std::next(iter), last);
             if (*iter_min < *iter)

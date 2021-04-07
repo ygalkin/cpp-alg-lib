@@ -9,6 +9,27 @@ namespace sort {
                 std::iter_swap(iter, std::min_element(iter, last));
         }
 
+        // The same as selection_sort2() but std::min_element replaced by self-implemented find min element loop
+        // DO NOT USE THIS FUNCTION. Slow implemenation. It's used for benchmark only.
+        template< class IterT >
+        inline void selection_sort_3(IterT first, IterT last) {
+            if (first == last)
+                return;
+
+            // for [first, last-1)
+            const auto prev_last = std::prev(last);
+            for (IterT iter_a = first; iter_a != prev_last; ++iter_a) {
+                IterT iter_min = iter_a;
+                // find min element [iter_a + 1, last)
+                for (IterT iter_b = std::next(iter_a); iter_b != last; ++iter_b) {
+                    if (*iter_b < *iter_min)
+                        iter_min = iter_b;
+                }
+
+                std::iter_swap(iter_a, iter_min);
+            }
+        }
+
         // DO NOT USE THIS FUNCTION. Slow implemenation. It's used for benchmark only.
         template <typename IterT>
         inline void insertion_sort_2(IterT first, IterT last) {
@@ -22,28 +43,6 @@ namespace sort {
                     if (iter_prev == first)
                         break;
                 }
-            }
-        }
-
-        // The same as selection_sort2() but std::min_element replaced by self-implemented find min element loop
-        // DO NOT USE THIS FUNCTION. Slow implemenation. It's used for benchmark only.
-        template< class IterT >
-        inline void selection_sort_3(IterT first, IterT last) {
-            if (first == last)
-                return;
-
-            // for [first, last-1)
-            const auto prev = std::prev(last);
-            for (IterT iter_a = first; iter_a != prev; ++iter_a) {
-                IterT iter_min = iter_a;
-                // find min element [iter_a + 1, last)
-                for (IterT iter_b = std::next(iter_a); iter_b != last; ++iter_b) {
-                    if (*iter_b < *iter_min) {
-                        iter_min = iter_b;
-                    }
-                }
-
-                std::iter_swap(iter_a, iter_min);
             }
         }
 

@@ -27,6 +27,7 @@ public:
 
     void run() {
         initialize();
+        test_odd_even_sort();
         test_selection_sort();
         test_insertion_sort();
         test_quick_sort();
@@ -61,6 +62,19 @@ private:
             SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
 
             auto t = helper::benchmark_call_ms([&test_array]() { sort::bubble_sort(begin(test_array), end(test_array)); });
+
+            std::cout << "Elements number: " << test_array.size() << std::endl;
+            std::cout << "Invocation time (ms): " << t << std::endl;
+            std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
+        }
+    }
+
+    void test_odd_even_sort() const {
+        std::cout << "=== Odd Even Sort ===" << std::endl;
+        {
+            SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
+
+            auto t = helper::benchmark_call_ms([&test_array]() { sort::odd_even_sort(begin(test_array), end(test_array)); });
 
             std::cout << "Elements number: " << test_array.size() << std::endl;
             std::cout << "Invocation time (ms): " << t << std::endl;
