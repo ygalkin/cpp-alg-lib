@@ -46,7 +46,7 @@ namespace sort {
         }
 
         // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
-        // The same as selection_sort2() but self-implemented "find min element" loop is used instead of std::min_element
+        // The same as selection_sort2() but "find min element" self-implemented loop is used instead of std::min_element
         template< class IterT >
         inline void selection_sort_3(IterT first, IterT last) {
             if (first == last)
