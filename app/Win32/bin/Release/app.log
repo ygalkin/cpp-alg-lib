@@ -1,0 +1,7 @@
+﻿  app.cpp
+C:\Yura\repo\red-platypus\app\sort\test.h(51,28): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 620 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  app.vcxproj -> C:\Yura\repo\red-platypus\bin\Win32\Release\app.exe
