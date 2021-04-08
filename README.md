@@ -1,4 +1,4 @@
-# red-platypus C++ 11 library
+# red-platypus C++ 14 library
 
 ## Sorting Algorithms using iterators
 
