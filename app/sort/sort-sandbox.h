@@ -46,7 +46,7 @@ namespace sort {
         }
 
         // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
-        // The same as selection_sort2() but self-implemented find min element loop is used instead of std::min_element
+        // The same as selection_sort2() but self-implemented "find min element" loop is used instead of std::min_element
         template< class IterT >
         inline void selection_sort_3(IterT first, IterT last) {
             if (first == last)
@@ -54,10 +54,10 @@ namespace sort {
 
             // for [first, last-1)
             const auto end = std::prev(last);
-            for (IterT i = first; i != end; ++i) {
-                IterT min = i;
+            for (auto i = first; i != end; ++i) {
+                auto min = i;
                 // find min element [i + 1, last)
-                for (IterT j = std::next(i); j != last; ++j) {
+                for (auto j = std::next(i); j != last; ++j) {
                     if (*j < *min)
                         min = j;
                 }
@@ -84,7 +84,7 @@ namespace sort {
         }
 
         // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
-        // It use self-implemented partitioning algorithm instead of std::partition that works mush faster.
+        // It use self-implemented partitioning algorithm instead of std::partition that works much faster.
         template< class IterT >
         inline void quick_sort_2(IterT first, IterT last) {
             if (first == last)
@@ -100,7 +100,7 @@ namespace sort {
         }
 
         // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
-        // ! Stack overflow on a SORTED large array ~ 4000 elements. Replaced by Hoare partition scheme
+        // ! Stack overflow on a SORTED large array ~ 4000 elements. Lomuto’s partition scheme replaced by Hoare partition scheme
         // You can use it as Lomuto’s partition scheme reference code. 
         template< class IterT >
         inline void quick_sort_3(IterT first, IterT last) {
@@ -117,7 +117,7 @@ namespace sort {
         }
 
         // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
-        // ! Stack overflow on a SORTED large array ~ 4000 elements. Replaced by Hoare partition scheme
+        // ! Stack overflow on a SORTED large array ~ 4000 elements. Lomuto’s partition scheme replaced by Hoare partition scheme
         // You can use it as Lomuto’s partition scheme reference code.  
         template< class IterT >
         inline void quick_sort_4(IterT first, IterT last) {

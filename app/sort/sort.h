@@ -53,11 +53,9 @@ namespace sort {
         if (first == last)
             return;
 
-        auto is_sorted{ false };
         const auto begin{ std::next(first) };
-        const auto end{ std::prev(last) };
-
-        while (!is_sorted) {
+        auto end{ std::prev(last) };
+        for (auto is_sorted{ false }; !is_sorted;) {
 
             is_sorted = true;
 
@@ -81,7 +79,7 @@ namespace sort {
         }
     }
 
-    // Cocktail shaker sort. Bidirectional Bubble sort. It's an extension of Bubble sort.
+    // Cocktail shaker sort. Bidirectional Bubble sort. It's a variation of Bubble sort.
 
     template< class IterT >
     inline void cocktail_shaker_sort(IterT first, IterT last) {
@@ -140,16 +138,16 @@ namespace sort {
         // for [first + 1, last)
         for (auto i = std::next(first); i != last; ++i) {
             auto val{ std::move(*i) };
-            auto i_this{ i };
-            for (auto prev_i = std::prev(i); *prev_i > val; --prev_i) {
-                *i_this = std::move(*prev_i);
-                i_this = prev_i;
-                if (prev_i == first)
+            auto hole{ i };
+            for (auto j = std::prev(i); *j > val; --j) {
+                *hole = std::move(*j);
+                hole = j;
+                if (j == first)
                     break;
             }
 
-            //if (*i_this != val)
-            *i_this = std::move(val);
+            //if (*hole != val)
+            *hole = std::move(val);
         }
     }
 
