@@ -4,9 +4,9 @@
 
 bubble sort
 
-odd even sort (brick sort)
+odd even sort (variation of bubble sort)
 
-cocktail shaker sort (bidirectional Bubble sort)
+cocktail shaker sort (bidirectional bubble sort)
 
 selection sort
 

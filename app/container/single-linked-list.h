@@ -10,13 +10,13 @@ namespace container {
         template< class NodeValT >
         struct list_node {
             list_node() = delete;
-            list_node(const NodeValT& val) : _val(val), _next(nullptr) {};
+            list_node(const NodeValT& val) : _next(nullptr), _val(val) {};
             list_node(const list_node& other) = delete;
             list_node(list_node&& other) = delete;
             list_node& operator = (const list_node& other) = delete;
             ~list_node() = default;
 
-            list_node<NodeValT>* _next = nullptr;
+            list_node<NodeValT>* _next;
             NodeValT _val;
         };
 
@@ -26,7 +26,7 @@ namespace container {
 
         list_node<ValT>* _get_node(size_t index) {
             list_node<ValT>* current = _head;
-            auto i{ 0 };
+            decltype(index) i{ 0 };
 
             while (current != nullptr && i != index) {
                 ++i;
