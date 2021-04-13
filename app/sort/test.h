@@ -30,16 +30,7 @@ namespace sort
 
         void run() {
             initialize();
-            test_std_sort();
-            test_quick_sort();
-            test_selection_sort();
-            test_insertion_sort();
-            test_tree_sort();
-            test_merge_sort();
-            test_heap_sort();
-            test_odd_even_sort();
-            test_cocktail_shaker_sort();
-            test_bubble_sort();
+            test_cases();
         }
 
     private:
@@ -61,227 +52,40 @@ namespace sort
             //std::sort(begin(_unsorted_test_array), end(_unsorted_test_array));
         }
 
-        void test_std_sort() const {
-            std::cout << "=== std::sort ===" << std::endl;
-            {
+        void test_cases() const {
+            using IterType = SORT_CONTAINER::iterator;
+
+            std::vector<std::pair<std::string, std::function<void(IterType b, IterType e)>>> test_cases{
+                {"std::sort", [](IterType b, IterType e) { std::sort(b, e); } },
+                {"std::stable_sort", [](IterType b, IterType e) { std::stable_sort(b, e); } },
+                {"bubble_sort", [](IterType b, IterType e) { sort::bubble_sort(b, e); }},
+                {"odd_even_sort", [](IterType b, IterType e) { sort::odd_even_sort(b, e); }},
+                {"cocktail_shaker_sort", [](IterType b, IterType e) { sort::cocktail_shaker_sort(b, e); }},
+                {"cocktail_shaker_sort_2", [](IterType b, IterType e) { sort::sandbox::cocktail_shaker_sort_2(b, e); }},
+                {"selection_sort", [](IterType b, IterType e) { sort::selection_sort(b, e); }},
+                {"selection_sort_2", [](IterType b, IterType e) { sort::sandbox::selection_sort_2(b, e); }},
+                {"selection_sort_3", [](IterType b, IterType e) { sort::sandbox::selection_sort_3(b, e); }},
+                {"insertion_sort", [](IterType b, IterType e) { sort::insertion_sort(b, e); }},
+                {"insertion_sort_2", [](IterType b, IterType e) { sort::sandbox::insertion_sort_2(b, e); }},
+                {"quick_sort", [](IterType b, IterType e) { sort::quick_sort(b, e); }},
+                {"quick_sort_2", [](IterType b, IterType e) { sort::sandbox::quick_sort_2(b, e); }},
+                {"quick_sort_3", [](IterType b, IterType e) { sort::sandbox::quick_sort_3(b, e); }},
+                {"quick_sort_4", [](IterType b, IterType e) { sort::sandbox::quick_sort_4(b, e); }},
+                {"unbalanced_tree_sort", [](IterType b, IterType e) { sort::unbalanced_tree_sort(b, e); }},
+                {"balanced_tree_sort", [](IterType b, IterType e) { sort::balanced_tree_sort(b, e); }},
+                {"merge_sort", [](IterType b, IterType e) { sort::merge_sort(b, e); }},
+                {"heap_sort", [](IterType b, IterType e) { sort::heap_sort(b, e); }},
+            };
+
+            for (auto f : test_cases) {
+                std::cout << f.first << " : ";
+
                 SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
+                auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
-                auto t = helper::benchmark_call_ms([&test_array]() { std::sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { std::stable_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-        }
-
-        void test_bubble_sort() const {
-            std::cout << "=== Bubble Sort ===" << std::endl;
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::bubble_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-        }
-
-        void test_odd_even_sort() const {
-            std::cout << "=== Odd Even Sort ===" << std::endl;
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::odd_even_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-        }
-
-        void test_cocktail_shaker_sort() const {
-            std::cout << "=== Cocktail Shaker Sort ===" << std::endl;
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::cocktail_shaker_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::cocktail_shaker_sort_2(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-
-        }
-
-        void test_selection_sort() const {
-            std::cout << "=== Selection Sort ===" << std::endl;
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::selection_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::selection_sort_2(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::selection_sort_3(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-        }
-
-        void test_insertion_sort() const {
-            std::cout << "=== Insertion Sort ===" << std::endl;
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::insertion_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-
-                //helper::out_each(std::cout, _unsorted_test_array) << std::endl;
-                //helper::out_each(std::cout, test_array) << std::endl;
-            }
-
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::insertion_sort_2(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-        }
-
-        void test_quick_sort() const {
-            std::cout << "=== Quick Sort ===" << std::endl;
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::quick_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::quick_sort_2(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::quick_sort_3(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::sandbox::quick_sort_4(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-        }
-
-        void test_tree_sort() const {
-            std::cout << "=== Tree Sort ===" << std::endl;
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::unbalanced_tree_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::balanced_tree_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-        }
-
-        void test_merge_sort() const {
-            std::cout << "=== Merge Sort ===" << std::endl;
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::merge_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
-            }
-        }
-
-        void test_heap_sort() const {
-            std::cout << "=== Heap Sort ===" << std::endl;
-            {
-                SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
-
-                auto t = helper::benchmark_call_ms([&test_array]() { sort::heap_sort(begin(test_array), end(test_array)); });
-
-                std::cout << "Elements number: " << test_array.size() << std::endl;
-                std::cout << "Invocation time (ms): " << t << std::endl;
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "FAIL") << std::endl;
+                std::cout << "Invocation time (ms): " << t << ", ";
+                std::cout << "Elements number: " << test_array.size() << ", ";
+                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "[FAIL]") << std::endl;
             }
         }
     };

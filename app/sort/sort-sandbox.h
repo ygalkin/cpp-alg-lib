@@ -90,7 +90,7 @@ namespace sort {
             if (first == last)
                 return;
 
-            const auto pivot = *(first + (std::distance(first, last) / 2));
+            //const auto pivot = *(first + (std::distance(first, last) / 2));
 
             // Partitioning. Hoare partition scheme
             // TODO:
