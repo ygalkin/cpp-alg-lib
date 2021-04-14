@@ -77,13 +77,13 @@ namespace sort
         }
 
         void unsorted_array_test_case() const {
-            std::unordered_set<std::string> test_case_skip_list{
+            const std::unordered_set<std::string> test_case_skip_list{
                 "quick_sort_2" // not implemented
             };
 
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
-            for (auto f : _sort_algorithms) {
+            for (const auto& f : _sort_algorithms) {
                 std::cout << f.first << " : ";
                 if (test_case_skip_list.find(f.first) != end(test_case_skip_list)) {
                     std::cout << "[SKIPPED]" << std::endl;
@@ -91,6 +91,7 @@ namespace sort
                 }
 
                 SORT_CONTAINER test_array(begin(_unsorted_test_array), end(_unsorted_test_array));
+
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
                 std::cout << "Invocation time (ms): " << t << ", ";
@@ -100,15 +101,15 @@ namespace sort
         }
 
         void sorted_array_test_case() const {
-            std::unordered_set<std::string> test_case_skip_list{
+            const std::unordered_set<std::string> test_case_skip_list{
                 "quick_sort_2", // not implemented
-                "quick_sort_3", // stack overflow
-                "quick_sort_4" // stack overflow
+                "quick_sort_3",
+                "quick_sort_4"
             };
 
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
-            for (auto f : _sort_algorithms) {
+            for (const auto& f : _sort_algorithms) {
                 std::cout << f.first << " : ";
                 if (test_case_skip_list.find(f.first) != end(test_case_skip_list)) {
                     std::cout << "[SKIPPED]" << std::endl;
@@ -116,6 +117,7 @@ namespace sort
                 }
 
                 SORT_CONTAINER test_array(begin(_sorted_test_array), end(_sorted_test_array));
+
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
                 std::cout << "Invocation time (ms): " << t << ", ";
@@ -125,11 +127,11 @@ namespace sort
         }
 
         void empty_array_test_case() const {
-            std::unordered_set<std::string> test_case_skip_list{};
+            const std::unordered_set<std::string> test_case_skip_list{};
 
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
-            for (auto f : _sort_algorithms) {
+            for (const auto& f : _sort_algorithms) {
                 std::cout << f.first << " : ";
                 if (test_case_skip_list.find(f.first) != end(test_case_skip_list)) {
                     std::cout << "[SKIPPED]" << std::endl;
@@ -137,6 +139,7 @@ namespace sort
                 }
 
                 SORT_CONTAINER test_array;
+
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
                 std::cout << "Invocation time (ms): " << t << ", ";
@@ -146,11 +149,11 @@ namespace sort
         }
 
         void one_element_array_test_case() const {
-            std::unordered_set<std::string> test_case_skip_list{ "cocktail_shaker_sort" };
+            const std::unordered_set<std::string> test_case_skip_list{ "cocktail_shaker_sort" };
 
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
-            for (auto f : _sort_algorithms) {
+            for (const auto& f : _sort_algorithms) {
                 std::cout << f.first << " : ";
                 if (test_case_skip_list.find(f.first) != end(test_case_skip_list)) {
                     std::cout << "[SKIPPED]" << std::endl;
@@ -158,6 +161,7 @@ namespace sort
                 }
                 const auto ELEMENT_TO_SORT{ 42 };
                 SORT_CONTAINER test_array{ ELEMENT_TO_SORT };
+
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
                 std::cout << "Invocation time (ms): " << t << ", ";
