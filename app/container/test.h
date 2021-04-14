@@ -30,7 +30,7 @@ namespace container {
         static constexpr std::array<int, 11> _test_array{ {10, 4, 0, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
 
         void test_binary_search_tree() {
-            std::cout << "-- BST ---" << std::endl;
+            std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
             binary_search_tree<int> bst;
 
             for (auto item : _test_array) {
@@ -50,7 +50,7 @@ namespace container {
         }
 
         void test_single_linked_list() {
-            std::cout << "-- Single Linked List ---" << std::endl;
+            std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
             container::single_linked_list<std::string> sll;
             sll.push_back("str001");
@@ -68,5 +68,4 @@ namespace container {
             assert(sll.empty());
         }
     };
-
 }
