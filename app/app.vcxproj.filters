@@ -36,6 +36,15 @@
     <ClInclude Include="sort\sort-sandbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="smart-ptr\single-ptr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="smart-ptr\test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="smart-ptr\count-ptr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp">
