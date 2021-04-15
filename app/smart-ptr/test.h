@@ -4,7 +4,8 @@
 
 #include <string>
 #include <iostream>
-#include<cassert>
+#include <cassert>
+#include <functional>
 
 namespace smart_ptr {
     class test {
@@ -23,6 +24,7 @@ namespace smart_ptr {
         void test_single_ptr() const {
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
+            // default deleter
             single_ptr<std::string> smart_ptr(new std::string("test1"));
             auto smart_ptr2 = std::move(smart_ptr);
             assert(smart_ptr.get() == nullptr);
@@ -33,6 +35,11 @@ namespace smart_ptr {
             std::cout << smart_ptr2.release()->c_str() << std::endl;
             assert(smart_ptr2.get() == nullptr);
             smart_ptr2.reset(nullptr);
+
+            // custom deleter
+            single_ptr<std::string, std::function<void(std::string*)>> custom_ptr(
+                new std::string("test1"),
+                [](std::string* p) { delete p; });
         }
 
         void test_count_ptr() const {

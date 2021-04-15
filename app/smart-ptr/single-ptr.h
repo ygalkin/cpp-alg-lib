@@ -16,6 +16,8 @@ namespace smart_ptr {
         single_ptr() = delete;
         single_ptr(T* ptr) noexcept : _ptr{ ptr } {
         }
+        single_ptr(T* ptr, Deleter d) noexcept : _ptr{ ptr }, _deleter{ d } {
+        }
         // non copy constructible
         single_ptr(const single_ptr& other) = delete;
         // non copy assignable
@@ -28,8 +30,7 @@ namespace smart_ptr {
         // move assignment
         single_ptr& operator = (single_ptr&& other) noexcept {
             if (this != &other) {
-                Deleter d;
-                d(_ptr);
+                _deleter(_ptr);
 
                 _ptr = other._ptr;
                 other._ptr = nullptr;
@@ -39,16 +40,14 @@ namespace smart_ptr {
         }
 
         ~single_ptr() {
-            Deleter d;
-            d(_ptr);
+            _deleter(_ptr);
             _ptr = nullptr;
         }
 
         void reset(T* p) noexcept {
             T* old_ptr = _ptr;
             _ptr = p;
-            Deleter d;
-            d(old_ptr);
+            _deleter(old_ptr);
         }
 
         T* release() noexcept {
@@ -71,5 +70,6 @@ namespace smart_ptr {
 
     private:
         T* _ptr = nullptr;
+        Deleter _deleter;
     };
 }

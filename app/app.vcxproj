@@ -155,7 +155,7 @@
     <ClInclude Include="container\binary-search-tree.h" />
     <ClInclude Include="container\single-linked-list.h" />
     <ClInclude Include="container\test.h" />
-    <ClInclude Include="helper.h" />
+    <ClInclude Include="helper\helper.h" />
     <ClInclude Include="smart-ptr\count-ptr.h" />
     <ClInclude Include="smart-ptr\single-ptr.h" />
     <ClInclude Include="smart-ptr\test.h" />

@@ -4,7 +4,7 @@
 
 #include "single-linked-list.h"
 #include "binary-search-tree.h"
-#include "../helper.h"
+#include "../helper/helper.h"
 
 #include<iostream>
 #include<list>

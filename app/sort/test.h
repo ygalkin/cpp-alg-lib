@@ -2,7 +2,7 @@
 
 #include "sort.h"
 #include "sort-sandbox.h"
-#include "../helper.h"
+#include "../helper/helper.h"
 
 #include <iostream>
 #include <list>
