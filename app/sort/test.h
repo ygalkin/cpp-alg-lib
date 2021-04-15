@@ -53,10 +53,10 @@ namespace sort
 
         void run() {
             initialize();
-            empty_array_test_case();
-            one_element_array_test_case();
-            sorted_array_test_case();
-            unsorted_array_test_case();
+            test_empty_array();
+            test_one_element_array();
+            test_sorted_array();
+            test_unsorted_array();
         }
 
     private:
@@ -76,7 +76,7 @@ namespace sort
             std::sort(begin(_sorted_test_array), end(_sorted_test_array));
         }
 
-        void unsorted_array_test_case() const {
+        void test_unsorted_array() const {
             const std::unordered_set<std::string> test_case_skip_list{
                 "quick_sort_2" // not implemented
             };
@@ -100,7 +100,7 @@ namespace sort
             }
         }
 
-        void sorted_array_test_case() const {
+        void test_sorted_array() const {
             const std::unordered_set<std::string> test_case_skip_list{
                 "quick_sort_2", // not implemented
                 "quick_sort_3",
@@ -126,7 +126,7 @@ namespace sort
             }
         }
 
-        void empty_array_test_case() const {
+        void test_empty_array() const {
             const std::unordered_set<std::string> test_case_skip_list{};
 
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
@@ -148,7 +148,7 @@ namespace sort
             }
         }
 
-        void one_element_array_test_case() const {
+        void test_one_element_array() const {
             const std::unordered_set<std::string> test_case_skip_list{ "cocktail_shaker_sort" };
 
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;

@@ -188,13 +188,18 @@ namespace sort {
 
     // Heap Sort
 
-    template< class IterT >
-    inline void heap_sort(IterT first, IterT last) {
+    template< class IterT, class Compare>
+    inline void heap_sort(IterT first, IterT last, Compare comp) {
         if (first == last)
             return;
 
-        std::make_heap(first, last);
-        std::sort_heap(first, last);
+        std::make_heap(first, last, comp);
+        std::sort_heap(first, last, comp);
+    }
+
+    template< class IterT >
+    inline void heap_sort(IterT first, IterT last) {
+        heap_sort(first, last, std::less<>{});
     }
 
     // Tree Sort
