@@ -4,6 +4,7 @@
 
 #include <string>
 #include <iostream>
+#include<cassert>
 
 namespace smart_ptr {
     class test {
@@ -15,18 +16,26 @@ namespace smart_ptr {
         ~test() = default;
 
         void run() const {
-            single_ptr_test_case();
-            count_ptr_test_case();
+            test_single_ptr();
+            test_count_ptr();
         }
 
-        void single_ptr_test_case() const {
+        void test_single_ptr() const {
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
-            single_ptr<std::string> ptr(new std::string("test"));
-            auto ptr2 = std::move(ptr);
+            single_ptr<std::string> smart_ptr(new std::string("test1"));
+            auto smart_ptr2 = std::move(smart_ptr);
+            assert(smart_ptr.get() == nullptr);
+            smart_ptr2->append("test2");
+            (*smart_ptr2).append("test3");
+            auto raw_ptr = smart_ptr2.get();
+            std::cout << raw_ptr->c_str() << std::endl;
+            std::cout << smart_ptr2.release()->c_str() << std::endl;
+            assert(smart_ptr2.get() == nullptr);
+            smart_ptr2.reset(nullptr);
         }
 
-        void count_ptr_test_case() const {
+        void test_count_ptr() const {
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
         }
     };
