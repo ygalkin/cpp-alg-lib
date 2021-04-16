@@ -24,9 +24,6 @@
     <ClInclude Include="container\test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="container\single-linked-list.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sort\sort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -43,6 +40,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="helper\helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="container\singly-linked-list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

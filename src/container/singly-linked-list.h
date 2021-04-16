@@ -5,7 +5,7 @@
 namespace container {
 
     template< class ValT >
-    class single_linked_list {
+    class singly_linked_list {
     protected:
         template< class NodeValT >
         struct list_node {
@@ -14,6 +14,7 @@ namespace container {
             list_node(const list_node& other) = delete;
             list_node(list_node&& other) = delete;
             list_node& operator = (const list_node& other) = delete;
+            list_node& operator = (list_node&& other) = delete;
             ~list_node() = default;
 
             list_node<NodeValT>* _next;
@@ -41,11 +42,12 @@ namespace container {
         }
 
     public:
-        single_linked_list() = default;
-        single_linked_list(const single_linked_list& other) = default;
-        single_linked_list(single_linked_list&& other) = default;
-        single_linked_list& operator = (const single_linked_list& other) = default;
-        virtual ~single_linked_list() { clear(); }
+        singly_linked_list() = default;
+        singly_linked_list(const singly_linked_list& other) = default;
+        singly_linked_list(singly_linked_list&& other) = default;
+        singly_linked_list& operator = (const singly_linked_list& other) = default;
+        singly_linked_list& operator = (singly_linked_list&& other) = default;
+        virtual ~singly_linked_list() { clear(); }
 
         // Get the value of the index-th node in the linked list. 
         // If the index is invalid, std::out_of_range exception is generated.
@@ -168,6 +170,7 @@ namespace container {
             return false; // if fast == nullptr we have reached end of the list       
         }
 
+        // TODO:
         // insert_after
         // for_each
     };

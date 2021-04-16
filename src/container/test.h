@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "single-linked-list.h"
+#include "singly-linked-list.h"
 #include "binary-search-tree.h"
 #include "../helper/helper.h"
 
@@ -19,11 +19,12 @@ namespace container {
         test(const test& other) = delete;
         test(test&& other) = default;
         test& operator = (const test& other) = delete;
+        test& operator = (test&& other) = delete;
         ~test() = default;
 
         void run() {
             test_binary_search_tree();
-            test_single_linked_list();
+            test_singly_linked_list();
         }
 
     private:
@@ -49,10 +50,10 @@ namespace container {
             assert(bst.empty());
         }
 
-        void test_single_linked_list() {
+        void test_singly_linked_list() {
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
-            container::single_linked_list<std::string> sll;
+            container::singly_linked_list<std::string> sll;
             sll.push_back("str001");
             sll.push_front("str002");
             sll.insert_before(0, "str003");

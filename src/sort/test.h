@@ -13,7 +13,6 @@
 
 namespace sort
 {
-
     class test {
     private:
         using SORT_TYPE = int;
@@ -49,6 +48,7 @@ namespace sort
         test(const test& other) = delete;
         test(test&& other) = delete;
         test& operator = (const test& other) = delete;
+        test& operator = (test&& other) = delete;
         ~test() = default;
 
         void run() {

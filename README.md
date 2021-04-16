@@ -1,6 +1,6 @@
-# red-platypus C++ 14 library
+# red-platypus is a small header-only library for C++ 14.
 
-## Sorting Algorithms using iterators
+## Sorting Algorithms using STL iterators
 
 bubble sort
 
@@ -26,6 +26,6 @@ balanced tree sort
 
 binary search tree
 
-single linked list
+singly linked list
 
 ## Smart Pointers

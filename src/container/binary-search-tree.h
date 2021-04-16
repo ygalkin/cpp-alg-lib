@@ -16,6 +16,7 @@ namespace container {
             tree_node(const tree_node& other) = delete;
             tree_node(tree_node&& other) = delete;
             tree_node& operator = (const tree_node& other) = delete;
+            tree_node& operator = (tree_node&& other) = delete;
             ~tree_node() = default;
 
             tree_node<NodeKeyT>* _left;
@@ -82,6 +83,7 @@ namespace container {
         binary_search_tree(const binary_search_tree& other) = default;
         binary_search_tree(binary_search_tree&& other) = default;
         binary_search_tree& operator = (const binary_search_tree& other) = default;
+        binary_search_tree& operator = (binary_search_tree&& other) = default;
         virtual ~binary_search_tree() { clear(); }
 
         template <order_type Order>
@@ -106,6 +108,7 @@ namespace container {
             return (_root == nullptr);
         }
 
+        // TODO:
         // erase(key)
         // size_type size
 

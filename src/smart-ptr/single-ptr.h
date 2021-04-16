@@ -2,7 +2,7 @@
 
 namespace smart_ptr {
 
-    // deleter
+    // default deleter
     template <typename T>
     struct default_deleter {
         void operator() (T* p) {

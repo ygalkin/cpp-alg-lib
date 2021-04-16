@@ -14,6 +14,7 @@ namespace smart_ptr {
         test(const test& other) = delete;
         test(test&& other) = default;
         test& operator = (const test& other) = delete;
+        test& operator = (test&& other) = delete;
         ~test() = default;
 
         void run() const {
