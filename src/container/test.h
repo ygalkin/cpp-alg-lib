@@ -28,7 +28,7 @@ namespace container {
         }
 
     private:
-        static constexpr std::array<int, 11> _test_array{ {10, 4, 0, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
+        static constexpr std::array<int, 13> _test_array{ {10, 4, 0, -9, -9, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
 
         void test_binary_search_tree() {
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
@@ -42,7 +42,7 @@ namespace container {
             bst.for_each<order_type::sort_order>([&arr](auto& key) { arr.push_back(key); });
             helper::out_each(std::cout, arr) << std::endl;
 
-            assert(bst.is_bst(std::numeric_limits<int>::min(), std::numeric_limits<int>::max()));
+            assert(bst.is_bst());
             assert(bst.find(33));
             assert(!bst.find(-33));
             assert(!bst.empty());

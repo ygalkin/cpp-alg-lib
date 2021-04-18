@@ -66,16 +66,16 @@ namespace container {
             delete parent;
         }
 
-        bool _is_bst(const tree_node<KeyT>* node, const KeyT& min, const KeyT& max) const {
+        bool _is_bst(const tree_node<KeyT>* node, const tree_node<KeyT>* min, const tree_node<KeyT>* max) const {
             if (node == nullptr) {
                 return true;
             }
 
-            if (node->_key < min || node->_key > max) {
+            if ((min && node->_key < min->_key) || (max && node->_key > max->_key)) {
                 return false;
             }
 
-            return _is_bst(node->_left, min, node->_key - 1) && _is_bst(node->_right, node->_key, max);
+            return _is_bst(node->_left, min, node) && _is_bst(node->_right, node, max);
         }
 
     public:
@@ -112,8 +112,8 @@ namespace container {
         // erase(key)
         // size_type size
 
-        bool is_bst(const KeyT& min, const KeyT& max) const {
-            return _is_bst(_root, min, max);
+        bool is_bst() const {
+            return _is_bst(_root, nullptr, nullptr);
         }
     };
 

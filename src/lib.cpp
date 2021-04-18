@@ -3,7 +3,7 @@
 #include "container/test.h"
 
 int main() {
+    container::test().run();
     smart_ptr::test().run();
     sort::test().run();
-    container::test().run();    
 }
