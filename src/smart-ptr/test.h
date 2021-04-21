@@ -6,8 +6,20 @@
 #include <iostream>
 #include <cassert>
 #include <functional>
+#include <cstdio>
+#include <fstream>
+
+
+
+#pragma warning(disable:4996)
 
 namespace smart_ptr {
+
+    //void close_file(std::FILE* fp) {
+    //    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!";
+    //    std::fclose(fp);
+    //}
+
     class test {
     public:
         test() = default;
@@ -41,6 +53,11 @@ namespace smart_ptr {
             single_ptr<std::string, std::function<void(std::string*)>> custom_ptr(
                 new std::string("test1"),
                 [](std::string* p) { delete p; });
+
+            //std::ofstream("c:\\temp\\demo1.txt") << 'x';
+            ////std::unique_ptr<std::FILE, decltype(&close_file)> fp(std::fopen("c:\\temp\\demo1.txt", "r"), &close_file);
+            //single_ptr<std::FILE, decltype(&close_file)> fp(std::fopen("c:\\temp\\demo1.txt", "r"), &close_file);
+            //std::FILE* k = fp.get();
         }
 
         void test_count_ptr() const {
