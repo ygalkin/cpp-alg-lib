@@ -5,6 +5,7 @@
 #include "singly-linked-list.h"
 #include "binary-search-tree.h"
 #include "../helper/helper.h"
+#include "trie.h"
 
 #include<iostream>
 #include<list>
@@ -25,6 +26,7 @@ namespace container {
         void run() {
             test_binary_search_tree();
             test_singly_linked_list();
+            test_trie();
         }
 
     private:
@@ -67,6 +69,17 @@ namespace container {
             sll.erase(2);
             sll.clear();
             assert(sll.empty());
+        }
+
+        void test_trie() {
+            std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
+
+            container::trie t;
+            t.insert("test001");
+            t.insert("test002");
+            t.insert("test003");
+            t.search("test001");
+            t.starts_with("test");
         }
     };
 }

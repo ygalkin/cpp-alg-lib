@@ -45,6 +45,9 @@
     <ClInclude Include="container\singly-linked-list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="container\trie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib.cpp">

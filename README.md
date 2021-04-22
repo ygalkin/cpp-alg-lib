@@ -28,4 +28,6 @@ binary search tree
 
 singly linked list
 
+trie
+
 ## Smart Pointers
