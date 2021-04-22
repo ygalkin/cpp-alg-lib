@@ -61,11 +61,11 @@ namespace container {
             sll.insert_before(0, "str003");
             assert(!sll.has_cycle());
             auto i = sll.at(0);
-            std::cout << i;
+            std::cout << i << std::endl;
             i = sll.at(1);
-            std::cout << i;
+            std::cout << i << std::endl;
             i = sll.at(2);
-            std::cout << i;
+            std::cout << i << std::endl;
             sll.erase(2);
             sll.clear();
             assert(sll.empty());

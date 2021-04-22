@@ -28,6 +28,9 @@ binary search tree
 
 singly linked list
 
-trie
+trie (prefix tree)
 
 ## Smart Pointers
+
+single_ptr
+
