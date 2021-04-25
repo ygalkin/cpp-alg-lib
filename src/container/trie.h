@@ -64,5 +64,6 @@ namespace container {
         // TODO
         // clear
         // for_each
+        // empty
     };
 }
