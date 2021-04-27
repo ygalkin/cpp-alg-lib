@@ -123,9 +123,3 @@ heap_sort : time (ms): 0, array size: 1
 ===============================================================================
 All tests passed (83 assertions in 8 test cases)
 ```
-
-```
-{o,o}
-./)_)
-^^ ^^
-```
