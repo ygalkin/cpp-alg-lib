@@ -1,4 +1,4 @@
-# Red-platypus is a small header-only library for C++ 14.
+# Header-only library for C++ 14.
 
 ## External dependency
 
@@ -122,4 +122,10 @@ merge_sort : time (ms): 0, array size: 1
 heap_sort : time (ms): 0, array size: 1
 ===============================================================================
 All tests passed (83 assertions in 8 test cases)
+```
+
+```
+{o,o}
+./)_)
+^^ ^^
 ```
