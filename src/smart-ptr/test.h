@@ -4,18 +4,11 @@
 #include "single-ptr.h"
 
 #include <string>
-#include <iostream>
 #include <functional>
-#include <cstdio>
-#include <fstream>
-
-//#pragma warning(disable:4996)
 
 namespace smart_ptr {
 
     TEST_CASE("single_ptr", "[smart_ptr]") {
-
-
         // default deleter
         single_ptr<std::string> smart_ptr(new std::string("test1"));
         auto smart_ptr2 = std::move(smart_ptr);
