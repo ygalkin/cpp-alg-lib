@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../container/binary-search-tree.h"
+#include "binary-search-tree.h"
 
 #include <algorithm>
 #include <cassert>

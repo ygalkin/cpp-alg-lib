@@ -2,7 +2,7 @@
 
 #include "sort.h"
 #include "sort-sandbox.h"
-#include "../helper/helper.h"
+#include "helper.h"
 
 #include <iostream>
 #include <list>
@@ -11,56 +11,41 @@
 #include <vector>
 #include <unordered_set>
 
-namespace sort
-{
-    class test {
-    private:
-        using SORT_TYPE = int;
-        using SORT_CONTAINER = std::vector<SORT_TYPE>;
-        using IterType = SORT_CONTAINER::iterator;
+namespace sort {
 
-        const std::vector<std::pair<std::string, std::function<void(IterType b, IterType e)>>> _sort_algorithms{
-            {"std::sort", [](IterType b, IterType e) { std::sort(b, e); } },
-            {"std::stable_sort", [](IterType b, IterType e) { std::stable_sort(b, e); } },
-            {"bubble_sort", [](IterType b, IterType e) { sort::bubble_sort(b, e); }},
-            {"odd_even_sort", [](IterType b, IterType e) { sort::odd_even_sort(b, e); }},
-            {"cocktail_shaker_sort", [](IterType b, IterType e) { sort::cocktail_shaker_sort(b, e); }},
-            {"cocktail_shaker_sort_2", [](IterType b, IterType e) { sort::sandbox::cocktail_shaker_sort_2(b, e); }},
-            {"selection_sort", [](IterType b, IterType e) { sort::selection_sort(b, e); }},
-            {"selection_sort_2", [](IterType b, IterType e) { sort::sandbox::selection_sort_2(b, e); }},
-            {"selection_sort_3", [](IterType b, IterType e) { sort::sandbox::selection_sort_3(b, e); }},
-            {"insertion_sort", [](IterType b, IterType e) { sort::insertion_sort(b, e); }},
-            {"insertion_sort_2", [](IterType b, IterType e) { sort::sandbox::insertion_sort_2(b, e); }},
-            {"quick_sort", [](IterType b, IterType e) { sort::quick_sort(b, e); }},
-            {"quick_sort_2", [](IterType b, IterType e) { sort::sandbox::quick_sort_2(b, e); }},
-            {"quick_sort_3", [](IterType b, IterType e) { sort::sandbox::quick_sort_3(b, e); }},
-            {"quick_sort_4", [](IterType b, IterType e) { sort::sandbox::quick_sort_4(b, e); }},
-            {"unbalanced_tree_sort", [](IterType b, IterType e) { sort::unbalanced_tree_sort(b, e); }},
-            {"balanced_tree_sort", [](IterType b, IterType e) { sort::balanced_tree_sort(b, e); }},
-            {"merge_sort", [](IterType b, IterType e) { sort::merge_sort(b, e); }},
-            {"heap_sort", [](IterType b, IterType e) { sort::heap_sort(b, e); }},
-        };
-        std::array<SORT_TYPE, 3000> _unsorted_test_array{ 0 };
-        std::vector<SORT_TYPE> _sorted_test_array;
+    using SORT_TYPE = int;
+    using SORT_CONTAINER = std::vector<SORT_TYPE>;
+    using IterType = SORT_CONTAINER::iterator;
 
-    public:
-        test() = default;
-        test(const test& other) = delete;
-        test(test&& other) = delete;
-        test& operator = (const test& other) = delete;
-        test& operator = (test&& other) = delete;
-        ~test() = default;
+    static const std::vector<std::pair<std::string, std::function<void(IterType b, IterType e)>>> _sort_algorithms{
+        {"std::sort", [](IterType b, IterType e) { std::sort(b, e); } },
+        {"std::stable_sort", [](IterType b, IterType e) { std::stable_sort(b, e); } },
+        {"bubble_sort", [](IterType b, IterType e) { sort::bubble_sort(b, e); }},
+        {"odd_even_sort", [](IterType b, IterType e) { sort::odd_even_sort(b, e); }},
+        {"cocktail_shaker_sort", [](IterType b, IterType e) { sort::cocktail_shaker_sort(b, e); }},
+        {"cocktail_shaker_sort_2", [](IterType b, IterType e) { sort::sandbox::cocktail_shaker_sort_2(b, e); }},
+        {"selection_sort", [](IterType b, IterType e) { sort::selection_sort(b, e); }},
+        {"selection_sort_2", [](IterType b, IterType e) { sort::sandbox::selection_sort_2(b, e); }},
+        {"selection_sort_3", [](IterType b, IterType e) { sort::sandbox::selection_sort_3(b, e); }},
+        {"insertion_sort", [](IterType b, IterType e) { sort::insertion_sort(b, e); }},
+        {"insertion_sort_2", [](IterType b, IterType e) { sort::sandbox::insertion_sort_2(b, e); }},
+        {"quick_sort", [](IterType b, IterType e) { sort::quick_sort(b, e); }},
+        {"quick_sort_2", [](IterType b, IterType e) { sort::sandbox::quick_sort_2(b, e); }},
+        {"quick_sort_3", [](IterType b, IterType e) { sort::sandbox::quick_sort_3(b, e); }},
+        {"quick_sort_4", [](IterType b, IterType e) { sort::sandbox::quick_sort_4(b, e); }},
+        {"unbalanced_tree_sort", [](IterType b, IterType e) { sort::unbalanced_tree_sort(b, e); }},
+        {"balanced_tree_sort", [](IterType b, IterType e) { sort::balanced_tree_sort(b, e); }},
+        {"merge_sort", [](IterType b, IterType e) { sort::merge_sort(b, e); }},
+        {"heap_sort", [](IterType b, IterType e) { sort::heap_sort(b, e); }},
+    };
+    std::array<SORT_TYPE, 3000> _unsorted_test_array{ 0 };
+    std::vector<SORT_TYPE> _sorted_test_array;
 
-        void run() {
-            initialize();
-            test_empty_array();
-            test_one_element_array();
-            test_sorted_array();
-            test_unsorted_array();
-        }
+    TEST_CASE("Sort") {
 
-    private:
-        void initialize() {
+        SECTION("initialize") {
+            std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
+
             _sorted_test_array.clear();
 
             // Fill unsorted_test_array with random data
@@ -76,7 +61,7 @@ namespace sort
             std::sort(begin(_sorted_test_array), end(_sorted_test_array));
         }
 
-        void test_unsorted_array() const {
+        SECTION("test_unsorted_array") {
             const std::unordered_set<std::string> test_case_skip_list{
                 "quick_sort_2" // not implemented
             };
@@ -95,12 +80,12 @@ namespace sort
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
                 std::cout << "Invocation time (ms): " << t << ", ";
-                std::cout << "Elements number: " << test_array.size() << ", ";
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "[FAIL]") << std::endl;
+                std::cout << "Elements number: " << test_array.size() << ", " << std::endl;
+                REQUIRE(std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)));
             }
         }
 
-        void test_sorted_array() const {
+        SECTION("test_sorted_array") {
             const std::unordered_set<std::string> test_case_skip_list{
                 "quick_sort_2", // not implemented
                 "quick_sort_3",
@@ -121,12 +106,12 @@ namespace sort
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
                 std::cout << "Invocation time (ms): " << t << ", ";
-                std::cout << "Elements number: " << test_array.size() << ", ";
-                std::cout << (std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)) ? "[OK]" : "[FAIL]") << std::endl;
+                std::cout << "Elements number: " << test_array.size() << ", " << std::endl;
+                REQUIRE(std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)));
             }
         }
 
-        void test_empty_array() const {
+        SECTION("test_empty_array") {
             const std::unordered_set<std::string> test_case_skip_list{};
 
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
@@ -143,12 +128,12 @@ namespace sort
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
                 std::cout << "Invocation time (ms): " << t << ", ";
-                std::cout << "Elements number: " << test_array.size() << ", ";
-                std::cout << (test_array.empty() ? "[OK]" : "[FAIL]") << std::endl;
+                std::cout << "Elements number: " << test_array.size() << ", " << std::endl;
+                REQUIRE(test_array.empty());
             }
         }
 
-        void test_one_element_array() const {
+        SECTION("test_one_element_array") {
             const std::unordered_set<std::string> test_case_skip_list{ "cocktail_shaker_sort" };
 
             std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
@@ -165,9 +150,9 @@ namespace sort
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
                 std::cout << "Invocation time (ms): " << t << ", ";
-                std::cout << "Elements number: " << test_array.size() << ", ";
-                std::cout << (test_array[0] == ELEMENT_TO_SORT ? "[OK]" : "[FAIL]") << std::endl;
+                std::cout << "Elements number: " << test_array.size() << ", " << std::endl;
+                REQUIRE(test_array[0] == ELEMENT_TO_SORT);
             }
         }
-    };
+    }
 }
