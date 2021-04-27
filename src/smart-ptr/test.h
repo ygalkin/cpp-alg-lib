@@ -9,8 +9,8 @@
 namespace smart_ptr {
 
     TEST_CASE("single_ptr", "[smart_ptr]") {
+        // default deleter
         {
-            // default deleter
             single_ptr<std::string> ptr1(new std::string("test001"));
 
             auto ptr2 = std::move(ptr1);
@@ -26,8 +26,8 @@ namespace smart_ptr {
             ptr2.reset(nullptr);
         }
 
+        // custom deleter
         {
-            // custom deleter
             single_ptr<std::string, std::function<void(std::string*)>> custom_ptr(
                 new std::string("test001"),
                 [](std::string* p) {

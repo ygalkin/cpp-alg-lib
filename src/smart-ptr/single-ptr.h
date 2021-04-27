@@ -58,9 +58,6 @@ namespace smart_ptr {
 
         pointer release() noexcept {
             return std::exchange(_ptr, pointer());
-            //auto old_ptr = _ptr;
-            //_ptr = nullptr;
-            //return old_ptr;
         }
 
         pointer get() const noexcept {
