@@ -37,6 +37,3 @@ trie (prefix tree)
 ## Smart Pointers
 
 single_ptr
-
-## TODO
-use Google Test or Catch2 for unit tests
