@@ -9,21 +9,33 @@
 namespace smart_ptr {
 
     TEST_CASE("single_ptr", "[smart_ptr]") {
-        // default deleter
-        single_ptr<std::string> smart_ptr(new std::string("test1"));
-        auto smart_ptr2 = std::move(smart_ptr);
-        REQUIRE(smart_ptr.get() == nullptr);
-        smart_ptr2->append("test2");
-        (*smart_ptr2).append("test3");
-        auto raw_ptr = smart_ptr2.get();
-        smart_ptr2.release();
-        REQUIRE(smart_ptr2.get() == nullptr);
-        smart_ptr2.reset(nullptr);
+        {
+            // default deleter
+            single_ptr<std::string> ptr1(new std::string("test001"));
 
-        // custom deleter
-        single_ptr<std::string, std::function<void(std::string*)>> custom_ptr(
-            new std::string("test1"),
-            [](std::string* p) { delete p; });
+            auto ptr2 = std::move(ptr1);
+            REQUIRE(ptr1.get() == nullptr);
+
+            ptr2->append("test002");
+            (*ptr2).append("test003");
+
+            REQUIRE(ptr2.get()->compare("test001test002test003") == 0);
+            REQUIRE(ptr2.release()->compare("test001test002test003") == 0);
+            REQUIRE(ptr2.get() == nullptr);
+
+            ptr2.reset(nullptr);
+        }
+
+        {
+            // custom deleter
+            single_ptr<std::string, std::function<void(std::string*)>> custom_ptr(
+                new std::string("test001"),
+                [](std::string* p) {
+                    REQUIRE(p != nullptr);
+                    REQUIRE(p->compare("test001") == 0);
+                    delete p;
+                });
+        }
     }
 }
 
