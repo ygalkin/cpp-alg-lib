@@ -39,7 +39,7 @@ trie (prefix tree)
 single_ptr
 
 ## Benchmark
-
+```
 **********[Benchmark: unsorted array]**********
 std::sort : time (ms): 2, array size: 50000
 std::stable_sort : time (ms): 2, array size: 50000
@@ -122,3 +122,4 @@ merge_sort : time (ms): 0, array size: 1
 heap_sort : time (ms): 0, array size: 1
 ===============================================================================
 All tests passed (83 assertions in 8 test cases)
+```
