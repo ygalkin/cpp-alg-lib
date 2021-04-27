@@ -18,19 +18,6 @@ namespace helper {
         return os;
     }
 
-    /*
-    auto timeFuncInvocation1 =
-        [](auto&& func, auto&&... params) {
-        // get time before function invocation
-        const auto& start = std::chrono::high_resolution_clock::now();
-        // function invocation using perfect forwarding
-        std::forward<decltype(func)>(func)(std::forward<decltype(params)>(params)...);
-        // get time after function invocation
-        const auto& stop = std::chrono::high_resolution_clock::now();
-        return stop - start;
-    };
-    */
-
     auto benchmark_call_ms = [](auto&& func) {
         // get time before function invocation
         const auto& start = std::chrono::high_resolution_clock::now();

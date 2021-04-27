@@ -6,7 +6,6 @@
 #include "helper.h"
 
 #include <iostream>
-#include <list>
 #include <array>
 #include <random>
 #include <vector>
@@ -17,6 +16,8 @@ namespace sort {
     using SORT_TYPE = int;
     using SORT_CONTAINER = std::vector<SORT_TYPE>;
     using IterType = SORT_CONTAINER::iterator;
+
+    static const auto ARRAY_SIZE = 50000;
 
     static const std::vector<std::pair<std::string, std::function<void(IterType b, IterType e)>>> _sort_algorithms{
         {"std::sort", [](IterType b, IterType e) { std::sort(b, e); } },
@@ -39,35 +40,41 @@ namespace sort {
         {"merge_sort", [](IterType b, IterType e) { sort::merge_sort(b, e); }},
         {"heap_sort", [](IterType b, IterType e) { sort::heap_sort(b, e); }},
     };
-    std::array<SORT_TYPE, 3000> _unsorted_test_array{ 0 };
+    std::array<SORT_TYPE, ARRAY_SIZE> _unsorted_test_array{ 0 };
     std::vector<SORT_TYPE> _sorted_test_array;
 
-    TEST_CASE("Sort") {
+    void print_footer(int64_t ms, size_t size) {
+        std::cout << "time (ms): " << ms << ", " << "array size: " << size << std::endl;
+    }
 
+    void initialize() {
+        _sorted_test_array.clear();
+
+        // Fill unsorted_test_array with random data
+        std::random_device dev;
+        std::mt19937 rng(dev());
+        std::uniform_int_distribution<SORT_TYPE> dist(std::numeric_limits<SORT_TYPE>::min(), std::numeric_limits<SORT_TYPE>::max());
+        for (auto i = begin(_unsorted_test_array); i != end(_unsorted_test_array); ++i) {
+            *i = dist(rng);
+        }
+
+        // unsorted_test_array -> sorted_test_array 
+        _sorted_test_array.assign(begin(_unsorted_test_array), end(_unsorted_test_array));
+        std::sort(begin(_sorted_test_array), end(_sorted_test_array));
+    }
+
+    TEST_CASE("test_unsorted_array", "[sort]") {
         SECTION("initialize") {
-            std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
-
-            _sorted_test_array.clear();
-
-            // Fill unsorted_test_array with random data
-            std::random_device dev;
-            std::mt19937 rng(dev());
-            std::uniform_int_distribution<SORT_TYPE> dist(std::numeric_limits<SORT_TYPE>::min(), std::numeric_limits<SORT_TYPE>::max());
-            for (auto i = begin(_unsorted_test_array); i != end(_unsorted_test_array); ++i) {
-                *i = dist(rng);
-            }
-
-            // unsorted_test_array -> sorted_test_array 
-            _sorted_test_array.assign(begin(_unsorted_test_array), end(_unsorted_test_array));
-            std::sort(begin(_sorted_test_array), end(_sorted_test_array));
+            initialize();
         }
 
         SECTION("test_unsorted_array") {
+            const auto BENCHMARK_NAME = "Benchmark: unsorted array";
+            std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
+
             const std::unordered_set<std::string> test_case_skip_list{
                 "quick_sort_2" // not implemented
             };
-
-            std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
             for (const auto& f : _sort_algorithms) {
                 std::cout << f.first << " : ";
@@ -80,20 +87,27 @@ namespace sort {
 
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
-                std::cout << "Invocation time (ms): " << t << ", ";
-                std::cout << "Elements number: " << test_array.size() << ", " << std::endl;
+                print_footer(t, test_array.size());
                 REQUIRE(std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)));
             }
         }
+    }
+
+    TEST_CASE("test_sorted_array", "[sort]") {
+        SECTION("initialize") {
+            initialize();
+        }
 
         SECTION("test_sorted_array") {
+            const auto BENCHMARK_NAME = "Benchmark: sorted array";
+            std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
+
             const std::unordered_set<std::string> test_case_skip_list{
                 "quick_sort_2", // not implemented
                 "quick_sort_3",
-                "quick_sort_4"
+                "quick_sort_4",
+                "unbalanced_tree_sort"
             };
-
-            std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
 
             for (const auto& f : _sort_algorithms) {
                 std::cout << f.first << " : ";
@@ -106,54 +120,53 @@ namespace sort {
 
                 auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
 
-                std::cout << "Invocation time (ms): " << t << ", ";
-                std::cout << "Elements number: " << test_array.size() << ", " << std::endl;
+                print_footer(t, test_array.size());
                 REQUIRE(std::equal(begin(test_array), end(test_array), begin(_sorted_test_array)));
             }
         }
+    }
 
-        SECTION("test_empty_array") {
-            const std::unordered_set<std::string> test_case_skip_list{};
+    TEST_CASE("test_empty_array", "[sort]") {
+        const auto BENCHMARK_NAME = "Benchmark: empty array";
+        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
-            std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
+        const std::unordered_set<std::string> test_case_skip_list{};
 
-            for (const auto& f : _sort_algorithms) {
-                std::cout << f.first << " : ";
-                if (test_case_skip_list.find(f.first) != end(test_case_skip_list)) {
-                    std::cout << "[SKIPPED]" << std::endl;
-                    continue;
-                }
-
-                SORT_CONTAINER test_array;
-
-                auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
-
-                std::cout << "Invocation time (ms): " << t << ", ";
-                std::cout << "Elements number: " << test_array.size() << ", " << std::endl;
-                REQUIRE(test_array.empty());
+        for (const auto& f : _sort_algorithms) {
+            std::cout << f.first << " : ";
+            if (test_case_skip_list.find(f.first) != end(test_case_skip_list)) {
+                std::cout << "[SKIPPED]" << std::endl;
+                continue;
             }
+
+            SORT_CONTAINER test_array;
+
+            auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
+
+            print_footer(t, test_array.size());
+            REQUIRE(test_array.empty());
         }
+    }
 
-        SECTION("test_one_element_array") {
-            const std::unordered_set<std::string> test_case_skip_list{ "cocktail_shaker_sort" };
+    TEST_CASE("test_one_element_array", "[sort]") {
+        const auto BENCHMARK_NAME = "Benchmark: one element array";
+        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
-            std::cout << "**********[" << __FUNCTION__ << "]**********" << std::endl;
+        const std::unordered_set<std::string> test_case_skip_list{ "cocktail_shaker_sort" };
 
-            for (const auto& f : _sort_algorithms) {
-                std::cout << f.first << " : ";
-                if (test_case_skip_list.find(f.first) != end(test_case_skip_list)) {
-                    std::cout << "[SKIPPED]" << std::endl;
-                    continue;
-                }
-                const auto ELEMENT_TO_SORT{ 42 };
-                SORT_CONTAINER test_array{ ELEMENT_TO_SORT };
-
-                auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
-
-                std::cout << "Invocation time (ms): " << t << ", ";
-                std::cout << "Elements number: " << test_array.size() << ", " << std::endl;
-                REQUIRE(test_array[0] == ELEMENT_TO_SORT);
+        for (const auto& f : _sort_algorithms) {
+            std::cout << f.first << " : ";
+            if (test_case_skip_list.find(f.first) != end(test_case_skip_list)) {
+                std::cout << "[SKIPPED]" << std::endl;
+                continue;
             }
+            const auto ELEMENT_TO_SORT{ 42 };
+            SORT_CONTAINER test_array{ ELEMENT_TO_SORT };
+
+            auto t = helper::benchmark_call_ms([&]() {f.second(begin(test_array), end(test_array)); });
+
+            print_footer(t, test_array.size());
+            REQUIRE(test_array[0] == ELEMENT_TO_SORT);
         }
     }
 }
