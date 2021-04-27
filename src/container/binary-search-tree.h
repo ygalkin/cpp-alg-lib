@@ -109,10 +109,6 @@ namespace container {
             return (_root == nullptr);
         }
 
-        // TODO:
-        // erase(key)
-        // size_type size
-
         bool is_bst() const {
             return _is_bst(_root, nullptr, nullptr);
         }

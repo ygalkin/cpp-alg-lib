@@ -24,7 +24,6 @@ namespace container {
 
     private:
         list_node<ValT>* _head{ nullptr };
-        // TODO: _tail
 
         list_node<ValT>* _get_node(size_t index) {
             list_node<ValT>* current = _head;
@@ -170,10 +169,6 @@ namespace container {
 
             return false; // if fast == nullptr we have reached end of the list       
         }
-
-        // TODO:
-        // insert_after
-        // for_each
     };
 }
 

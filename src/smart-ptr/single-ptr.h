@@ -54,8 +54,6 @@ namespace smart_ptr {
             }
         }
 
-        // TODO: get_deleter
-
         pointer release() noexcept {
             return std::exchange(_ptr, pointer());
         }

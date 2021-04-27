@@ -61,11 +61,6 @@ namespace container {
             const trie_node* node = _search(prefix);
             return !(node == nullptr);
         }
-
-        // TODO
-        // clear
-        // for_each
-        // empty
     };
 }
 
