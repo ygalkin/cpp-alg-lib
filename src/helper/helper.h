@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _HELPER_
+#define _HELPER_
 
 #include <algorithm>
 #include <iostream>
@@ -41,3 +42,5 @@ namespace helper {
         return std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count();
     };
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SORT_SANDBOX_
+#define _SORT_SANDBOX_
 
 namespace sort {
     namespace sandbox {
@@ -141,3 +142,5 @@ namespace sort {
         }
     }
 }
+
+#endif

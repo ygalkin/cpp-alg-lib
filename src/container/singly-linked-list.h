@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CONTAINER_SINGLY_LINKED_LIST_
+#define _CONTAINER_SINGLY_LINKED_LIST_
 
 // Single-linked list implementation
 
@@ -174,5 +175,6 @@ namespace container {
         // insert_after
         // for_each
     };
-
 }
+
+#endif 

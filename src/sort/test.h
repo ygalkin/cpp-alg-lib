@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SORT_TEST_
+#define _SORT_TEST_
 
 #include "sort.h"
 #include "sort-sandbox.h"
@@ -156,3 +157,5 @@ namespace sort {
         }
     }
 }
+
+#endif

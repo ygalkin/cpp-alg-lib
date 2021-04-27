@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SMART_PTR_SINGLE_PTR_
+#define _SMART_PTR_SINGLE_PTR_
 
 #include <functional>
 
@@ -79,3 +80,5 @@ namespace smart_ptr {
         Deleter _deleter;
     };
 }
+
+#endif

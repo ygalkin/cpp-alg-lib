@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CONTAINER_TRIE_
+#define _CONTAINER_TRIE_
 
 #include <unordered_map>
 #include <memory>
@@ -67,3 +68,5 @@ namespace container {
         // empty
     };
 }
+
+#endif

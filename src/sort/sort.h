@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SORT_
+#define _SORT_
 
 #include "binary-search-tree.h"
 
@@ -245,3 +246,4 @@ namespace sort {
     }
 }
 
+#endif

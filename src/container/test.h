@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CONTAINER_TEST_
+#define _CONTAINER_TEST_
 
 #include "singly-linked-list.h"
 #include "binary-search-tree.h"
@@ -67,3 +68,5 @@ namespace container {
         }
     }
 }
+
+#endif

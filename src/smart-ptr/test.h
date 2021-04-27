@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SMART_PTR_TEST_
+#define _SMART_PTR_TEST_
 
 #include "single-ptr.h"
 
@@ -46,3 +47,5 @@ namespace smart_ptr {
         }
     }
 }
+
+#endif

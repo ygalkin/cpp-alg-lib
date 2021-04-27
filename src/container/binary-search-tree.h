@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CONTAINER_BINARY_SEARCH_TREE_
+#define _CONTAINER_BINARY_SEARCH_TREE_
 
 #include <functional>
 
@@ -116,5 +117,6 @@ namespace container {
             return _is_bst(_root, nullptr, nullptr);
         }
     };
-
 }
+
+#endif

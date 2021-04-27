@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SMART_PTR_COUNT_PTR_
+#define _SMART_PTR_COUNT_PTR_
 
 namespace smart_ptr {
     
@@ -29,3 +30,5 @@ namespace smart_ptr {
         T* _ptr = nullptr;
     };
 }
+
+#endif
