@@ -1,5 +1,9 @@
 # red-platypus is a small header-only library for C++ 14.
 
+External dependency:
+
+Catch2 unit test library
+
 ## Sorting Algorithms using STL iterators
 
 bubble sort
