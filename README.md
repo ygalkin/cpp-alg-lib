@@ -1,6 +1,6 @@
 # red-platypus is a small header-only library for C++ 14.
 
-External dependency:
+## External dependency
 
 Catch2 unit test library
 
