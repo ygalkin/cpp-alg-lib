@@ -29,17 +29,19 @@ namespace container {
 
     private:
         tree_node<KeyT>* _root{ nullptr };
+        size_t _size{ 0 };
 
         void _insert(tree_node<KeyT>** parent, const KeyT& key) {
             if (*parent == nullptr) {
                 *parent = new tree_node<KeyT>(key);
+                ++_size;
                 return;
             }
 
             _insert((key < (*parent)->_key) ? &(*parent)->_left : &(*parent)->_right, key);
         }
 
-        tree_node<KeyT>* _find(tree_node<KeyT>* parent, const KeyT& key) const {
+        tree_node<KeyT>* _find(tree_node<KeyT>* parent, const KeyT& key) const noexcept {
             if (parent == nullptr || parent->_key == key) {
                 return parent; // nullptr or parent
             }
@@ -47,7 +49,7 @@ namespace container {
         }
 
         template <order_type Order>
-        void _for_each(tree_node<KeyT>* parent, std::function<void(const KeyT&)> f) const {
+        void _for_each(tree_node<KeyT>* parent, std::function<void(const KeyT&)> f) const noexcept {
             if (parent == nullptr) {
                 return;
             }
@@ -93,7 +95,7 @@ namespace container {
             delete parent;
         }
 
-        bool _is_bst(const tree_node<KeyT>* node, const tree_node<KeyT>* min, const tree_node<KeyT>* max) const {
+        bool _is_bst(const tree_node<KeyT>* node, const tree_node<KeyT>* min, const tree_node<KeyT>* max) const noexcept {
             if (node == nullptr) {
                 return true;
             }
@@ -114,35 +116,47 @@ namespace container {
         virtual ~binary_search_tree() { clear(); }
 
         // pre-order, in-order (sort-order), post-order tree traversal
+        // O(n)
         template <order_type Order>
-        void for_each(std::function<void(const KeyT&)> f) const {
+        void for_each(std::function<void(const KeyT&)> f) const noexcept {
             _for_each<Order>(_root, f);
         }
 
         // level order tree traversal
+        // O(n)
         void for_each_level_order(std::function<void(const KeyT&, const size_t&)> f) const {
             _for_each_level_order(_root, f);
         }
 
-        void clear() {
-            _clear_post_order(_root);
-            _root = nullptr;
-        }
-
+        // O(logN)
         void insert(const KeyT& key) {
             _insert(&_root, key);
         }
 
-        bool find(const KeyT& key) const {
+        // O(logN)
+        bool find(const KeyT& key) const noexcept {
             return (_find(_root, key) != nullptr);
         }
 
-        bool empty() const {
+        // O(1)
+        size_t size() const noexcept {
+            return _size;
+        }
+
+        // O(1)
+        bool empty() const noexcept {
             return (_root == nullptr);
         }
 
+        // O(n)
+        void clear() {
+            _clear_post_order(_root);
+            _root = nullptr;
+            _size = 0;
+        }
+
         // validate if tree is a binary search tree
-        bool is_bst() const {
+        bool is_bst() const noexcept {
             return _is_bst(_root, nullptr, nullptr);
         }
     };

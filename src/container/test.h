@@ -11,7 +11,7 @@
 
 namespace container {
 
-    TEST_CASE("binary_search_tree", "[container]") {
+    TEST_CASE("binary search tree", "[container]") {
         static constexpr std::array<int, 13> _test_array{ {10, 4, 0, -9, -9, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
 
         binary_search_tree<int> bst;
@@ -24,6 +24,7 @@ namespace container {
         std::list<int> arr1;
         bst.for_each<order_type::sort_order>([&arr1](auto& key) { arr1.push_back(key); });
         REQUIRE(arr1.size() == _test_array.size());
+        REQUIRE(bst.size() == _test_array.size());
 
         std::list<int> arr2;
         size_t level{ 0 };
@@ -39,9 +40,10 @@ namespace container {
         REQUIRE(!bst.empty());
         bst.clear();
         REQUIRE(bst.empty());
+        REQUIRE(bst.size() == 0);
     }
 
-    TEST_CASE("singly_linked_list", "[container]") {
+    TEST_CASE("singly linked list", "[container]") {
         container::singly_linked_list<std::string> sll;
         REQUIRE(sll.empty());
 
@@ -62,10 +64,12 @@ namespace container {
 
     TEST_CASE("trie", "[container]") {
         container::trie t;
+        REQUIRE(t.empty());
 
         t.insert("test001");
         t.insert("test002");
         t.insert("test003");
+        REQUIRE(!t.empty());
 
         REQUIRE(t.search("test001"));
         REQUIRE(!t.search("test0011"));

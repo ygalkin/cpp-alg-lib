@@ -5,6 +5,7 @@
 
 #include <string>
 #include <functional>
+#include <type_traits>
 
 namespace smart_ptr {
 

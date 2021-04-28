@@ -70,6 +70,11 @@ namespace container {
             const trie_node* node = _search(prefix);
             return !(node == nullptr);
         }
+
+        // true if trie is empty
+        bool empty() const {
+            return _root->_children.empty();
+        }
     };
 }
 

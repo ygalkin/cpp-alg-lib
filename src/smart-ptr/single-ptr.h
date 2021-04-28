@@ -4,7 +4,6 @@
 #include <functional>
 
 namespace smart_ptr {
-
     // default deleter
     template <typename T>
     struct default_deleter {
@@ -75,5 +74,10 @@ namespace smart_ptr {
         Deleter _deleter;
     };
 }
+
+static_assert(std::is_copy_constructible<smart_ptr::single_ptr<int>>::value == false, "Shouldn't be copy constructible");
+static_assert(std::is_move_constructible<smart_ptr::single_ptr<int>>::value == true, "Should be move constructible");
+static_assert(std::is_copy_assignable<smart_ptr::single_ptr<int>>::value == false, "Shouldn't be copy assignable");
+static_assert(std::is_move_assignable<smart_ptr::single_ptr<int>>::value == true, "Should be move assignable");
 
 #endif

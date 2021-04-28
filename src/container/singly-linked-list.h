@@ -25,7 +25,7 @@ namespace container {
     private:
         list_node<ValT>* _head{ nullptr };
 
-        list_node<ValT>* _get_node(size_t index) {
+        list_node<ValT>* _get_node(size_t index) const noexcept {
             list_node<ValT>* current = _head;
             decltype(index) i{ 0 };
 
@@ -146,13 +146,13 @@ namespace container {
         }
 
         // O(1)
-        bool empty() const {
+        bool empty() const noexcept {
             return _head == nullptr;
         }
 
         // Self diagnostic function
         // O(n)
-        bool has_cycle() const {
+        bool has_cycle() const noexcept {
             if (_head == nullptr) {
                 return false;
             }
