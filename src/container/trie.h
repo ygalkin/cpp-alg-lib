@@ -72,7 +72,7 @@ namespace container {
         }
 
         // true if trie is empty
-        bool empty() const {
+        bool empty() const noexcept {
             return _root->_children.empty();
         }
     };
