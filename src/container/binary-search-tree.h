@@ -81,10 +81,10 @@ namespace container {
 
     public:
         binary_search_tree() = default;
-        binary_search_tree(const binary_search_tree& other) = default;
-        binary_search_tree(binary_search_tree&& other) = default;
-        binary_search_tree& operator = (const binary_search_tree& other) = default;
-        binary_search_tree& operator = (binary_search_tree&& other) = default;
+        binary_search_tree(const binary_search_tree& other) = delete;
+        binary_search_tree(binary_search_tree&& other) = delete;
+        binary_search_tree& operator = (const binary_search_tree& other) = delete;
+        binary_search_tree& operator = (binary_search_tree&& other) = delete;
         virtual ~binary_search_tree() { clear(); }
 
         template <order_type Order>

@@ -11,9 +11,9 @@
 
 namespace container {
 
-    static constexpr std::array<int, 13> _test_array{ {10, 4, 0, -9, -9, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
-
     TEST_CASE("binary_search_tree", "[container]") {
+        static constexpr std::array<int, 13> _test_array{ {10, 4, 0, -9, -9, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
+
         binary_search_tree<int> bst;
         REQUIRE(bst.empty());
 
@@ -41,12 +41,12 @@ namespace container {
 
         sll.push_back("test001");
         sll.push_front("test002");
-        sll.insert_before(0, "test003");
+        REQUIRE(sll.insert_before(0, "test003"));
 
         REQUIRE(!sll.has_cycle());
 
-        sll.erase(10000);
-        sll.erase(0);
+        REQUIRE(!sll.erase(10000));
+        REQUIRE(sll.erase(0));
         sll.push_front("test004");
         REQUIRE(sll.at(0) == "test004");
 

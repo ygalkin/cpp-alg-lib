@@ -34,6 +34,10 @@ namespace container {
 
     public:
         trie() { _root = std::make_unique<trie_node>(); }
+        trie(const trie& other) = delete;
+        trie(trie&& other) = delete;
+        trie& operator = (const trie& other) = delete;
+        trie& operator = (trie&& other) = delete;
         virtual ~trie() = default;
 
         // insert a word into the trie.

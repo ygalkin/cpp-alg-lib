@@ -43,10 +43,10 @@ namespace container {
 
     public:
         singly_linked_list() = default;
-        singly_linked_list(const singly_linked_list& other) = default;
-        singly_linked_list(singly_linked_list&& other) = default;
-        singly_linked_list& operator = (const singly_linked_list& other) = default;
-        singly_linked_list& operator = (singly_linked_list&& other) = default;
+        singly_linked_list(const singly_linked_list& other) = delete;
+        singly_linked_list(singly_linked_list&& other) = delete;
+        singly_linked_list& operator = (const singly_linked_list& other) = delete;
+        singly_linked_list& operator = (singly_linked_list&& other) = delete;
         virtual ~singly_linked_list() { clear(); }
 
         // Get the value of the index-th node in the linked list. 
@@ -91,43 +91,47 @@ namespace container {
         // If index equals to the length of linked list, the node will be appended to the end of linked list. 
         // If index is greater than the length, the node will not be inserted.
         // O(n)
-        void insert_before(size_t index, const ValT& val) {
+        bool insert_before(size_t index, const ValT& val) {
             if (index == 0) {
                 push_front(val);
-                return;
+                return true;
             }
 
-            const auto prev{ _get_node(index - 1) };// find previous
+            const auto prev{ _get_node(index - 1) }; // find previous
             if (prev == nullptr) {
-                return;
+                return false;
             }
 
             const auto new_node{ new list_node<ValT>(val) };
 
             new_node->_next = prev->_next;
             prev->_next = new_node;
+
+            return true;
         }
 
         // Delete the index-th node in the linked list, if the index is valid.
         // O(n)
-        void erase(size_t index) {
+        bool erase(size_t index) {
             const auto curr{ _get_node(index) };
             if (curr == nullptr) {
-                return;
+                return false;
             }
             if (index == 0) { // pop_front
                 _head = curr->_next;
                 delete curr;
-                return;
+                return true;
             }
 
             const auto prev{ _get_node(index - 1) }; // find previous
             if (prev == nullptr) {
-                return;
+                return false;
             }
 
             prev->_next = curr->_next;
             delete curr;
+
+            return true;
         }
 
         // O(n)

@@ -48,7 +48,6 @@ namespace sort {
     }
 
     // Odd Even sort (Brick sort). It's a variation of Bubble sort.
-
     template< class IterT >
     inline void odd_even_sort(IterT first, IterT last) {
         if (first == last)
@@ -81,7 +80,6 @@ namespace sort {
     }
 
     // Cocktail shaker sort. Bidirectional Bubble sort. It's a variation of Bubble sort.
-
     template< class IterT >
     inline void cocktail_shaker_sort(IterT first, IterT last) {
         if (first == last)
@@ -153,7 +151,6 @@ namespace sort {
     }
 
     // Quick Sort
-
     template< class IterT >
     inline void quick_sort(IterT first, IterT last) {
         if (first == last)
@@ -169,7 +166,6 @@ namespace sort {
     }
 
     // Merge Sort
-
     template< class IterT >
     inline void merge_sort(IterT first, IterT last) {
         if (first == last) // empty sequence to sort
@@ -188,7 +184,6 @@ namespace sort {
     }
 
     // Heap Sort
-
     template< class IterT, class Compare>
     inline void heap_sort(IterT first, IterT last, Compare comp) {
         if (first == last)
@@ -204,7 +199,6 @@ namespace sort {
     }
 
     // Tree Sort
-
     template< class IterT >
     inline void unbalanced_tree_sort(IterT first, IterT last) {
         if (first == last)
