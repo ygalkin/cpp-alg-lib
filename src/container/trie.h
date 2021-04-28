@@ -50,8 +50,9 @@ namespace container {
             trie_node* node = _root.get();
 
             for (const auto& ch : word) {
-                if (node->_children.count(ch) == 0)
-                    node->_children[ch] = std::make_unique<trie_node>();
+                if (node->_children.count(ch) == 0) {
+                    node->_children.emplace(ch, std::make_unique<trie_node>());
+                }
 
                 node = node->_children[ch].get();
             }
