@@ -69,7 +69,7 @@ namespace sort {
         }
 
         SECTION("test_unsorted_array") {
-            const auto BENCHMARK_NAME = "Benchmark: unsorted array";
+            const auto BENCHMARK_NAME = "Benchmark: random array";
             std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
             const std::unordered_set<std::string> test_case_skip_list{

@@ -3,6 +3,8 @@
 
 #include <functional>
 
+// Binary search tree implementation
+
 namespace container {
 
     enum class order_type { pre_order, in_order, sort_order = in_order, post_order };
@@ -57,6 +59,30 @@ namespace container {
             if (Order == order_type::post_order) f(parent->_key);
         }
 
+        void _for_each_level_order(tree_node<KeyT>* root, std::function<void(const KeyT&, const size_t&)> f) const {
+            if (root == nullptr) {
+                return;
+            }
+
+            // 0 is a root level
+            size_t level{ 0 };
+            std::vector<tree_node<KeyT>*> q;
+
+            q.push_back(root);
+            while (!q.empty()) {
+                const auto size = q.size(); // because we change q size in the loop
+                for (auto i = 0; i < size; ++i) {
+                    const auto node = q[i];
+                    if (node->_left) q.push_back(node->_left);
+                    if (node->_right) q.push_back(node->_right);
+                    f(node->_key, level);
+                }
+
+                ++level;
+                q.erase(std::begin(q), std::begin(q) + size);
+            }
+        }
+
         void _clear_post_order(tree_node<KeyT>* parent) {
             if (parent == nullptr) {
                 return;
@@ -87,9 +113,15 @@ namespace container {
         binary_search_tree& operator = (binary_search_tree&& other) = delete;
         virtual ~binary_search_tree() { clear(); }
 
+        // pre-order, in-order (sort-order), post-order tree traversal
         template <order_type Order>
         void for_each(std::function<void(const KeyT&)> f) const {
             _for_each<Order>(_root, f);
+        }
+
+        // level order tree traversal
+        void for_each_level_order(std::function<void(const KeyT&, const size_t&)> f) const {
+            _for_each_level_order(_root, f);
         }
 
         void clear() {
@@ -109,6 +141,7 @@ namespace container {
             return (_root == nullptr);
         }
 
+        // validate if tree is a binary search tree
         bool is_bst() const {
             return _is_bst(_root, nullptr, nullptr);
         }

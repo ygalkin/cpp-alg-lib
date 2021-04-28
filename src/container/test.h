@@ -21,9 +21,15 @@ namespace container {
             bst.insert(item);
         }
 
-        std::list<int> arr;
-        bst.for_each<order_type::sort_order>([&arr](auto& key) { arr.push_back(key); });
-        REQUIRE(arr.size() == _test_array.size());
+        std::list<int> arr1;
+        bst.for_each<order_type::sort_order>([&arr1](auto& key) { arr1.push_back(key); });
+        REQUIRE(arr1.size() == _test_array.size());
+
+        std::list<int> arr2;
+        size_t level{ 0 };
+        bst.for_each_level_order([&arr2, &level](auto& key, auto& l) { arr2.push_back(key); level = l; });
+        REQUIRE(arr2.size() == _test_array.size());
+        REQUIRE(level == 6);
 
         REQUIRE(bst.is_bst());
 
