@@ -5,6 +5,11 @@
 #include <memory>
 #include <string>
 
+// Trie (prefix tree). 
+// Common usage: 
+//      word auto-completion,
+//      quick validation if a word misspelled
+
 namespace container {
 
     class trie {

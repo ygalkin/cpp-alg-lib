@@ -113,13 +113,10 @@ namespace container {
         // Delete the index-th node in the linked list, if the index is valid.
         // O(n)
         bool erase(size_t index) {
-            const auto curr{ _get_node(index) };
-            if (curr == nullptr) {
-                return false;
-            }
             if (index == 0) { // pop_front
-                _head = curr->_next;
-                delete curr;
+                auto tmp = _head;
+                _head = _head->_next;
+                delete tmp;
                 return true;
             }
 
@@ -128,8 +125,9 @@ namespace container {
                 return false;
             }
 
-            prev->_next = curr->_next;
-            delete curr;
+            auto tmp = prev->_next;
+            prev->_next = prev->_next->_next;
+            delete tmp;
 
             return true;
         }
