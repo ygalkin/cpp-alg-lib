@@ -1,4 +1,6 @@
-# Header-only library for C++ 14.
+## Summary 
+
+C++ 14 sorting algorithms, containers, and smart poiners header-only library.
 
 ## External dependency
 
@@ -6,37 +8,37 @@ Catch2 unit test library
 
 ## Sorting Algorithms using STL iterators
 
-bubble sort
+- bubble sort
 
-odd even sort (variation of bubble sort)
+- odd even sort (variation of bubble sort)
 
-cocktail shaker sort (bidirectional bubble sort)
+- cocktail shaker sort (bidirectional bubble sort)
 
-selection sort
+- selection sort
 
-insertion sort
+- insertion sort
 
-quick sort
+- quick sort
 
-merge sort
+- merge sort
 
-heap sort
+- heap sort
 
-unbalanced tree sort
+- unbalanced tree sort
 
-balanced tree sort
+- balanced tree sort
 
 ## Containers
 
-binary search tree
+- singly linked list
 
-singly linked list
+- binary search tree
 
-trie (prefix tree)
+- trie (prefix tree)
 
 ## Smart Pointers
 
-single_ptr
+- single_ptr
 
 ## Benchmark
 ```
