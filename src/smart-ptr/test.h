@@ -20,9 +20,15 @@ namespace smart_ptr {
             (*ptr2).append("test003");
 
             REQUIRE(ptr2.get()->compare("test001test002test003") == 0);
-            //REQUIRE(ptr2.release()->compare("test001test002test003") == 0);
-            //REQUIRE(ptr2.get() == nullptr);
-            //ptr2.reset(nullptr);
+
+            single_ptr<std::string> ptr3(ptr2.release(), ptr2.get_deleter());
+            REQUIRE(ptr3->compare("test001test002test003") == 0);
+
+            REQUIRE(ptr2.get() == nullptr);
+            ptr2.reset(nullptr);
+
+            ptr3.reset(new std::string("test004"));
+            REQUIRE(ptr3.get()->compare("test004") == 0);
         }
 
         // custom deleter
