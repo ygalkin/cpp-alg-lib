@@ -111,6 +111,22 @@ namespace container {
             return true;
         }
 
+        // Add a node after the index-th node in the linked list. 
+        // O(n)
+        bool insert_after(size_t index, const ValT& val) {
+            const auto curr{ _get_node(index) };
+            if (curr == nullptr) {
+                return false;
+            }
+
+            const auto new_node{ new list_node<ValT>(val) };
+
+            new_node->_next = curr->_next;
+            curr->_next = new_node;
+
+            return true;
+        }
+
         // Delete the index-th node in the linked list, if the index is valid.
         // O(n)
         bool erase(size_t index) {

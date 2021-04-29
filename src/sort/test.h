@@ -17,7 +17,7 @@ namespace sort {
     using SORT_CONTAINER = std::vector<SORT_TYPE>;
     using IterType = SORT_CONTAINER::iterator;
 
-    static const auto ARRAY_SIZE = 50000;
+    static const auto ARRAY_SIZE = 100;
 
     static const std::vector<std::pair<std::string, std::function<void(IterType b, IterType e)>>> _sort_algorithms{
         {"std::sort", [](IterType b, IterType e) { std::sort(b, e); } },

@@ -76,6 +76,10 @@ namespace container {
         bool empty() const noexcept {
             return _root->_children.empty();
         }
+
+        void clear() noexcept {
+            return _root->_children.clear();
+        }
     };
 }
 

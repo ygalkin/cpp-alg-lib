@@ -50,6 +50,7 @@ namespace container {
         sll.push_back("test001");
         sll.push_front("test002");
         REQUIRE(sll.insert_before(0, "test003"));
+        REQUIRE(!sll.insert_before(10000, ""));
 
         REQUIRE(!sll.has_cycle());
 
@@ -57,6 +58,10 @@ namespace container {
         REQUIRE(sll.erase(0));
         sll.push_front("test004");
         REQUIRE(sll.at(0) == "test004");
+
+        REQUIRE(!sll.insert_after(10000, ""));
+        REQUIRE(sll.insert_after(0, "test005"));
+        REQUIRE(sll.at(1) == "test005");
 
         sll.clear();
         REQUIRE(sll.empty());
@@ -79,6 +84,9 @@ namespace container {
 
         REQUIRE(t.starts_with("test"));
         REQUIRE(!t.starts_with("negativetest"));
+
+        t.clear();
+        REQUIRE(t.empty());
     }
 }
 
