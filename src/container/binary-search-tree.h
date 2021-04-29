@@ -68,7 +68,7 @@ namespace container {
 
             // 0 is a root level
             size_t level{ 0 };
-            std::vector<tree_node<KeyT>*> q;
+            std::vector<decltype(root)> q;
 
             q.push_back(root);
             while (!q.empty()) {

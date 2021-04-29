@@ -26,8 +26,8 @@ namespace container {
         list_node<ValT>* _head{ nullptr };
 
         // O(n)
-        list_node<ValT>* _get_node(size_t index) const noexcept {
-            list_node<ValT>* current = _head;
+        list_node<ValT>* _get_node(size_t index) noexcept {
+            auto current = _head;
             decltype(index) i{ 0 };
 
             while (current != nullptr && i != index) {
@@ -157,7 +157,7 @@ namespace container {
         // O(n)
         void clear() {
             auto current{ _head };
-            list_node<ValT>* tmp{ nullptr };
+            decltype(current) tmp{ nullptr };
 
             while (current != nullptr) {
                 tmp = current;
@@ -169,7 +169,7 @@ namespace container {
 
         void for_each(std::function<void(const ValT&)> f) const noexcept {
             auto current{ _head };
-            list_node<ValT>* tmp{ nullptr };
+            decltype(current) tmp{ nullptr };
 
             while (current != nullptr) {
                 tmp = current;
@@ -184,8 +184,8 @@ namespace container {
                 return false;
             }
 
-            list_node<ValT>* slow{ _head };
-            list_node<ValT>* fast{ _head };
+            auto slow{ _head };
+            auto fast{ _head };
 
             while (fast != nullptr && fast->_next != nullptr) {
                 slow = slow->_next;

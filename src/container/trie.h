@@ -25,7 +25,7 @@ namespace container {
         std::unique_ptr<trie_node> _root;
 
         const trie_node* _search(const std::string& word) const {
-            trie_node* node = _root.get();
+            auto node = _root.get();
 
             for (const auto& ch : word) {
                 if (node->_children.count(ch) == 0)
@@ -47,7 +47,7 @@ namespace container {
 
         // insert a word into the trie.
         void insert(const std::string& word) {
-            trie_node* node = _root.get();
+            auto node = _root.get();
 
             for (const auto& ch : word) {
                 if (node->_children.count(ch) == 0) {
@@ -62,13 +62,13 @@ namespace container {
 
         // true if the word is in the trie.
         bool search(const std::string& word) const {
-            const trie_node* node = _search(word);
+            const auto node = _search(word);
             return (node == nullptr) ? false : node->_is_complete_word;
         }
 
         // true if there is any word in the trie that starts with the given prefix.
         bool starts_with(const std::string& prefix) const {
-            const trie_node* node = _search(prefix);
+            const auto node = _search(prefix);
             return !(node == nullptr);
         }
 
