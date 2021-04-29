@@ -4,7 +4,10 @@
 #include <functional>
 #include <memory>
 
+// Smart pointer that owns and manages another object and supports custom deleter
+
 namespace smart_ptr {
+
     // default deleter
     template <typename T>
     struct default_deleter {

@@ -22,13 +22,13 @@ namespace container {
         }
 
         std::list<int> arr1;
-        bst.for_each<order_type::sort_order>([&arr1](auto& key) { arr1.push_back(key); });
+        bst.for_each<order_type::sort_order>([&arr1](const auto& key) { arr1.push_back(key); });
         REQUIRE(arr1.size() == _test_array.size());
         REQUIRE(bst.size() == _test_array.size());
 
         std::list<int> arr2;
         size_t level{ 0 };
-        bst.for_each_level_order([&arr2, &level](auto& key, auto& l) { arr2.push_back(key); level = l; });
+        bst.for_each_level_order([&arr2, &level](const auto& key, const auto& l) { arr2.push_back(key); level = l; });
         REQUIRE(arr2.size() == _test_array.size());
         REQUIRE(level == 6);
 
@@ -62,6 +62,10 @@ namespace container {
         REQUIRE(!sll.insert_after(10000, ""));
         REQUIRE(sll.insert_after(0, "test005"));
         REQUIRE(sll.at(1) == "test005");
+
+        std::list<std::string> arr1;
+        sll.for_each([&arr1](const auto& val) { arr1.push_back(val); });
+        REQUIRE(arr1.size() == 4);
 
         sll.clear();
         REQUIRE(sll.empty());

@@ -167,6 +167,17 @@ namespace container {
             _head = nullptr;
         }
 
+        void for_each(std::function<void(const ValT&)> f) const noexcept {
+            auto current{ _head };
+            list_node<ValT>* tmp{ nullptr };
+
+            while (current != nullptr) {
+                tmp = current;
+                f(tmp->_val);
+                current = current->_next;
+            }
+        }
+
         // Self diagnostic function
         bool has_cycle() const noexcept {
             if (_head == nullptr) {
