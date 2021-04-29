@@ -4,7 +4,7 @@ C++ 14 sorting algorithms, containers, and smart pointers header-only library.
 
 ## External dependency
 
-Catch2 unit test library
+Catch2 unit test library - https://github.com/catchorg/Catch2
 
 ## Sorting Algorithms using STL iterators
 
