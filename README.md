@@ -1,6 +1,6 @@
 ## Summary 
 
-C++ 14 sorting algorithms, containers, and smart pointers header-only library.
+C++ 14 header-only library. Sorting algorithms, containers, smart pointers.
 
 ## External dependency
 
