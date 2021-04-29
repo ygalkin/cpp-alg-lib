@@ -28,6 +28,11 @@ namespace helper {
 
         return std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count();
     };
+
+    template <size_t max_len = 30>
+    std::string short_string(const std::string& s) {
+        return (s.length() > max_len ? s.substr(0, max_len).append("...") : s);
+    }
 }
 
 #endif
