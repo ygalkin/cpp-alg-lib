@@ -115,14 +115,14 @@ namespace container {
         binary_search_tree& operator = (binary_search_tree&& other) = delete;
         virtual ~binary_search_tree() { clear(); }
 
-        // pre-order, in-order (sort-order), post-order tree traversal
+        // pre-order, in-order (sort-order), post-order tree traversal (DFS)
         // O(n)
         template <order_type Order>
         void for_each(std::function<void(const KeyT&)> f) const noexcept {
             _for_each<Order>(_root, f);
         }
 
-        // level order tree traversal
+        // level order tree traversal (BFS)
         // O(n)
         void for_each_level_order(std::function<void(const KeyT&, const size_t&)> f) const {
             _for_each_level_order(_root, f);

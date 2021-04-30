@@ -37,6 +37,20 @@ namespace container {
             return node;
         }
 
+        // child nodes recursive (DFS) pre-order search
+        void _for_each(const trie_node* node, std::function<void(const std::string&)> f, std::string word) const noexcept {
+            if (node == nullptr)
+                return;
+
+            if (node->_is_complete_word) {
+                f(word);
+            }
+
+            for (const auto& child : node->_children) {
+                _for_each(child.second.get(), f, word + child.first);
+            }
+        }
+
     public:
         trie() { _root = std::make_unique<trie_node>(); }
         trie(const trie& other) = delete;
@@ -79,6 +93,14 @@ namespace container {
 
         void clear() noexcept {
             return _root->_children.clear();
+        }
+
+        void for_each(const std::string& prefix, std::function<void(const std::string&)> f) const noexcept {
+            const auto node = _search(prefix);
+            if (node == nullptr)
+                return;
+
+            _for_each(node, f, prefix);
         }
     };
 }

@@ -89,6 +89,14 @@ namespace container {
         REQUIRE(t.starts_with("test"));
         REQUIRE(!t.starts_with("negativetest"));
 
+        t.insert("algorithm");
+        t.insert("zero");
+        t.insert("algo");
+
+        std::list<std::string> arr1;
+        t.for_each("test", [&arr1](const auto& word) { arr1.push_back(word); });
+        REQUIRE(arr1.size() == 4);
+
         t.clear();
         REQUIRE(t.empty());
     }
