@@ -15,7 +15,7 @@ namespace container {
         template< class NodeKeyT >
         struct tree_node {
             tree_node() = delete;
-            tree_node(const NodeKeyT& key) : _left(nullptr), _right(nullptr), _key(key) {};
+            tree_node(const NodeKeyT& key) : _left{ nullptr }, _right{ nullptr }, _key{ key } {};
             tree_node(const tree_node& other) = delete;
             tree_node(tree_node&& other) = delete;
             tree_node& operator = (const tree_node& other) = delete;
@@ -68,7 +68,7 @@ namespace container {
 
             // 0 is a root level
             size_t level{ 0 };
-            std::vector<decltype(root)> q;
+            std::vector<decltype(root)> q; // std::queue can be used instead
 
             q.push_back(root);
             while (!q.empty()) {
@@ -105,6 +105,35 @@ namespace container {
             }
 
             return _is_bst(node->_left, min, node) && _is_bst(node->_right, node, max);
+        }
+
+        size_t _diameter(const tree_node<KeyT>* node, size_t& diameter) const noexcept {
+            if (node == nullptr) {
+                return 0;
+            }
+
+            auto left = _diameter(node->_left, diameter);
+            auto right = _diameter(node->_right, diameter);
+            diameter = std::max(diameter, left + right);
+
+            return std::max(left, right) + 1;
+        }
+
+        // one pass, post-order
+        bool _is_balanced(const tree_node<KeyT>* node, size_t& height) const noexcept {
+            if (node == nullptr) {
+                height = 0;
+                return true;
+            }
+
+            size_t lh{ 0 };
+            size_t rh{ 0 };
+            if (!_is_balanced(node->_left, lh) || !_is_balanced(node->_right, rh)) {
+                return false;
+            }
+
+            height = std::max(lh, rh) + 1;
+            return std::abs(static_cast<int>(lh - rh)) <= 1;
         }
 
     public:
@@ -155,9 +184,24 @@ namespace container {
             _size = 0;
         }
 
-        // validate if tree is a binary search tree
+        // Validate if tree is a binary search tree
         bool is_bst() const noexcept {
             return _is_bst(_root, nullptr, nullptr);
+        }
+
+        // The diameter of a binary tree is the length of the longest path between any two nodes in a tree. 
+        // This path may or may not pass through the root.
+        size_t diameter() const noexcept {
+            size_t diameter{ 0 };
+            _diameter(_root, diameter);
+
+            return diameter;
+        }
+
+        // Determine if it is height-balanced - the left and right subtrees of every node differ in height by no more than 1.
+        bool is_balanced() const noexcept {
+            size_t height{ 0 };
+            return _is_balanced(_root, height);
         }
     };
 }

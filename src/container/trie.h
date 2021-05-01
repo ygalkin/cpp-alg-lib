@@ -16,6 +16,10 @@ namespace container {
     private:
         struct trie_node {
             trie_node() : _is_complete_word{ false } {};
+            trie_node(const trie_node& other) = delete;
+            trie_node(trie_node&& other) = delete;
+            trie_node& operator = (const trie_node& other) = delete;
+            trie_node& operator = (trie_node&& other) = delete;
             ~trie_node() = default;
 
             std::unordered_map<char, std::unique_ptr<trie_node>> _children;
@@ -28,8 +32,9 @@ namespace container {
             auto node = _root.get();
 
             for (const auto& ch : word) {
-                if (node->_children.count(ch) == 0)
+                if (node->_children.count(ch) == 0) {
                     return nullptr;
+                }
 
                 node = node->_children[ch].get();
             }
@@ -39,8 +44,9 @@ namespace container {
 
         // child nodes recursive (DFS) pre-order search
         void _for_each(const trie_node* node, std::function<void(const std::string&)> f, std::string word) const noexcept {
-            if (node == nullptr)
+            if (node == nullptr) {
                 return;
+            }
 
             if (node->_is_complete_word) {
                 f(word);
@@ -97,8 +103,9 @@ namespace container {
 
         void for_each(const std::string& prefix, std::function<void(const std::string&)> f) const noexcept {
             const auto node = _search(prefix);
-            if (node == nullptr)
+            if (node == nullptr) {
                 return;
+            }
 
             _for_each(node, f, prefix);
         }
