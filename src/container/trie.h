@@ -8,7 +8,7 @@
 // Trie (prefix tree). 
 // Common usage: 
 //      word auto-completion,
-//      quick validation if a word misspelled
+//      quick validation if a word is misspelled
 
 namespace container {
 
