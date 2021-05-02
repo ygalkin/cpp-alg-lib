@@ -73,7 +73,7 @@ namespace container {
             q.push_back(root);
             while (!q.empty()) {
                 const auto size = q.size(); // because we change q size in the loop
-                for (auto i = 0; i < size; ++i) {
+                for (size_t i = 0; i < size; ++i) {
                     const auto node = q[i];
                     if (node->_left) q.push_back(node->_left);
                     if (node->_right) q.push_back(node->_right);
@@ -107,19 +107,27 @@ namespace container {
             return _is_bst(node->_left, min, node) && _is_bst(node->_right, node, max);
         }
 
+        size_t _height(const tree_node<KeyT>* node)  const noexcept {
+            if (node == nullptr) {
+                return 0;
+            }
+
+            return std::max(_height(node->_left), _height(node->_right)) + 1;
+        }
+
         size_t _diameter(const tree_node<KeyT>* node, size_t& diameter) const noexcept {
             if (node == nullptr) {
                 return 0;
             }
 
-            auto left = _diameter(node->_left, diameter);
-            auto right = _diameter(node->_right, diameter);
+            const auto left = _diameter(node->_left, diameter);
+            const auto right = _diameter(node->_right, diameter);
             diameter = std::max(diameter, left + right);
 
             return std::max(left, right) + 1;
         }
 
-        // one pass, post-order
+        // one pass, post-order traversal
         bool _is_balanced(const tree_node<KeyT>* node, size_t& height) const noexcept {
             if (node == nullptr) {
                 height = 0;
@@ -189,12 +197,16 @@ namespace container {
             return _is_bst(_root, nullptr, nullptr);
         }
 
+        // The height of a binary tree is the height of the root node in the whole binary tree.
+        size_t height()  const noexcept {
+            return _height(_root);
+        }
+
         // The diameter of a binary tree is the length of the longest path between any two nodes in a tree. 
         // This path may or may not pass through the root.
         size_t diameter() const noexcept {
             size_t diameter{ 0 };
             _diameter(_root, diameter);
-
             return diameter;
         }
 
@@ -203,6 +215,8 @@ namespace container {
             size_t height{ 0 };
             return _is_balanced(_root, height);
         }
+
+        void balance() { }
     };
 }
 

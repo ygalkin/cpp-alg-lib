@@ -31,11 +31,11 @@ namespace container {
         REQUIRE(arr2.size() == test_array.size());
         REQUIRE(level == 6);
 
-        REQUIRE(bst.is_bst());
-
-        REQUIRE(bst.find(*(end(test_array) - 1))); // find last element
+        REQUIRE(bst.find(*(end(test_array) - 1))); // find the last element
         REQUIRE(!bst.find(-42));
 
+        REQUIRE(bst.is_bst());
+        REQUIRE(bst.height() == 7);
         REQUIRE(bst.diameter() == 9);
         REQUIRE(!bst.is_balanced());
 
@@ -44,6 +44,7 @@ namespace container {
         REQUIRE(bst.empty());
         REQUIRE(bst.size() == 0);
         REQUIRE(bst.diameter() == 0);
+        REQUIRE(bst.height() == 0);
     }
 
     TEST_CASE("singly linked list", "[container]") {

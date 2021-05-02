@@ -28,13 +28,17 @@ Catch2 unit test library - https://github.com/catchorg/Catch2
 
 - balanced tree sort
 
+## Searching Algorithms
+
+- naive
+
 ## Containers
 
 - singly linked list
 
 - binary search tree
 
-- trie (prefix tree). (Usage: word auto-completion, quick validation if a word is misspelled)
+- trie (prefix tree). Usage: word auto-completion, quick validation if a word is misspelled.
 
 ## Smart Pointers
 
