@@ -32,7 +32,7 @@ namespace algorithm {
         return std::string::npos;
     }
 
-    // knuth_morris_pratt_string_search
+    // Knuth–Morris–Pratt string-searching algorithm
     size_t kmp_string_search(const std::string& text, const std::string& pattern) {
         if (pattern.empty()) {
             return 0;
@@ -44,7 +44,6 @@ namespace algorithm {
 
         return std::string::npos;
     }
-
 }
 
 #endif
