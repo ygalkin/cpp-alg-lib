@@ -49,7 +49,7 @@ namespace container {
         }
 
         template <order_type Order>
-        void _for_each(tree_node<KeyT>* parent, std::function<void(const KeyT&)> f) const noexcept {
+        void _for_each(const tree_node<KeyT>* parent, std::function<void(const KeyT&)> f) const noexcept {
             if (parent == nullptr) {
                 return;
             }
@@ -61,7 +61,7 @@ namespace container {
             if (Order == order_type::post_order) f(parent->_key);
         }
 
-        void _for_each_level_order(tree_node<KeyT>* root, std::function<void(const KeyT&, const size_t&)> f) const {
+        void _for_each_level_order(const tree_node<KeyT>* root, std::function<void(const KeyT&, const size_t&)> f) const {
             if (root == nullptr) {
                 return;
             }
@@ -215,8 +215,6 @@ namespace container {
             size_t height{ 0 };
             return _is_balanced(_root, height);
         }
-
-        void balance() { }
     };
 }
 
