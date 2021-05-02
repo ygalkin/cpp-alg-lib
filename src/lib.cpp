@@ -9,6 +9,7 @@
 
 #include "smart-ptr/test.h"
 #include "container/test.h"
+#include "algorithm/test.h"
 #include "sort/test.h"
 
 int main(int argc, char const* const argv[]) {

@@ -13,7 +13,6 @@ namespace container {
 
     TEST_CASE("binary search tree", "[container]") {
         static constexpr std::array<int, 13> test_array{ {10, 4, 0, -9, -9, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
-
         binary_search_tree<int> bst;
         REQUIRE(bst.empty());
 
