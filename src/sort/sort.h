@@ -156,7 +156,7 @@ namespace sort {
         if (first == last)
             return;
 
-        // Partitioning. Hoare partition scheme
+        // Partitioning. 3-way partitioning scheme
         const auto pivot = *std::next(first, (std::distance(first, last) / 2));
         auto bound1 = std::partition(first, last, [&pivot](const auto& i) { return i < pivot; });
         auto bound2 = std::partition(bound1, last, [&pivot](const auto& i) { return (i == pivot); });

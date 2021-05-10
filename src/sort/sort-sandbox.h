@@ -4,7 +4,6 @@
 namespace sort {
     namespace sandbox {
 
-        // DO NOT USE THIS FUNCTION. It's used for benchmark only.
         // It use two loops (forward and reverse) instead of one loop. Works little bit slower than cocktail_shaker_sort.
         template< class IterT >
         inline void cocktail_shaker_sort_2(IterT first, IterT last) {
@@ -46,8 +45,7 @@ namespace sort {
                 std::iter_swap(i, std::min_element(i, last));
         }
 
-        // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
-        // The same as selection_sort2() but "find min element" self-implemented loop is used instead of std::min_element
+        // The same as selection_sort2() but "find min element" is a self-implemented loop and is used instead of std::min_element
         template< class IterT >
         inline void selection_sort_3(IterT first, IterT last) {
             if (first == last)
@@ -67,7 +65,6 @@ namespace sort {
             }
         }
 
-        // DO NOT USE THIS FUNCTION. It's used for benchmark only.
         // It swaps elements using std::iter_swap instead of moving them using std::move. It works very slow.
         template <typename IterT>
         inline void insertion_sort_2(IterT first, IterT last) {
@@ -84,8 +81,7 @@ namespace sort {
             }
         }
 
-        // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
-        // It use self-implemented partitioning algorithm instead of std::partition that works much faster.
+        // TODO: self-implemented partitioning algorithm (Hoare or 3-way) instead of std::partition.
         template< class IterT >
         inline void quick_sort_2(IterT first, IterT last) {
             if (first == last)
@@ -93,16 +89,15 @@ namespace sort {
 
             //const auto pivot = *(first + (std::distance(first, last) / 2));
 
-            // Partitioning. Hoare partition scheme
+            // Partitioning. Hoare partition scheme or 3-way
             // TODO:
 
             //quick_sort_2(first, left);
             //quick_sort_2(right, last);
         }
 
-        // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
-        // ! Stack overflow on a SORTED large array ~ 4000 elements. Lomuto’s partition scheme replaced by Hoare partition scheme
-        // You can use it as Lomuto’s partition scheme reference code. 
+        // Stack overflow on a SORTED large array ~ 4000 elements. 
+        // Lomuto’s partition scheme.
         template< class IterT >
         inline void quick_sort_3(IterT first, IterT last) {
             if (first == last)
@@ -117,9 +112,8 @@ namespace sort {
             quick_sort_3(std::next(bound), last);
         }
 
-        // DO NOT USE THIS FUNCTION. It's used for benchmark only. 
-        // ! Stack overflow on a SORTED large array ~ 4000 elements. Lomuto’s partition scheme replaced by Hoare partition scheme
-        // You can use it as Lomuto’s partition scheme reference code.  
+        // Stack overflow on a SORTED large array ~ 4000 elements.
+        // Lomuto’s partition scheme.
         template< class IterT >
         inline void quick_sort_4(IterT first, IterT last) {
             if (first == last)
