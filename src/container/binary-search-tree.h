@@ -54,11 +54,11 @@ namespace container {
                 return;
             }
 
-            if (Order == order_type::pre_order) f(parent->_key);
+            if constexpr (Order == order_type::pre_order) f(parent->_key);
             _for_each<Order>(parent->_left, f);
-            if (Order == order_type::in_order) f(parent->_key);
+            if constexpr (Order == order_type::in_order) f(parent->_key);
             _for_each<Order>(parent->_right, f);
-            if (Order == order_type::post_order) f(parent->_key);
+            if constexpr (Order == order_type::post_order) f(parent->_key);
         }
 
         void _for_each_level_order(const tree_node<KeyT>* root, std::function<void(const KeyT&, const size_t&)> f) const {
