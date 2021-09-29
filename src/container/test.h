@@ -16,7 +16,7 @@ namespace container {
         binary_search_tree<int> bst;
         REQUIRE(bst.empty());
 
-        for (auto item : test_array) {
+        for (const auto& item : test_array) {
             bst.insert(item);
         }
 

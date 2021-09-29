@@ -18,9 +18,8 @@ namespace sort {
     using SORT_CONTAINER = std::vector<SORT_TYPE>;
     using IterType = SORT_CONTAINER::iterator;
 
-    static constexpr auto ARRAY_SIZE = 100;
-
-    static const std::vector<std::pair<std::string_view, std::function<void(IterType b, IterType e)>>> _sort_algorithms{
+    inline constexpr auto ARRAY_SIZE = 100;
+    inline const std::vector<std::pair<std::string_view, std::function<void(IterType b, IterType e)>>> _sort_algorithms{
         {"std::sort", [](IterType b, IterType e) { std::sort(b, e); } },
         {"std::stable_sort", [](IterType b, IterType e) { std::stable_sort(b, e); } },
         {"bubble_sort", [](IterType b, IterType e) { sort::bubble_sort(b, e); }},
@@ -66,25 +65,25 @@ namespace sort {
 
     TEST_CASE("sort random array", "[sort]") {
 
-        initialize();
-
         constexpr auto BENCHMARK_NAME = "Benchmark: random array";
-        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
-
-        const std::unordered_set<std::string_view> test_case_skip_list{
+        constexpr std::array<std::string_view, 1> test_case_skip_list{
             "quick_sort_2" // not implemented
         };
 
+        initialize();
+
+        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
+
         for (const auto& f : _sort_algorithms) {
             std::cout << f.first << " : ";
-            if (test_case_skip_list.find(f.first) != std::cend(test_case_skip_list)) {
+            if (std::find(std::cbegin(test_case_skip_list), std::cend(test_case_skip_list), f.first) != std::cend(test_case_skip_list)) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
 
             SORT_CONTAINER test_array(std::cbegin(_unsorted_test_array), std::cend(_unsorted_test_array));
 
-            auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
+            const auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(std::equal(std::cbegin(test_array), std::cend(test_array), std::cbegin(_sorted_test_array)));
@@ -92,28 +91,28 @@ namespace sort {
     }
 
     TEST_CASE("sort sorted array", "[sort]") {
-        initialize();
-
         constexpr auto BENCHMARK_NAME = "Benchmark: sorted array";
-        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
-
-        const std::unordered_set<std::string_view> test_case_skip_list{
+        constexpr std::array<std::string_view, 4> test_case_skip_list{
             "quick_sort_2", // not implemented
             "quick_sort_3",
             "quick_sort_4",
             "unbalanced_tree_sort"
         };
 
+        initialize();
+
+        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
+
         for (const auto& f : _sort_algorithms) {
             std::cout << f.first << " : ";
-            if (test_case_skip_list.find(f.first) != std::cend(test_case_skip_list)) {
+            if (std::find(std::cbegin(test_case_skip_list), std::cend(test_case_skip_list), f.first) != std::cend(test_case_skip_list)) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
 
             SORT_CONTAINER test_array(std::cbegin(_sorted_test_array), std::cend(_sorted_test_array));
 
-            auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
+            const auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(std::equal(std::cbegin(test_array), std::cend(test_array), std::cbegin(_sorted_test_array)));
@@ -122,20 +121,20 @@ namespace sort {
 
     TEST_CASE("sort empty array", "[sort]") {
         constexpr auto BENCHMARK_NAME = "Benchmark: empty array";
-        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
+        constexpr std::array<std::string_view, 0> test_case_skip_list{};
 
-        const std::unordered_set<std::string_view> test_case_skip_list{};
+        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
         for (const auto& f : _sort_algorithms) {
             std::cout << f.first << " : ";
-            if (test_case_skip_list.find(f.first) != std::cend(test_case_skip_list)) {
+            if (std::find(std::cbegin(test_case_skip_list), std::cend(test_case_skip_list), f.first) != std::cend(test_case_skip_list)) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
 
             SORT_CONTAINER test_array;
 
-            auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
+            const auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(test_array.empty());
@@ -144,20 +143,20 @@ namespace sort {
 
     TEST_CASE("sort 1 element array", "[sort]") {
         constexpr auto BENCHMARK_NAME = "Benchmark: one element array";
-        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
+        constexpr std::array<std::string_view, 1> test_case_skip_list{ "cocktail_shaker_sort" };
 
-        const std::unordered_set<std::string_view> test_case_skip_list{ "cocktail_shaker_sort" };
+        std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
         for (const auto& f : _sort_algorithms) {
             std::cout << f.first << " : ";
-            if (test_case_skip_list.find(f.first) != std::cend(test_case_skip_list)) {
+            if (std::find(std::cbegin(test_case_skip_list), std::cend(test_case_skip_list), f.first) != std::cend(test_case_skip_list)) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
             constexpr auto ELEMENT_TO_SORT{ 42 };
             SORT_CONTAINER test_array{ ELEMENT_TO_SORT };
 
-            auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
+            const auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(test_array[0] == ELEMENT_TO_SORT);
