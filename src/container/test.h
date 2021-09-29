@@ -12,26 +12,26 @@
 namespace container {
 
     TEST_CASE("binary search tree", "[container]") {
-        static constexpr std::array<int, 13> test_array{ {10, 4, 0, -9, -9, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
+        static constexpr std::array<int, 13> TEST_ARRAY{ {10, 4, 0, -9, -9, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
         binary_search_tree<int> bst;
         REQUIRE(bst.empty());
 
-        for (const auto& item : test_array) {
+        for (const auto& item : TEST_ARRAY) {
             bst.insert(item);
         }
 
         std::list<int> arr1;
         bst.for_each<order_type::sort_order>([&arr1](const auto& key) { arr1.push_back(key); });
-        REQUIRE(arr1.size() == test_array.size());
-        REQUIRE(bst.size() == test_array.size());
+        REQUIRE(arr1.size() == TEST_ARRAY.size());
+        REQUIRE(bst.size() == TEST_ARRAY.size());
 
         std::list<int> arr2;
         size_t level{ 0 };
         bst.for_each_level_order([&arr2, &level](const auto& key, const auto& l) { arr2.push_back(key); level = l; });
-        REQUIRE(arr2.size() == test_array.size());
+        REQUIRE(arr2.size() == TEST_ARRAY.size());
         REQUIRE(level == 6);
 
-        REQUIRE(bst.find(*(end(test_array) - 1))); // find the last element
+        REQUIRE(bst.find(*(end(TEST_ARRAY) - 1))); // find the last element
         REQUIRE(!bst.find(-42));
 
         REQUIRE(bst.is_bst());

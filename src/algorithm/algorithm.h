@@ -5,7 +5,7 @@
 
 namespace algorithm {
 
-    size_t naive_string_search(const std::string& text, const std::string& pattern) {
+    inline size_t naive_string_search(const std::string& text, const std::string& pattern) {
         if (pattern.empty()) {
             return 0;
         }
@@ -33,7 +33,7 @@ namespace algorithm {
     }
 
     // Knuth–Morris–Pratt string-searching algorithm
-    size_t kmp_string_search(const std::string& text, const std::string& pattern) {
+    inline size_t kmp_string_search(const std::string& text, const std::string& pattern) {
         if (pattern.empty()) {
             return 0;
         }

@@ -29,7 +29,7 @@ namespace smart_ptr {
         single_ptr(const single_ptr& other) = delete;
         single_ptr& operator = (const single_ptr& other) = delete;
 
-        single_ptr(single_ptr&& other) :
+        single_ptr(single_ptr&& other) noexcept :
             _pair{ std::forward<Deleter>(other.get_deleter()), other.release() } {}
 
         single_ptr& operator = (single_ptr&& other) {

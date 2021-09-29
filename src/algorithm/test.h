@@ -5,8 +5,8 @@
 
 namespace algorithm {
 
-    static const std::pair<std::string, std::string> TEST_SEARCH_STR{ "Some books are to be tasted, others to be swallowed, and some few to be chewed and digested.", "to" };
-    static constexpr size_t TEST_SEARCH_POS = 15;
+    inline const std::pair<std::string, std::string> TEST_SEARCH_STR{ "Some books are to be tasted, others to be swallowed, and some few to be chewed and digested.", "to" };
+    inline constexpr size_t TEST_SEARCH_POS = 15;
 
     TEST_CASE("Naive string-searching algorithm", "[algorithm]") {
         REQUIRE(algorithm::naive_string_search("abc", "") == 0);

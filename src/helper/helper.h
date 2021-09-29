@@ -7,18 +7,18 @@
 
 namespace helper {
     template <typename T>
-    std::ostream& out_each(std::ostream& os, const T& t) {
+    inline std::ostream& out_each(std::ostream& os, const T& t) {
         os << "["; std::for_each(std::cbegin(t), std::cend(t), [](const auto& i) { std::cout << i << " "; }); os << "]";
         return os;
     }
 
     template <typename T>
-    std::ostream& out_each(std::ostream& os, T first, T last) {
+    inline std::ostream& out_each(std::ostream& os, T first, T last) {
         os << "["; std::for_each(first, last, [](const auto& i) { std::cout << i << " "; }); os << "]";
         return os;
     }
 
-    auto benchmark_call_ms = [](auto&& func) {
+    inline auto benchmark_call_ms = [](auto&& func) {
         // get time before function invocation
         const auto& start = std::chrono::high_resolution_clock::now();
         // function invocation
@@ -30,7 +30,7 @@ namespace helper {
     };
 
     template <size_t max_len = 30>
-    std::string short_string(const std::string& s) {
+    inline std::string short_string(const std::string& s) {
         return (s.length() > max_len ? s.substr(0, max_len).append("...") : s);
     }
 }
