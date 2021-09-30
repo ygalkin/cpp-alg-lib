@@ -11,7 +11,7 @@ namespace container {
         template< class NodeValT >
         struct list_node {
             list_node() = delete;
-            list_node(const NodeValT& val) : _next{ nullptr }, _val{ val } {};
+            explicit list_node(const NodeValT& val) : _next{ nullptr }, _val{ val } {};
             list_node(const list_node& other) = delete;
             list_node(list_node&& other) = delete;
             list_node& operator = (const list_node& other) = delete;

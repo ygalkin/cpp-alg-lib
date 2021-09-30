@@ -15,7 +15,7 @@ namespace container {
         template< class NodeKeyT >
         struct tree_node {
             tree_node() = delete;
-            tree_node(const NodeKeyT& key) : _left{ nullptr }, _right{ nullptr }, _key{ key } {};
+            explicit tree_node(const NodeKeyT& key) : _left{ nullptr }, _right{ nullptr }, _key{ key } {};
             tree_node(const tree_node& other) = delete;
             tree_node(tree_node&& other) = delete;
             tree_node& operator = (const tree_node& other) = delete;
@@ -54,11 +54,11 @@ namespace container {
                 return;
             }
 
-            if constexpr (Order == order_type::pre_order) f(parent->_key);
+            if constexpr (Order == order_type::pre_order) { f(parent->_key); }
             _for_each<Order>(parent->_left, f);
-            if constexpr (Order == order_type::in_order) f(parent->_key);
+            if constexpr (Order == order_type::in_order) { f(parent->_key); }
             _for_each<Order>(parent->_right, f);
-            if constexpr (Order == order_type::post_order) f(parent->_key);
+            if constexpr (Order == order_type::post_order) { f(parent->_key); }
         }
 
         void _for_each_level_order(const tree_node<KeyT>* root, std::function<void(const KeyT&, const size_t&)> f) const {
