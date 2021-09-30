@@ -7,8 +7,9 @@ namespace sort {
         // It use two loops (forward and reverse) instead of one loop. Works little bit slower than cocktail_shaker_sort.
         template< class IterT >
         inline void cocktail_shaker_sort_2(IterT first, IterT last) {
-            if (first == last)
+            if (first == last) {
                 return;
+            }
 
             auto is_swapped{ true };
             for (auto begin{ first }, end{ std::prev(last) }; is_swapped; ++begin, --end) {
@@ -23,8 +24,9 @@ namespace sort {
                     }
                 }
 
-                if (!is_swapped)
+                if (!is_swapped) {
                     break;
+                }
 
                 // reverse pass
                 is_swapped = false;
@@ -41,15 +43,17 @@ namespace sort {
 
         template< class IterT >
         inline void selection_sort_2(IterT first, IterT last) {
-            for (auto i = first; i != last; ++i)
+            for (auto i = first; i != last; ++i) {
                 std::iter_swap(i, std::min_element(i, last));
+            }
         }
 
         // The same as selection_sort2() but "find min element" is a self-implemented loop and is used instead of std::min_element
         template< class IterT >
         inline void selection_sort_3(IterT first, IterT last) {
-            if (first == last)
+            if (first == last) {
                 return;
+            }
 
             // for [first, last-1)
             const auto end = std::prev(last);
@@ -57,8 +61,9 @@ namespace sort {
                 auto min = i;
                 // find min element [i + 1, last)
                 for (auto j = std::next(i); j != last; ++j) {
-                    if (*j < *min)
+                    if (*j < *min) {
                         min = j;
+                    }
                 }
 
                 std::iter_swap(i, min);
@@ -68,15 +73,17 @@ namespace sort {
         // It swaps elements using std::iter_swap instead of moving them using std::move. It works very slow.
         template <typename IterT>
         inline void insertion_sort_2(IterT first, IterT last) {
-            if (first == last)
+            if (first == last) {
                 return;
+            }
 
             // for [first + 1, last)
             for (auto i = std::next(first); i != last; ++i) {
                 for (auto j = i, prev_j = std::prev(i); *prev_j > *j; --prev_j, --j) {
                     std::iter_swap(prev_j, j);
-                    if (prev_j == first)
+                    if (prev_j == first) {
                         break;
+                    }
                 }
             }
         }
@@ -84,8 +91,9 @@ namespace sort {
         // TODO: self-implemented partitioning algorithm (Hoare or 3-way) instead of std::partition.
         template< class IterT >
         inline void quick_sort_2(IterT first, IterT last) {
-            if (first == last)
+            if (first == last) {
                 return;
+            }
 
             //const auto pivot = *(first + (std::distance(first, last) / 2));
 
@@ -100,8 +108,9 @@ namespace sort {
         // Lomuto’s partition scheme.
         template< class IterT >
         inline void quick_sort_3(IterT first, IterT last) {
-            if (first == last)
+            if (first == last) {
                 return;
+            }
 
             // Partitioning. Lomuto’s partition scheme
             const auto pivot = std::prev(last); // pivot element is a last element
@@ -116,8 +125,9 @@ namespace sort {
         // Lomuto’s partition scheme.
         template< class IterT >
         inline void quick_sort_4(IterT first, IterT last) {
-            if (first == last)
+            if (first == last) {
                 return;
+            }
 
             // Partitioning. Lomuto’s partition scheme
             const auto pivot = std::prev(last); // pivot element is a last element

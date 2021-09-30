@@ -24,7 +24,7 @@ namespace smart_ptr {
         using deleter_type = Deleter;
 
         single_ptr() = delete;
-        single_ptr(T* ptr) noexcept : _pair{ default_deleter<T>(), ptr } {}
+        explicit single_ptr(T* ptr) noexcept : _pair{ default_deleter<T>(), ptr } {}
         single_ptr(T* ptr, Deleter d) noexcept : _pair{ d, ptr } {}
         single_ptr(const single_ptr& other) = delete;
         single_ptr& operator = (const single_ptr& other) = delete;
