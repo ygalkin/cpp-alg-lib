@@ -3,7 +3,7 @@
 
 #include <unordered_map>
 #include <memory>
-#include <string>
+#include <string_view>
 
 // Trie (prefix tree). 
 // Common usage: 
@@ -28,7 +28,7 @@ namespace container {
 
         std::unique_ptr<trie_node> _root;
 
-        const trie_node* _search(const std::string& word) const {
+        const trie_node* _search(const std::string_view& word) const {
             auto node = _root.get();
 
             for (const auto& ch : word) {
@@ -43,7 +43,7 @@ namespace container {
         }
 
         // child nodes recursive (DFS) pre-order search
-        void _for_each(const trie_node* node, std::function<void(const std::string&)> f, std::string word) const noexcept {
+        void _for_each(const trie_node* node, std::function<void(const std::string_view&)> f, std::string_view word) const noexcept {
             if (node == nullptr) {
                 return;
             }
@@ -53,7 +53,7 @@ namespace container {
             }
 
             for (const auto& child : node->_children) {
-                _for_each(child.second.get(), f, word + child.first);
+                _for_each(child.second.get(), f, std::string{ word } + child.first);
             }
         }
 
@@ -66,7 +66,7 @@ namespace container {
         virtual ~trie() = default;
 
         // insert a word into the trie.
-        void insert(const std::string& word) {
+        void insert(const std::string_view& word) {
             auto node = _root.get();
 
             for (const auto& ch : word) {
@@ -81,13 +81,13 @@ namespace container {
         }
 
         // true if the word is in the trie.
-        bool search(const std::string& word) const {
+        bool search(const std::string_view& word) const {
             const auto node = _search(word);
             return (node == nullptr) ? false : node->_is_complete_word;
         }
 
         // true if there is any word in the trie that starts with the given prefix.
-        bool starts_with(const std::string& prefix) const {
+        bool starts_with(const std::string_view& prefix) const {
             const auto node = _search(prefix);
             return !(node == nullptr);
         }
@@ -101,7 +101,7 @@ namespace container {
             return _root->_children.clear();
         }
 
-        void for_each(const std::string& prefix, std::function<void(const std::string&)> f) const noexcept {
+        void for_each(const std::string_view& prefix, std::function<void(const std::string_view&)> f) const noexcept {
             const auto node = _search(prefix);
             if (node == nullptr) {
                 return;

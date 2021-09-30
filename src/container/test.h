@@ -98,7 +98,7 @@ namespace container {
         t.insert("algo");
 
         std::list<std::string> arr1;
-        t.for_each("test", [&arr1](const auto& word) { arr1.push_back(word); });
+        t.for_each("test", [&arr1](const auto& word) { arr1.push_back(std::string{ word }); });
         REQUIRE(arr1.size() == 4);
 
         t.clear();

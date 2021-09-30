@@ -77,15 +77,18 @@ namespace sort {
         std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
         for (const auto& f : _sort_algorithms) {
-            std::cout << f.first << " : ";
-            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), f.first) != std::cend(TEST_CASE_SKIP_LIST)) {
+
+            const auto [name, sort_func] = f;
+
+            std::cout << name << " : ";
+            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), name) != std::cend(TEST_CASE_SKIP_LIST)) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
 
             SortContainer test_array(std::cbegin(unsorted_test_array), std::cend(unsorted_test_array));
 
-            const auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
+            const auto t = helper::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(std::equal(std::cbegin(test_array), std::cend(test_array), std::cbegin(sorted_test_array)));
@@ -108,15 +111,18 @@ namespace sort {
         std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
         for (const auto& f : _sort_algorithms) {
-            std::cout << f.first << " : ";
-            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), f.first) != std::cend(TEST_CASE_SKIP_LIST)) {
+
+            const auto [name, sort_func] = f;
+
+            std::cout << name << " : ";
+            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), name) != std::cend(TEST_CASE_SKIP_LIST)) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
 
             SortContainer test_array(std::cbegin(sorted_test_array), std::cend(sorted_test_array));
 
-            const auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
+            const auto t = helper::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(std::equal(std::cbegin(test_array), std::cend(test_array), std::cbegin(sorted_test_array)));
@@ -130,15 +136,18 @@ namespace sort {
         std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
         for (const auto& f : _sort_algorithms) {
-            std::cout << f.first << " : ";
-            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), f.first) != std::cend(TEST_CASE_SKIP_LIST)) {
+
+            const auto [name, sort_func] = f;
+
+            std::cout << name << " : ";
+            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), name) != std::cend(TEST_CASE_SKIP_LIST)) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
 
             SortContainer test_array;
 
-            const auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
+            const auto t = helper::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(test_array.empty());
@@ -152,15 +161,18 @@ namespace sort {
         std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
         for (const auto& f : _sort_algorithms) {
-            std::cout << f.first << " : ";
-            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), f.first) != std::cend(TEST_CASE_SKIP_LIST)) {
+
+            const auto [name, sort_func] = f;
+
+            std::cout << name << " : ";
+            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), name) != std::cend(TEST_CASE_SKIP_LIST)) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
             constexpr auto ELEMENT_TO_SORT{ 42 };
             SortContainer test_array{ ELEMENT_TO_SORT };
 
-            const auto t = helper::benchmark_call_ms([&]() {f.second(std::begin(test_array), std::end(test_array)); });
+            const auto t = helper::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(test_array[0] == ELEMENT_TO_SORT);

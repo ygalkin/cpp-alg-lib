@@ -196,7 +196,7 @@ namespace container {
                 }
             }
 
-            return false; // if fast == nullptr we have reached end of the list       
+            return false; // if fast == nullptr we have reached end of the list
         }
     };
 }
