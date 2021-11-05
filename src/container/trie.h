@@ -27,7 +27,7 @@ namespace container {
 
         trie_node _root;
 
-        const trie_node* _search(const std::string_view& word) const {
+        const trie_node* _search(const std::string_view word) const {
             const auto* node = &_root;
 
             for (const auto& ch : word) {
@@ -44,7 +44,7 @@ namespace container {
         }
 
         // child nodes recursive (DFS) pre-order search
-        void _for_each(const trie_node* node, std::function<void(const std::string_view&)> f, std::string_view word) const noexcept {
+        void _for_each(const trie_node* node, std::function<void(const std::string_view)> f, std::string_view word) const noexcept {
             if (node == nullptr) {
                 return;
             }
@@ -67,7 +67,7 @@ namespace container {
         virtual ~trie() = default;
 
         // insert a word into the trie.
-        void insert(const std::string_view& word) {
+        void insert(const std::string_view word) {
             auto node = &_root;
 
             for (const auto& ch : word) {
@@ -82,13 +82,13 @@ namespace container {
         }
 
         // true if the word is in the trie.
-        bool search(const std::string_view& word) const {
+        bool search(const std::string_view word) const {
             const auto node = _search(word);
             return (node == nullptr) ? false : node->_is_complete_word;
         }
 
         // true if there is any word in the trie that starts with the given prefix.
-        bool starts_with(const std::string_view& prefix) const {
+        bool starts_with(const std::string_view prefix) const {
             const auto node = _search(prefix);
             return !(node == nullptr);
         }
@@ -102,7 +102,7 @@ namespace container {
             return _root._children.clear();
         }
 
-        void for_each(const std::string_view& prefix, std::function<void(const std::string_view&)> f) const noexcept { // TODO
+        void for_each(const std::string_view prefix, std::function<void(const std::string_view)> f) const noexcept { // TODO
             const auto node = _search(prefix);
             if (node == nullptr) {
                 return;
