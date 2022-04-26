@@ -1,11 +1,11 @@
-#ifndef _HELPER_
-#define _HELPER_
+#ifndef _DETAIL_
+#define _DETAIL_
 
 #include <algorithm>
 #include <iostream>
 #include <chrono>
 
-namespace helper {
+namespace detail {
     template <typename T>
     inline std::ostream& out_each(std::ostream& os, const T& t) {
         os << "["; std::for_each(std::cbegin(t), std::cend(t), [](const auto& i) { std::cout << i << " "; }); os << "]";

@@ -3,7 +3,7 @@
 
 #include "sort.h"
 #include "sort-sandbox.h"
-#include "helper.h"
+#include "detail.h"
 
 #include <iostream>
 #include <array>
@@ -13,7 +13,7 @@
 #include <string_view>
 
 namespace sort {
-    inline constexpr auto ARRAY_SIZE = 100;
+    static constexpr auto ARRAY_SIZE = 100;
 
     using sort_type = int;
     using sort_container_helper = std::array<sort_type, ARRAY_SIZE>;
@@ -65,8 +65,8 @@ namespace sort {
 
     TEST_CASE("sort random array", "[sort]") {
 
-        constexpr auto BENCHMARK_NAME = "Benchmark: random array";
-        constexpr test_case_skip_list<1> TEST_CASE_SKIP_LIST{
+        static constexpr auto BENCHMARK_NAME = "Benchmark: random array";
+        static constexpr test_case_skip_list<1> TEST_CASE_SKIP_LIST{
             "quick_sort_2" // not implemented
         };
 
@@ -88,7 +88,7 @@ namespace sort {
 
             sort_container test_array(std::cbegin(unsorted_test_array), std::cend(unsorted_test_array));
 
-            const auto t = helper::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
+            const auto t = detail::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(std::equal(std::cbegin(test_array), std::cend(test_array), std::cbegin(sorted_test_array)));
@@ -96,8 +96,8 @@ namespace sort {
     }
 
     TEST_CASE("sort sorted array", "[sort]") {
-        constexpr auto BENCHMARK_NAME = "Benchmark: sorted array";
-        constexpr test_case_skip_list<4> TEST_CASE_SKIP_LIST{
+        static constexpr auto BENCHMARK_NAME = "Benchmark: sorted array";
+        static constexpr test_case_skip_list<4> TEST_CASE_SKIP_LIST{
             "quick_sort_2", // not implemented
             "quick_sort_3",
             "quick_sort_4",
@@ -122,7 +122,7 @@ namespace sort {
 
             sort_container test_array(std::cbegin(sorted_test_array), std::cend(sorted_test_array));
 
-            const auto t = helper::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
+            const auto t = detail::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(std::equal(std::cbegin(test_array), std::cend(test_array), std::cbegin(sorted_test_array)));
@@ -130,8 +130,8 @@ namespace sort {
     }
 
     TEST_CASE("sort empty array", "[sort]") {
-        constexpr auto BENCHMARK_NAME = "Benchmark: empty array";
-        constexpr test_case_skip_list<0> TEST_CASE_SKIP_LIST{};
+        static constexpr auto BENCHMARK_NAME = "Benchmark: empty array";
+        static constexpr test_case_skip_list<0> TEST_CASE_SKIP_LIST{};
 
         std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
@@ -147,7 +147,7 @@ namespace sort {
 
             sort_container test_array;
 
-            const auto t = helper::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
+            const auto t = detail::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(test_array.empty());
@@ -155,8 +155,8 @@ namespace sort {
     }
 
     TEST_CASE("sort 1 element array", "[sort]") {
-        constexpr auto BENCHMARK_NAME = "Benchmark: one element array";
-        constexpr test_case_skip_list<1> TEST_CASE_SKIP_LIST{ "cocktail_shaker_sort" };
+        static constexpr auto BENCHMARK_NAME = "Benchmark: one element array";
+        static constexpr test_case_skip_list<1> TEST_CASE_SKIP_LIST{ "cocktail_shaker_sort" };
 
         std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
@@ -169,10 +169,10 @@ namespace sort {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
-            constexpr auto ELEMENT_TO_SORT{ 42 };
+            static constexpr auto ELEMENT_TO_SORT{ 42 };
             sort_container test_array{ ELEMENT_TO_SORT };
 
-            const auto t = helper::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
+            const auto t = detail::benchmark_call_ms([&]() {sort_func(std::begin(test_array), std::end(test_array)); });
 
             print_footer(t, test_array.size());
             REQUIRE(test_array[0] == ELEMENT_TO_SORT);

@@ -4,6 +4,7 @@
 #include "singly-linked-list.h"
 #include "binary-search-tree.h"
 #include "trie.h"
+#include "enum-array.h"
 
 #include <list>
 #include <array>
