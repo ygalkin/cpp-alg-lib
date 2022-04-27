@@ -107,7 +107,7 @@ namespace container {
             return _is_bst(node->_left, min, node) && _is_bst(node->_right, node, max);
         }
 
-        size_t _height(const tree_node<KeyT>* node)  const noexcept {
+        size_t _height(const tree_node<KeyT>* node) const noexcept {
             if (node == nullptr) {
                 return 0;
             }
