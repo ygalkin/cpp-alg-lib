@@ -20,7 +20,7 @@ namespace sort {
     using sort_container = std::vector<sort_type>;
     using IterType = sort_container::iterator;
     template <size_t size>
-    using test_case_skip_list = std::array<std::string_view, size>;
+    using skip_list = std::array<std::string_view, size>;
 
     inline const std::vector<std::pair<std::string_view, std::function<void(IterType b, IterType e)>>> _sort_algorithms{
         {"std::sort", [](IterType b, IterType e) { std::sort(b, e); } },
@@ -66,7 +66,7 @@ namespace sort {
     TEST_CASE("sort random array", "[sort]") {
 
         static constexpr auto BENCHMARK_NAME = "Benchmark: random array";
-        static constexpr test_case_skip_list<1> TEST_CASE_SKIP_LIST{
+        static constexpr skip_list<1> SKIP_LIST{
             "quick_sort_2" // not implemented
         };
 
@@ -81,7 +81,8 @@ namespace sort {
             const auto [name, sort_func] = f;
 
             std::cout << name << " : ";
-            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), name) != std::cend(TEST_CASE_SKIP_LIST)) {
+
+            if (std::any_of(std::cbegin(SKIP_LIST), std::cend(SKIP_LIST), [&name](const auto& i) { return i == name; })) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
@@ -97,7 +98,7 @@ namespace sort {
 
     TEST_CASE("sort sorted array", "[sort]") {
         static constexpr auto BENCHMARK_NAME = "Benchmark: sorted array";
-        static constexpr test_case_skip_list<4> TEST_CASE_SKIP_LIST{
+        static constexpr skip_list<4> SKIP_LIST{
             "quick_sort_2", // not implemented
             "quick_sort_3",
             "quick_sort_4",
@@ -115,7 +116,7 @@ namespace sort {
             const auto [name, sort_func] = f;
 
             std::cout << name << " : ";
-            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), name) != std::cend(TEST_CASE_SKIP_LIST)) {
+            if (std::any_of(std::cbegin(SKIP_LIST), std::cend(SKIP_LIST), [&name](const auto& i) { return i == name; })) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
@@ -131,7 +132,7 @@ namespace sort {
 
     TEST_CASE("sort empty array", "[sort]") {
         static constexpr auto BENCHMARK_NAME = "Benchmark: empty array";
-        static constexpr test_case_skip_list<0> TEST_CASE_SKIP_LIST{};
+        static constexpr skip_list<0> SKIP_LIST{};
 
         std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
@@ -140,7 +141,7 @@ namespace sort {
             const auto [name, sort_func] = f;
 
             std::cout << name << " : ";
-            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), name) != std::cend(TEST_CASE_SKIP_LIST)) {
+            if (std::any_of(std::cbegin(SKIP_LIST), std::cend(SKIP_LIST), [&name](const auto& i) { return i == name; })) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
@@ -156,7 +157,7 @@ namespace sort {
 
     TEST_CASE("sort 1 element array", "[sort]") {
         static constexpr auto BENCHMARK_NAME = "Benchmark: one element array";
-        static constexpr test_case_skip_list<1> TEST_CASE_SKIP_LIST{ "cocktail_shaker_sort" };
+        static constexpr skip_list<1> SKIP_LIST{ "cocktail_shaker_sort" };
 
         std::cout << "**********[" << BENCHMARK_NAME << "]**********" << std::endl;
 
@@ -165,10 +166,11 @@ namespace sort {
             const auto [name, sort_func] = f;
 
             std::cout << name << " : ";
-            if (std::find(std::cbegin(TEST_CASE_SKIP_LIST), std::cend(TEST_CASE_SKIP_LIST), name) != std::cend(TEST_CASE_SKIP_LIST)) {
+            if (std::any_of(std::cbegin(SKIP_LIST), std::cend(SKIP_LIST), [&name](const auto& i) { return i == name; })) {
                 std::cout << "[SKIPPED]" << std::endl;
                 continue;
             }
+
             static constexpr auto ELEMENT_TO_SORT{ 42 };
             sort_container test_array{ ELEMENT_TO_SORT };
 
