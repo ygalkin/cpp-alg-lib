@@ -12,6 +12,16 @@
 
 namespace container {
 
+    namespace {
+        enum class color_enum {
+            RED, // must be 0 based
+            GREEN,
+            BLUE,
+            SIZE, // last valid item. size of the array
+            YELLOW // usage of this item triggers static_assert
+        };
+    }
+
     TEST_CASE("binary search tree", "[container]") {
         static constexpr std::array<int, 13> TEST_ARRAY{ {10, 4, 0, -9, -9, 11, -1,  std::numeric_limits<int>::min(), -2, -1, 33, std::numeric_limits<int>::max(), 11 } };
         binary_search_tree<int> bst;
@@ -104,6 +114,81 @@ namespace container {
 
         t.clear();
         REQUIRE(t.empty());
+    }
+
+    TEST_CASE("enum array. Default ctor", "[container]") {
+        enum_array<std::string, color_enum> arr;
+
+        // check default values
+        REQUIRE(arr.at<color_enum::BLUE>() == "");
+        REQUIRE(arr.at<color_enum::GREEN>() == "");
+        REQUIRE(arr.at<color_enum::RED>() == "");
+
+        // modify values
+        arr.at<color_enum::RED>() = "red";
+        arr.at<color_enum::GREEN>() = "green";
+        arr.at<color_enum::BLUE>() = "blue";
+
+        // check modified values
+        REQUIRE(arr.at<color_enum::BLUE>() == "blue");
+        REQUIRE(arr.at<color_enum::GREEN>() == "green");
+        REQUIRE(arr.at<color_enum::RED>() == "red");
+
+        // check const "at"
+        const auto r = arr.at<color_enum::BLUE>();
+        REQUIRE(r == "blue");
+
+        // check array size
+        REQUIRE(arr.size() == 3);
+
+        arr[color_enum::RED] = "red";
+        arr[color_enum::GREEN] = "green";
+        arr[color_enum::BLUE] = "blue";
+
+        REQUIRE(arr[color_enum::BLUE] == "blue");
+        REQUIRE(arr[color_enum::GREEN] == "green");
+        REQUIRE(arr[color_enum::RED] == "red");
+
+        bool res = false;
+        try {
+            auto elem = arr[color_enum::YELLOW];
+        }
+        catch (std::out_of_range) {
+            res = true;
+        }
+        REQUIRE(res);
+    }
+
+    TEST_CASE("enum array. No default ctor", "[container]") {
+        class color {
+        public:
+            color() = delete;
+            ~color() = default;
+            explicit color(std::string_view name) : _name{ name } {
+            }
+            std::string name() const {
+                return _name;
+            }
+        private:
+            std::string _name;
+        };
+
+        enum_array<color, color_enum> arr{ color{"Default"} };
+
+        // check default values
+        REQUIRE(arr.at<color_enum::BLUE>().name() == "Default");
+        REQUIRE(arr.at<color_enum::GREEN>().name() == "Default");
+        REQUIRE(arr.at<color_enum::RED>().name() == "Default");
+
+        // modify values
+        arr.at<color_enum::BLUE>() = color{ "blue" };
+        arr.at<color_enum::GREEN>() = color{ "green" };
+        arr.at<color_enum::RED>() = color{ "red" };
+
+        // check modified values
+        REQUIRE(arr.at<color_enum::BLUE>().name() == "blue");
+        REQUIRE(arr.at<color_enum::GREEN>().name() == "green");
+        REQUIRE(arr.at<color_enum::RED>().name() == "red");
     }
 }
 
