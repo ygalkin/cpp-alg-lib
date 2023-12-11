@@ -33,6 +33,5 @@
 
 .vs
 bin
-src/external
 *.sln
 src/lib.vcxproj*
