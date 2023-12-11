@@ -38,6 +38,8 @@ Catch2 unit test library - https://github.com/catchorg/Catch2
 
 - binary search tree
 
+- enum array
+
 - trie (prefix tree). Usage: word auto-completion, quick validation if a word is misspelled.
 
 ## Smart Pointers
