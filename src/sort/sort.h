@@ -217,7 +217,7 @@ namespace sort {
             return;
         }
 
-        container::binary_search_tree<IterT::value_type> bst;
+        container::binary_search_tree<typename IterT::value_type> bst;
 
         // We need this pivot element to improve perfomance of sorted/reverse sorted array
         const auto pivot = std::next(first, (std::distance(first, last) / 2));
@@ -241,7 +241,7 @@ namespace sort {
         }
 
         // multiset implemenation is red-black (balanced) binary search tree
-        std::multiset<IterT::value_type> balanced_bst;
+        std::multiset<typename IterT::value_type> balanced_bst;
 
         // for [first, last)
         for (auto i = first; i != last; ++i) {
