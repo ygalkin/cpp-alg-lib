@@ -33,5 +33,3 @@
 
 .vs
 bin
-*.sln
-src/lib.vcxproj*
