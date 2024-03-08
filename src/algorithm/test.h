@@ -44,8 +44,13 @@ namespace algorithm {
     TEST_CASE("string utils", "[algorithm]") {
         REQUIRE(algorithm::string_remove_spaces("Remove All Spaces") == "RemoveAllSpaces");
         REQUIRE(algorithm::string_remove_pattern("Remove#All#Patterns", '#') == "RemoveAllPatterns");
+        REQUIRE(algorithm::string_remove_spaces("") == "");
+        REQUIRE(algorithm::string_remove_spaces("     ") == "");
+        REQUIRE(algorithm::string_remove_pattern("", '#') == "");
 
         REQUIRE(algorithm::string_join({"a", "b", "c"}, ", ") == "a, b, c");
+        REQUIRE(algorithm::string_join({}, ", ") == "");
+        REQUIRE(algorithm::string_join({ "a", "b", "c" }, "") == "abc");
     }
 }
 
