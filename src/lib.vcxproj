@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algorithm\algorithm.h" />
+    <ClInclude Include="algorithm\string-util.h" />
     <ClInclude Include="algorithm\test.h" />
     <ClInclude Include="container\binary-search-tree.h" />
     <ClInclude Include="container\enum-array.h" />

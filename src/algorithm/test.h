@@ -2,6 +2,7 @@
 #define _ALGORITHM_TEST_
 
 #include "algorithm.h"
+#include "string-util.h"
 
 #include <string_view>
 
@@ -38,6 +39,13 @@ namespace algorithm {
         REQUIRE("XXXXXX"_roman == "LX"_roman);
         REQUIRE("IIIIII"_roman == "VI"_roman);
         REQUIRE("IIII"_roman == "IV"_roman);
+    }
+
+    TEST_CASE("string utils", "[algorithm]") {
+        REQUIRE(algorithm::string_remove_spaces("Remove All Spaces") == "RemoveAllSpaces");
+        REQUIRE(algorithm::string_remove_pattern("Remove#All#Patterns", '#') == "RemoveAllPatterns");
+
+        REQUIRE(algorithm::string_join({"a", "b", "c"}, ", ") == "a, b, c");
     }
 }
 
