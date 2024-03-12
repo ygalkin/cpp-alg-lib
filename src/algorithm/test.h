@@ -25,6 +25,21 @@ namespace algorithm {
         REQUIRE(algorithm::kmp_string_search("abc", "d") == std::string_view::npos);
     }
 
+    TEST_CASE("Palindrome", "[algorithm]") {
+        std::string a1{ "racecar" };
+        REQUIRE(algorithm::is_palindrome(a1.cbegin(), a1.cend()) == true);
+        std::string a2{ "raceecar" };
+        REQUIRE(algorithm::is_palindrome(a2.cbegin(), a2.cend()) == true);
+        std::string a3{ "test" };
+        REQUIRE(algorithm::is_palindrome(a3.cbegin(), a3.cend()) == false);
+        std::vector<int> v1{1,2,3,3,2,1};
+        REQUIRE(algorithm::is_palindrome(v1.cbegin(), v1.cend()) == true);
+        std::vector<int> v2{ 1,2,3,2,1};
+        REQUIRE(algorithm::is_palindrome(v2.cbegin(), v2.cend()) == true);
+        std::vector<int> v3{ 1,2,3,4,1 };
+        REQUIRE(algorithm::is_palindrome(v3.cbegin(), v3.cend()) == false);
+    }
+
     TEST_CASE("roman number", "[algorithm]") {
         REQUIRE(algorithm::roman_to_int("I") == 1);
         REQUIRE(algorithm::roman_to_int("X") == 10);

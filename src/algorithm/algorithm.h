@@ -1,6 +1,7 @@
 #ifndef _ALGORITHM_H_
 #define _ALGORITHM_H_
 
+#include <functional>
 #include <string_view>
 #include <unordered_map>
 
@@ -44,6 +45,31 @@ namespace algorithm {
         }
 
         return std::string_view::npos;
+    }
+
+    template< class IterT, class Compare >
+    inline bool is_palindrome(IterT first, IterT last, Compare cmp) {
+        if (first == last) {
+            return true;
+        }
+
+        IterT b = first;
+        IterT e = std::prev(last);
+
+        while (b < e) {
+            if (!cmp(*b, *e)) {
+                return false;
+            }
+            ++b;
+            --e;
+        }
+
+        return true;
+    }
+
+    template< class IterT >
+    inline bool is_palindrome(IterT first, IterT last) {
+        return is_palindrome(first, last, std::equal_to<>{});
     }
 
     inline unsigned int roman_to_int(const std::string_view s) {
