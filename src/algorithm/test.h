@@ -38,6 +38,8 @@ namespace algorithm {
         REQUIRE(algorithm::is_palindrome(v2.cbegin(), v2.cend()) == true);
         std::vector<int> v3{ 1,2,3,4,1 };
         REQUIRE(algorithm::is_palindrome(v3.cbegin(), v3.cend()) == false);
+        std::vector<int> v4{};
+        REQUIRE(algorithm::is_palindrome(v4.cbegin(), v4.cend()) == true);
     }
 
     TEST_CASE("roman number", "[algorithm]") {

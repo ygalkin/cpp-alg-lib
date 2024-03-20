@@ -49,19 +49,10 @@ namespace algorithm {
 
     template< class IterT, class Compare >
     inline bool is_palindrome(IterT first, IterT last, Compare cmp) {
-        if (first == last) {
-            return true;
-        }
-
-        IterT b = first;
-        IterT e = std::prev(last);
-
-        while (b < e) {
-            if (!cmp(*b, *e)) {
+        for (; (first != last) && (first != --last); ++first) {
+           if (!cmp(*first, *last)) {
                 return false;
             }
-            ++b;
-            --e;
         }
 
         return true;
