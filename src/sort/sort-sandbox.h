@@ -4,14 +4,14 @@
 namespace sort {
     namespace sandbox {
 
-        // It use two loops (forward and reverse) instead of one loop. Works little bit slower than cocktail_shaker_sort.
+        // It uses two loops, one going forward and the other going backward, instead of just one.It's a bit slower than cocktail_shaker_sort.
         template< class IterT >
         inline void cocktail_shaker_sort_2(IterT first, IterT last) {
             if (first == last) {
                 return;
             }
 
-            auto is_swapped{ true };
+            bool is_swapped{ true };
             for (auto begin{ first }, end{ std::prev(last) }; is_swapped; ++begin, --end) {
                 // forward pass
                 is_swapped = false;

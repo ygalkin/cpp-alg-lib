@@ -31,7 +31,7 @@ namespace sort {
 
         // for [last, first)
         for (auto i = last; i != first; --i) {
-            auto is_swapped{ false };
+            bool is_swapped{ false };
             // for [first, i - 1)
             const auto prev_i = std::prev(i);
             for (auto j = first; j != prev_i; ++j) {
@@ -89,10 +89,10 @@ namespace sort {
             return;
         }
 
-        auto is_swapped{ true };
+        bool is_swapped{ true };
         for (auto begin{ first }, end{ std::prev(last) }; is_swapped; ++begin, --end) {
             is_swapped = false;
-            // one loop for forward and reverse pass
+            // In this optimized version, we use a single loop to perform both forward and reverse passes through the array. 
             for (auto i = begin, j = end; i != end; ++i, --j) {
                 // forward pass
                 const auto next_i{ std::next(i) };
@@ -167,6 +167,7 @@ namespace sort {
 
         // Partitioning. 3-way partitioning scheme
         const auto pivot = *std::next(first, (std::distance(first, last) / 2));
+        // TODO: implement one loop instead of 2 std::partition calls 
         auto bound1 = std::partition(first, last, [&pivot](const auto& i) { return i < pivot; });
         auto bound2 = std::partition(bound1, last, [&pivot](const auto& i) { return (i == pivot); });
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include <algorithm>
 #include <iterator>
@@ -26,11 +27,12 @@ namespace algorithm {
         return output;
     }
 
+    // [a b c] [,] -> "a,b,c"
     inline std::string string_join(const std::vector<std::string>& items, const std::string& separator) {
         if (items.empty()) {
             return {};
         }
 
-        return std::accumulate(std::next(items.cbegin()), items.cend(), items[0], [&separator](auto a, auto b) { return  a + separator + b; });
+        return std::accumulate(std::next(items.cbegin()), items.cend(), items[0], [&separator](const auto& a, const auto& b) { return  a + separator + b; });
     }
 }
