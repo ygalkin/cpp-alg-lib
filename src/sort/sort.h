@@ -86,9 +86,9 @@ namespace sort {
         }
     }
 
-    // Cocktail shaker sort. Bidirectional Bubble sort. It's a variation of Bubble sort.
-    // Cocktail shaker sort, is a variation of the bubble sort algorithm. It works by repeatedly 
-    // stepping through the list of elements in both directions, comparing adjacent elements, 
+    // Cocktail shaker sort. Bidirectional Bubble sort.
+    // Cocktail shaker sort, is a variation of the bubble sort algorithm. It works by repeatedly
+    // stepping through the list of elements in both directions, comparing adjacent elements,
     // and swapping them if they are in the wrong order.
     template< class IterT >
     inline void cocktail_shaker_sort(IterT first, IterT last) {

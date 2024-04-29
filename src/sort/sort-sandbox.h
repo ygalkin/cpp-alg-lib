@@ -4,7 +4,7 @@
 namespace sort {
     namespace sandbox {
 
-        // It uses two loops, one going forward and the other going backward, instead of just one.It's a bit slower than cocktail_shaker_sort.
+        // It uses two loops, one going forward and the other going backward, instead of just one. It's a bit slower than cocktail_shaker_sort.
         template< class IterT >
         inline void cocktail_shaker_sort_2(IterT first, IterT last) {
             if (first == last) {
