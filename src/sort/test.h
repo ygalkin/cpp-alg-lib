@@ -13,7 +13,7 @@
 #include <string_view>
 
 namespace sort {
-    inline constexpr auto ARRAY_SIZE{ 1000 };
+    inline constexpr auto ARRAY_SIZE{ 100000 };
 
     using sort_type = int;
     using sort_container_helper = std::array<sort_type, ARRAY_SIZE>;
