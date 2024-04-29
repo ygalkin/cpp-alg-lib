@@ -23,6 +23,10 @@ namespace sort {
     // Time complexity : Worst n^2, Average n^2, Best n
     // Space complexity : 1
     // Stable : Yes
+    // Bubble sort is a simple sorting algorithm that works by repeatedly stepping through the list, 
+    // comparing adjacent elements, and swapping them if they are in the wrong order. The algorithm gets 
+    // its name because with each pass through the list, smaller elements "bubble" to the top, 
+    // gradually moving towards their correct positions.
     template< class IterT >
     inline void bubble_sort(IterT first, IterT last) {
         if (first == last) {
@@ -83,6 +87,9 @@ namespace sort {
     }
 
     // Cocktail shaker sort. Bidirectional Bubble sort. It's a variation of Bubble sort.
+    // Cocktail shaker sort, is a variation of the bubble sort algorithm. It works by repeatedly 
+    // stepping through the list of elements in both directions, comparing adjacent elements, 
+    // and swapping them if they are in the wrong order.
     template< class IterT >
     inline void cocktail_shaker_sort(IterT first, IterT last) {
         if (first == last) {
@@ -114,6 +121,9 @@ namespace sort {
     // Time complexity: Worst n^2,  Average n^2, Best n^2
     // Space complexity: 1
     // Stable: No
+    // Selection sort is called "selection" sort because it repeatedly selects the smallest (or largest) element 
+    // from the unsorted part of the list and moves it to its correct position in the sorted part of the list. 
+    // Selection sort is not very efficient, especially for large lists, as its time complexity is O(n^2)sort.
     template< class IterT >
     inline void selection_sort(IterT first, IterT last) {
         if (first == last) {
@@ -135,6 +145,7 @@ namespace sort {
     // Time complexity: Worst  n^2, Average n^2, Best n
     // Space complexity : 1
     // Stable : Yes
+    // Insertion sort is called "insertion" sort because it inserts each element into its correct position in the sorted sublist. 
     template <typename IterT>
     inline void insertion_sort(IterT first, IterT last) {
         if (first == last) {
@@ -159,6 +170,13 @@ namespace sort {
     }
 
     // Quick Sort
+    // Quick sort is a sorting algorithm that works by selecting a 'pivot' element from the array and partitioning 
+    // the other elements into two sub-arrays according to whether they are less than or greater than the pivot. 
+    // The sub-arrays are then recursively sorted. 
+    // Quick sort is a divide-and-conquer algorithm, meaning it breaks the problem into smaller sub-problems, 
+    // solves them independently, and then combines the solutions. It's known for its efficiency, particularly 
+    // for large datasets. However, its worst-case time complexity is O(n^2) when the pivot selection 
+    // consistently results in highly unbalanced partitions.
     template< class IterT >
     inline void quick_sort(IterT first, IterT last) {
         if (first == last) {
@@ -176,6 +194,12 @@ namespace sort {
     }
 
     // Merge Sort
+    // Merge sort is a sorting algorithm that works by dividing the unsorted list into smaller sublists, 
+    // sorting each sublist, and then merging them back together to produce a sorted list.
+    // Merge sort is a stable sorting algorithm, meaning that it preserves the relative order of equal elements. 
+    // It has a time complexity of O(n log n), making it efficient 
+    // for sorting large lists. Additionally, merge sort is a good choice for sorting linked lists, 
+    // as it does not require random access to elements.
     template< class IterT >
     inline void merge_sort(IterT first, IterT last) {
         if (first == last) { // empty sequence to sort
@@ -196,6 +220,11 @@ namespace sort {
     }
 
     // Heap Sort
+    // Heap sort is a sorting algorithm that works by using a special kind of binary tree called a heap.
+    // Heap sort has a time complexity of O(n log n). 
+    // It is a comparison-based sorting algorithm and is often used when a stable sorting algorithm 
+    // (maintains the relative order of equal elements) with better worst-case time complexity than 
+    // other comparison-based sorting algorithms like quicksort or mergesort is needed.
     template< class IterT, class Compare>
     inline void heap_sort(IterT first, IterT last, Compare comp) {
         if (first == last) {
@@ -212,6 +241,9 @@ namespace sort {
     }
 
     // Tree Sort
+    // Tree sort is a sorting algorithm that uses a binary search tree data structure to sort elements. 
+    // Tree sort has an average and worst-case time complexity of O(n log n). 
+    // However, the time complexity can degrade to O(n^2) in the worst case if the binary search tree becomes unbalanced. 
     template< class IterT >
     inline void unbalanced_tree_sort(IterT first, IterT last) {
         if (first == last) {

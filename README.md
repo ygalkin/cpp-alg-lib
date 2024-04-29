@@ -32,6 +32,12 @@ Catch2 unit test library - https://github.com/catchorg/Catch2
 
 - naive
 
+## Other Algorithms
+
+- Palindrome
+
+- Roman numeral to int conversion
+
 ## Containers
 
 - singly linked list
@@ -45,6 +51,12 @@ Catch2 unit test library - https://github.com/catchorg/Catch2
 ## Smart Pointers
 
 - single_ptr
+
+## String Utilities
+
+- string remove spaces/pattern
+
+- string join
 
 ## Benchmark
 ```
