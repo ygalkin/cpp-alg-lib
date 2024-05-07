@@ -50,41 +50,41 @@ namespace container {
         singly_linked_list& operator = (singly_linked_list&& other) = delete;
         virtual ~singly_linked_list() { clear(); }
 
-        class Iterator {
+        class iterator {
         public:
-            //using iterator_category = std::forward_iterator_tag;
+            using iterator_category = std::forward_iterator_tag;
             //using difference_type = std::ptrdiff_t;
-            using value_type = list_node<ValT>;
+            using value_type = ValT;
             using pointer = value_type*;
-            //using reference = value_type&;
+            using reference = value_type&;
 
-            Iterator() = delete;
-            Iterator(pointer ptr) : m_ptr(ptr) {
+            iterator() = delete;
+            iterator(list_node<ValT>* ptr) : _ptr(ptr) {
             }
 
-            ValT& operator*() const { return m_ptr->_val; }
-            //ValT* operator->() { return &m_ptr->_val; }
+            reference operator*() const { return _ptr->_val; }
+            pointer operator->() { return &_ptr->_val; }
 
             // Prefix increment
-            Iterator& operator++() {
-                if (m_ptr) {
-                    m_ptr = m_ptr->_next;
+            iterator& operator++() {
+                if (_ptr) {
+                    _ptr = _ptr->_next;
                 }
                 return *this;
             }
 
             // Postfix increment
-            Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+            iterator operator++(int) { iterator tmp = *this; ++(*this); return tmp; }
 
-            friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
-            friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; };
+            friend bool operator== (const iterator& a, const iterator& b) { return a._ptr == b._ptr; };
+            friend bool operator!= (const iterator& a, const iterator& b) { return a._ptr != b._ptr; };
 
         private:
-            pointer m_ptr;
+            list_node<ValT>* _ptr;
         };
 
-        Iterator begin() { return Iterator(_head); }
-        Iterator end() { return Iterator(nullptr); }
+        iterator begin() { return iterator(_head); }
+        iterator end() { return iterator(nullptr); }
 
         // Get the value of the index-th node in the linked list. 
         // If the index is invalid, std::out_of_range exception is generated.
