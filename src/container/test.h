@@ -78,6 +78,11 @@ namespace container {
         REQUIRE(sll.insert_after(0, "test005"));
         REQUIRE(sll.at(1) == "test005");
 
+        std::for_each(sll.begin(), sll.end(), [](auto& val) { val = "10"; });
+        for (auto& i : sll) {
+            std::cout << i << std::endl;
+        }
+
         std::list<std::string> arr1;
         sll.for_each([&arr1](const auto& val) { arr1.push_back(val); });
         REQUIRE(arr1.size() == 4);
