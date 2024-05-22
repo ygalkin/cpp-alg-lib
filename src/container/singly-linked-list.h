@@ -50,16 +50,17 @@ namespace container {
         singly_linked_list& operator = (singly_linked_list&& other) = delete;
         virtual ~singly_linked_list() { clear(); }
 
+        template<class IterT>
         class iterator {
         public:
             using iterator_category = std::forward_iterator_tag;
             //using difference_type = std::ptrdiff_t;
-            using value_type = ValT;
+            using value_type = IterT;
             using pointer = value_type*;
             using reference = value_type&;
 
             iterator() = delete;
-            iterator(list_node<ValT>* ptr) : _ptr(ptr) {
+            explicit iterator(list_node<IterT>* ptr) : _ptr(ptr) {
             }
 
             reference operator*() const { return _ptr->_val; }
@@ -80,11 +81,11 @@ namespace container {
             friend bool operator!= (const iterator& a, const iterator& b) { return a._ptr != b._ptr; };
 
         private:
-            list_node<ValT>* _ptr;
+            list_node<IterT>* _ptr;
         };
 
-        iterator begin() { return iterator(_head); }
-        iterator end() { return iterator(nullptr); }
+        iterator<ValT> begin() { return iterator<ValT>(_head); }
+        iterator<ValT> end() { return iterator<ValT>(nullptr); }
 
         // Get the value of the index-th node in the linked list. 
         // If the index is invalid, std::out_of_range exception is generated.

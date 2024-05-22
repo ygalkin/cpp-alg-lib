@@ -4,10 +4,11 @@
 #include <algorithm>
 #include <iterator>
 #include <numeric>
+#include <string_view>
 
 namespace algorithm {
 
-    inline std::string string_remove_spaces(const std::string& input) {
+    inline std::string string_remove_spaces(std::string_view input) {
         if (input.empty()) {
             return {};
         }
@@ -17,7 +18,7 @@ namespace algorithm {
         return output;
     }
 
-    inline std::string string_remove_pattern(const std::string& input, char pattern) {
+    inline std::string string_remove_pattern(std::string_view input, char pattern) {
         if (input.empty()) {
             return {};
         }
